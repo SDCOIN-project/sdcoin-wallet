@@ -63,7 +63,10 @@
 		]
 	},
 	"globals": {
-		"__API_URL__": false,
+		"__APP_NETWORK_URL__": false,
+		"__APP_CONTRACT_LUV_TOKEN__": false,
+		"__APP_CONTRACT_SDC_TOKEN__": false,
+		"__APP_EXPLORER_ADDRESS__": false,
 		"Camera": false
 	}
 }
