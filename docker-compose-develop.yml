@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  webui:
+    build:
+      context: .
+      target: dev
+    command: npm run start
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+    restart: always
+    ports:
+      - "27780:8080"
