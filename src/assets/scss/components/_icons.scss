@@ -1,0 +1,80 @@
+.is-icon {
+	flex-shrink: 0;
+	display: block;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.loading {
+	display: block;
+	width: 27px;
+	height: 27px;
+	background-image: url(../images/icons/loading.svg);
+	background-size: contain;
+	animation: spin 1s linear infinite;
+	background-repeat: no-repeat;
+}
+
+.back-button-icon {
+	background-image: url(../images/icons/back-button-icon.svg);
+}
+
+.wallet-icon {
+	background-image: url(../images/icons/wallet-icon.svg);
+}
+
+.send-icon {
+	background-image: url(../images/icons/send-icon.svg);
+}
+
+.receive-icon {
+	background-image: url(../images/icons/receive-icon.svg);
+}
+
+.settings-icon {
+	background-image: url(../images/icons/settings-icon.svg);
+}
+
+.confirmation-icon {
+	background-image: url(../images/icons/confirmation-icon.svg);
+}
+
+.received-arrow-icon {
+	background-image: url(../images/icons/received-arrow-icon.svg);
+}
+
+.send-arrow-icon {
+	background-image: url(../images/icons/send-arrow-icon.svg);
+}
+
+.sdc-coin-icon {
+	background-image: url(../images/icons/sdc-coin-icon.svg);
+}
+
+.eth-coin-icon {
+	background-image: url(../images/icons/eth-coin-icon.svg);
+}
+
+.luv-coin-icon {
+	background-image: url(../images/icons/luv-coin-icon.svg);
+}
+
+.qr-code-small-icon {
+	background-image: url(../images/icons/qr-code-small-icon.svg);
+}
+
+.bell-icon {
+	background-image: url(../images/icons/bell-icon.svg);
+}

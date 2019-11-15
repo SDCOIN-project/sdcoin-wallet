@@ -1,0 +1,31 @@
+.authorization-page {
+	min-height: 100vh;
+	width: 100vw;
+	background: linear-gradient(151deg, #51cdfc 0%, #3f7ed0 100%);
+	padding: 105px 10px 0 10px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	.logo {
+		background-image: url(../images/icons/logo.svg);
+		background-repeat: no-repeat;
+		background-size: contain;
+		width: 203px;
+		height: 220px;
+		margin: 0 auto;
+	}
+
+	&__title {
+		line-height: 28px;
+		font-size: 20px;
+		color: #ffffff;
+		text-align: center;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+
+	&__bottom-container {
+		margin: auto auto 32px auto;
+	}
+}

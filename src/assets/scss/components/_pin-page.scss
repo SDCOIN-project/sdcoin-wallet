@@ -1,0 +1,147 @@
+.pin-page {
+	color: #fff;
+	text-align: center;
+	background: linear-gradient(107deg, #519bfc 0%, #3f7ed0 100%);
+	min-height: 100vh;
+
+	&-back-button {
+		padding-top: 20px;
+	}
+
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		padding-bottom: 36px;
+		min-height: calc(100vh - 115px);
+		@include res-375 {
+			padding-bottom: 26px;
+		}
+	}
+
+	&__title {
+		font-size: 22px;
+		letter-spacing: 0.55px;
+		line-height: 25px;
+		font-family: "Circularstd Medium";
+		margin-bottom: 32px;
+		@include res-375 {
+			margin-top: 6px;
+		}
+	}
+
+	&__text {
+		font-size: 16px;
+		line-height: 20px;
+		padding-top: 10px;
+	}
+
+	&__password-check {
+		display: flex;
+		justify-content: center;
+		margin-top: 10px;
+		margin-bottom: 50px;
+		width: max-content;
+		margin-left: auto;
+		margin-right: auto;
+
+		&.wrong-pin {
+			animation: wrongPin 0.4s linear;
+		}
+
+		@include res-375 {
+			margin-bottom: 30px;
+			margin-top: 0;
+		}
+		&-item {
+			width: 13px;
+			height: 13px;
+			border: 2px solid rgba(255, 255, 255, 0.5);
+			border-radius: 50%;
+			background: transparent;
+
+			&:not(:last-child) {
+				margin-right: 15px;
+			}
+
+			&.is-white {
+				border: 0;
+				background: #fff;
+			}
+		}
+	}
+
+	&__keyboard {
+		display: grid;
+		grid-template-columns: 75px 75px 75px;
+		grid-column-gap: 28px;
+		grid-row-gap: 15px;
+		justify-content: center;
+		margin-bottom: 20px;
+		@include res-375 {
+			grid-template-columns: 65px 65px 65px;
+			grid-column-gap: 22px;
+			grid-row-gap: 18px;
+		}
+		&-item {
+			@include res-375 {
+				width: 65px;
+				height: 65px;
+				font-size: 32px;
+			}
+			width: 75px;
+			height: 75px;
+			border-radius: 25px;
+			background: rgba(255, 255, 255, 0.1);
+			color: #fff;
+			font-size: 36px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: "Circularstd Medium";
+			min-width: auto;
+
+			&:last-child {
+				grid-column-start: 2;
+			}
+
+			&:active {
+				background: rgba(81, 155, 252, 0.3);
+				&:after {
+					opacity: 0;
+				}
+			}
+		}
+	}
+
+	&__button {
+		padding-top: 0;
+		padding-bottom: 0;
+		min-height: auto;
+	}
+
+	.header {
+		background: transparent;
+	}
+}
+
+@keyframes wrongPin {
+	15% {
+		transform: translateX(30px);
+	}
+
+	40% {
+		transform: translateX(-30px);
+	}
+
+	65% {
+		transform: translateX(30px);
+	}
+
+	90% {
+		transform: translateX(-30px);
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}

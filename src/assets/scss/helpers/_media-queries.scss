@@ -1,29 +1,7 @@
-$res-320: 320px;
-$res-768: 768px;
-$res-1024: 1024px;
-$res-1280: 1280px;
-$res-1440: 1440px;
+$res-375: 375px;
 
-@mixin res-320 {
-	@media (max-width: #{$res-768 - 1px}) {
-		@content;
-	}
-}
-
-@mixin res-768 {
-	@media (max-width: #{$res-1024 - 1px}) {
-		@content;
-	}
-}
-
-@mixin res-1024 {
-	@media (max-width: #{$res-1280 - 1px}) {
-		@content;
-	}
-}
-
-@mixin res-1280 {
-	@media (max-width: #{$res-1440 - 1px}) {
+@mixin res-375 {
+	@media (max-width: #{$res-375 - 1px}) {
 		@content;
 	}
 }

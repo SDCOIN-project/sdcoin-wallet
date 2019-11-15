@@ -1,0 +1,32 @@
+@font-face {
+	font-family: "Circularstd Bold";
+	font-style: normal;
+	font-weight: 400;
+	//src: url("../fonts/CircularstdBold/CircularstdBold.woff");
+	src: url("../fonts/CircularstdBold/CircularstdBold.woff2"),
+		url("../fonts/CircularstdBold/CircularstdBold.eot"),
+		url("../fonts/CircularstdBold/CircularstdBold.ttf") format("truetype");
+		//url("../fonts/CircularstdBold/CircularstdBold.svg") format("svg");
+}
+
+@font-face {
+	font-family: "Circularstd Book";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/CircularstdBook/CircularstdBook.woff");
+	src: url("../fonts/CircularstdBook/CircularstdBook.woff2"),
+		url("../fonts/CircularstdBook/CircularstdBook.eot"),
+		url("../fonts/CircularstdBook/CircularstdBook.ttf") format("truetype"),
+		url("../fonts/CircularstdBook/CircularstdBook.svg") format("svg");
+}
+
+@font-face {
+	font-family: "Circularstd Medium";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/CircularstdMedium/CircularstdMedium.woff");
+	src: url("../fonts/CircularstdMedium/CircularstdMedium.woff2"),
+		url("../fonts/CircularstdMedium/CircularstdMedium.eot"),
+		url("../fonts/CircularstdMedium/CircularstdMedium.ttf") format("truetype"),
+		url("../fonts/CircularstdMedium/CircularstdMedium.svg") format("svg");
+}

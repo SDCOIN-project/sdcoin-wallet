@@ -8,7 +8,13 @@
 @import "base/base";
 
 @import "components/button";
+@import "components/icons";
+@import "components/input";
+@import "components/pin-page";
 
 @import "layout/header";
+@import "layout/_sidebar.scss";
 
 @import "pages/main";
+@import "pages/authorization-page";
+@import "pages/dashboard";
