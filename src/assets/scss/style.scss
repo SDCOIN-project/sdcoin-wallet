@@ -13,8 +13,9 @@
 @import "components/pin-page";
 
 @import "layout/header";
-@import "layout/_sidebar.scss";
+@import "layout/sidebar.scss";
 
 @import "pages/main";
 @import "pages/authorization-page";
 @import "pages/dashboard";
+@import "pages/balances.scss";
