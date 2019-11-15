@@ -12,11 +12,12 @@ class Web3Service {
 
 	/**
 	 * Get web3 instance
-	 * @returns {Promise.<void>}
 	 */
 	init() {
-		this._web3 = new Web3(new Web3.providers.HttpProvider(__APP_NETWORK_URL__));
-		if (!(this._web3.isConnected)) {
+		const provider = new Web3.providers.HttpProvider(__APP_NETWORK_URL__);
+
+		this._web3 = new Web3(provider);
+		if (!this._web3) {
 			throw new Error(WEB3_IS_UNAVAILABLE_ERROR);
 		}
 	}

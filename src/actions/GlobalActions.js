@@ -1,5 +1,6 @@
 import GlobalReducer from '../reducers/GlobalReducer';
 import BaseActions from './BaseActions';
+import accountActions from './AccountActions';
 
 class GlobalActions extends BaseActions {
 
@@ -25,16 +26,28 @@ class GlobalActions extends BaseActions {
 	 */
 	init() {
 		return (dispatch) => new Promise((resolve) => {
-			Promise.all([
-				// Load data before start page
-			]).then((data) => {
-				dispatch(this.afterInit()).then(() => {
+			try {
+				const address = localStorage.getItem('address');
+				if (address) {
+					dispatch(accountActions.authorisation({ address }));
+				}
 
+				Promise.all([
+					// Load data before start page
+				]).then((data) => {
+					dispatch(this.afterInit()).then(() => {
+
+					});
+					resolve(data);
+				}).catch((error) => {
+					throw error;
+				}).then(() => {
+					resolve();
 				});
-				resolve(data);
-			}).catch((error) => {
-				resolve(error);
-			});
+
+			} catch (error) {
+				alert(error.message);
+			}
 		});
 	}
 

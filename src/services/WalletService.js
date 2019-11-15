@@ -1,9 +1,10 @@
 import bip39 from 'bip39';
 import xor from 'buffer-xor';
-// import * as ethUtil from 'ethereumjs-util';
+import sha256 from 'js-sha256';
 
 import * as ethWallet from 'ethereumjs-wallet';
 import * as hdKey from 'ethereumjs-wallet/hdkey';
+
 
 class WalletService {
 
@@ -29,8 +30,8 @@ class WalletService {
 	 * @param {any} data
 	 * @returns {Buffer}
 	 */
-	getHash(/* data */) {
-		// return ethUtil.sha256(data);
+	getHash(data) {
+		return sha256(data);
 	}
 
 	/**
