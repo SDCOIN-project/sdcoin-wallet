@@ -3,6 +3,8 @@
 	text-align: center;
 	background: linear-gradient(107deg, #519bfc 0%, #3f7ed0 100%);
 	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 
 	&-back-button {
 		padding-top: 20px;
@@ -12,7 +14,7 @@
 		display: flex;
 		flex-direction: column;
 		padding-bottom: 36px;
-		min-height: calc(100vh - 115px);
+		flex-grow: 1;
 		@include res-375 {
 			padding-bottom: 26px;
 		}
@@ -22,10 +24,11 @@
 		font-size: 22px;
 		letter-spacing: 0.55px;
 		line-height: 25px;
-		font-family: "Circularstd Medium";
+		@include CircularStd_Medium;
 		margin-bottom: 32px;
 		@include res-375 {
 			margin-top: 6px;
+			margin-bottom: 25px;
 		}
 	}
 
@@ -43,6 +46,9 @@
 		width: max-content;
 		margin-left: auto;
 		margin-right: auto;
+		@include res-375 {
+			margin-bottom: 20px;
+		}
 
 		&.wrong-pin {
 			animation: wrongPin 0.4s linear;
@@ -88,6 +94,7 @@
 				height: 65px;
 				font-size: 32px;
 			}
+			@include CircularStd_Medium;
 			width: 75px;
 			height: 75px;
 			border-radius: 25px;
@@ -97,7 +104,6 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-family: "Circularstd Medium";
 			min-width: auto;
 
 			&:last-child {
@@ -110,6 +116,35 @@
 					opacity: 0;
 				}
 			}
+		}
+	}
+
+	&__fingerprint {
+		background: rgba(255, 255, 255, 0.1);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: max-content;
+		margin: 0 auto;
+		font-size: 16px;
+		padding: 5px 6px;
+		color: rgba(255, 255, 255, 0.7);
+		border-radius: 6px;
+		text-decoration: none;
+		outline: none;
+		margin-top: 5px;
+		@include res-375 {
+			margin-top: 0px;
+		}
+
+		&:active {
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		.fingerprint-icon {
+			width: 19px;
+			height: 18px;
+			margin-right: 4px;
 		}
 	}
 

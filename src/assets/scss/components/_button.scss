@@ -1,9 +1,9 @@
 .button {
+	@include CircularStd_Bold;
 	min-height: 50px;
 	border: 0;
 	outline: none;
 	border-radius: 10px;
-	font-family: "Circularstd Bold", sans-serif;
 	font-size: 17px;
 	line-height: 23px;
 	padding: 13px 10px;
@@ -77,6 +77,8 @@
 
 			&:after {
 				opacity: 0;
+				width: 0;
+				height: 0;
 			}
 
 			.button__content {
@@ -97,13 +99,13 @@
 	}
 
 	&.is-small {
+		@include CircularStd_Medium;
 		min-width: 28px;
 		background-color: transparent;
 		border: 1px solid #fff;
 		border-radius: 17px;
 		padding: 5px 13px;
 		font-size: 15px;
-		font-family: "Circularstd Medium";
 		color: #fff;
 		line-height: 16px;
 		min-height: auto;
@@ -137,6 +139,8 @@
 			color: rgba(255, 255, 255, 0.5);
 		}
 	}
+
+	-webkit-tap-highlight-color: transparent;
 }
 
 .back-button {
@@ -171,6 +175,7 @@
 		.back-button__container {
 			background-color: rgba(255, 255, 255, 0.3);
 			border-radius: 50%;
+			transition: all 0.2s ease-out;
 		}
 		.back-button__text {
 			color: rgba(255, 255, 255, 0.8);
@@ -179,6 +184,7 @@
 }
 
 .qr-code-button {
+	@include CircularStd_Medium;
 	background: #519bfc;
 	color: #fff;
 	padding: 9px 8px;
@@ -189,7 +195,6 @@
 	min-width: 137px;
 	max-width: max-content;
 	font-size: 14px;
-	font-family: "Circularstd Medium";
 	justify-content: center;
 
 	.is-icon {

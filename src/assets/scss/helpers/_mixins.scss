@@ -19,3 +19,30 @@
 	left: 0;
 	z-index: -1;
 }
+
+@mixin CircularStd_Bold {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font: {
+		family: "Circularstd Bold", sans-serif;
+		weight: 400;
+	}
+}
+
+@mixin CircularStd_Book {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font: {
+		family: "Circularstd Book", sans-serif;
+		weight: 400;
+	}
+}
+
+@mixin CircularStd_Medium {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font: {
+		family: "Circularstd Medium", sans-serif;
+		weight: 400;
+	}
+}

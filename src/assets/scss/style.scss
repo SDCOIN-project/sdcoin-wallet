@@ -11,6 +11,9 @@
 @import "components/icons";
 @import "components/input";
 @import "components/pin-page";
+@import "components/status-transaction-page";
+@import "components/select";
+@import "components/scan-qr-code";
 
 @import "layout/header";
 @import "layout/sidebar.scss";
@@ -18,4 +21,6 @@
 @import "pages/main";
 @import "pages/authorization-page";
 @import "pages/dashboard";
+@import "pages/send-pages";
 @import "pages/balances.scss";
+@import "pages/wallet-page";

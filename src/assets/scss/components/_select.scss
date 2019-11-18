@@ -1,0 +1,144 @@
+.select-field {
+	position: relative;
+	width: 100%;
+	text-align: right;
+	height: 50px;
+
+	&.is-select {
+		.input-field__input {
+			padding-bottom: 0;
+		}
+
+		.ui.selection.dropdown {
+			&:after {
+				content: "";
+				width: 100%;
+				height: 2px;
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				padding-left: 2px;
+				border-radius: 30px;
+				background: #eceef3;
+			}
+			& > .text {
+				display: none;
+			}
+		}
+	}
+
+	&__input {
+		padding-bottom: 5px;
+		padding-right: 30px;
+	}
+
+	&__label {
+		margin-bottom: 4px;
+		color: #519bfc;
+		font-size: 12px;
+		font-weight: 400;
+		padding-right: 30px;
+	}
+
+	.ui.selection.dropdown {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		outline: none;
+
+		&.active {
+			&:after {
+				background: #519bfc;
+			}
+
+			.dropdown.icon {
+				transform: rotate(180deg);
+			}
+		}
+
+		.dropdown.icon {
+			top: auto;
+			right: 0;
+			bottom: 20px;
+			margin: 0;
+			padding: 0;
+			transition: all 0.2s ease-out;
+			background-image: url(../images/icons/dropdown-icon.svg);
+			position: absolute;
+			flex-shrink: 0;
+			background-repeat: no-repeat;
+			width: 10px;
+			height: 6px;
+			background-size: contain;
+		}
+
+		.menu {
+			display: none;
+			padding: 2px;
+			text-align: left;
+			position: absolute;
+			z-index: 2;
+			background: #fff;
+			width: 100%;
+			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+			border-radius: 6px;
+			margin-top: 55px;
+
+			.selected {
+				background-color: rgba(81, 155, 252, 0.1);
+			}
+
+			> .item {
+				align-items: center;
+				display: flex;
+				font-weight: 400;
+				border-radius: 4px;
+
+				.text {
+					align-items: center;
+					display: flex;
+				}
+			}
+
+			&.visible {
+				display: block;
+				z-index: 3;
+			}
+		}
+	}
+
+	.select-inner-item {
+		display: flex;
+		padding: 9px 12px;
+
+		.is-icon {
+			width: 20px;
+			height: 20px;
+			margin-right: 6px;
+		}
+
+		&__information {
+			&-title {
+				font-size: 12px;
+				color: #7e8c9b;
+			}
+
+			&-value {
+				font-size: 16px;
+				color: #1c1c1c;
+				@include CircularStd_Bold;
+
+				.postfix {
+					@include CircularStd_Book;
+					font-size: 12px;
+					text-transform: uppercase;
+					margin-left: 2px;
+				}
+			}
+		}
+	}
+}

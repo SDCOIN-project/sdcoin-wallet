@@ -2,11 +2,11 @@
 	font-family: "Circularstd Bold";
 	font-style: normal;
 	font-weight: 400;
-	//src: url("../fonts/CircularstdBold/CircularstdBold.woff");
+	src: url("../fonts/CircularstdBold/CircularstdBold.woff");
 	src: url("../fonts/CircularstdBold/CircularstdBold.woff2"),
 		url("../fonts/CircularstdBold/CircularstdBold.eot"),
-		url("../fonts/CircularstdBold/CircularstdBold.ttf") format("truetype");
-		//url("../fonts/CircularstdBold/CircularstdBold.svg") format("svg");
+		url("../fonts/CircularstdBold/CircularstdBold.ttf") format("truetype"),
+		url("../fonts/CircularstdBold/CircularstdBold.svg") format("svg");
 }
 
 @font-face {

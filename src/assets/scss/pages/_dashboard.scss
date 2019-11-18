@@ -1,77 +1,57 @@
-.dashboard-page {
-	padding: 20px 15px 32px 15px;
+.dashboard {
+	padding: 20px 17px 16px 17px;
 	display: flex;
 	flex-direction: column;
-	min-height: calc(100vh - 115px);
+	height: calc(100vh - 165px);
+	overflow: auto;
 
-	&__text {
-		font-size: 16px;
-		line-height: 22px;
-		padding-bottom: 25px;
-		color: #1c1c1c;
-
-		&.attention-icon {
-			display: flex;
-			&:before {
-				content: "";
-				display: block;
-				width: 21px;
-				height: 21px;
-				background-image: url(../images/icons/attention-icon.svg);
-				background-repeat: no-repeat;
-				flex-shrink: 0;
-				background-repeat: no-repeat;
-				background-position: center center;
-				background-size: contain;
-				margin-right: 10px;
-				margin-top: 4px;
-			}
-		}
-	}
-
-	&__information {
-		margin-bottom: 20px;
-	}
-
-	&__brain-key {
-		background-color: #eceef3;
-		border-radius: 6px;
-		width: 100%;
-		color: #1c1c1c;
-		font-size: 20px;
-		line-height: 28px;
-		padding: 15px;
-		min-height: 220px;
-		margin-bottom: 20px;
-		border: 0;
-		resize: none;
-		outline: none;
-		transition: all 0.2s ease-out;
-
-		&.is-textarea {
-			margin-bottom: 0;
-
-			&:active,
-			&:focus {
-				box-shadow: 0 0 0 2px #519bfc;
-			}
-
-			&::placeholder {
-				color: rgba(28, 28, 28, 0.5);
-			}
-
-			&.is-error {
-				box-shadow: 0 0 0 2px #f08597;
-			}
-		}
-	}
-
-	&__controls {
+	&-controls {
 		display: flex;
 		margin: auto auto 0 auto;
 		.button {
 			&:not(:last-child) {
 				margin-right: 10px;
+			}
+		}
+	}
+
+	&-form {
+		&__row {
+			display: flex;
+			align-items: center;
+
+			&-title {
+				flex-shrink: 0;
+				margin-right: 20px;
+				color: #7e8c9b;
+				font-size: 16px;
+			}
+
+			&.mt35 {
+				margin-top: 35px;
+			}
+
+			&:not(:last-child) {
+				margin-bottom: 20px;
+			}
+
+			&-text {
+				font-size: 14px;
+				color: #7e8c9b;
+			}
+
+			&-value {
+				@include CircularStd_Bold;
+				margin-left: auto;
+				color: #1c1c1c;
+				font-size: 16px;
+			}
+
+			&-postfix {
+				@include CircularStd_Book;
+				font-size: 12px;
+				color: rgba(28, 28, 28, 0.8);
+				margin-left: 2 px;
 			}
 		}
 	}

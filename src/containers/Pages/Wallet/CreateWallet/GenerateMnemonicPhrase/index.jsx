@@ -17,14 +17,14 @@ const CreateWallet = ({ onNext }) => {
 	};
 
 	return (
-		<div className="dashboard">
+		<div className="dashboard-container">
 			<Header title="Create wallet" />
-			<div className="dashboard-page">
-				<div className="dashboard-page__text attention-icon">
+			<div className="dashboard wallet-page">
+				<div className="wallet-page__text attention-icon">
 					Write down your BrainKey! Once you lose this key you won&apos;t be able to get a new one.
 				</div>
-				<div className="dashboard-page__brain-key">{phrase}</div>
-				<div className="dashboard-page__controls">
+				<div className="brain-key__item">{phrase}</div>
+				<div className="dashboard-controls">
 					<Button onClick={() => onCopy()} className="is-transparent">{btnCopyTitle}</Button>
 					<Button onClick={() => onNext({ phrase })}>Continue</Button>
 				</div>

@@ -1,0 +1,66 @@
+.wallet-page {
+	height: calc(100vh - 115px);
+	padding-bottom: 32px;
+
+	&__text {
+		font-size: 16px;
+		line-height: 22px;
+		padding-bottom: 25px;
+		color: #1c1c1c;
+
+		&.attention-icon {
+			display: flex;
+			&:before {
+				content: "";
+				display: block;
+				width: 21px;
+				height: 21px;
+				background-image: url(../images/icons/attention-icon.svg);
+				background-repeat: no-repeat;
+				flex-shrink: 0;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-size: contain;
+				margin-right: 10px;
+				margin-top: 4px;
+			}
+		}
+	}
+}
+
+.brain-key {
+	margin-bottom: 20px;
+
+	&__item {
+		background-color: #eceef3;
+		border-radius: 6px;
+		width: 100%;
+		color: #1c1c1c;
+		font-size: 20px;
+		line-height: 28px;
+		padding: 15px;
+		min-height: 220px;
+		margin-bottom: 20px;
+		border: 0;
+		resize: none;
+		outline: none;
+		transition: all 0.2s ease-out;
+
+		&.is-textarea {
+			margin-bottom: 0;
+
+			&:active,
+			&:focus {
+				box-shadow: 0 0 0 2px #519bfc;
+			}
+
+			&::placeholder {
+				color: rgba(28, 28, 28, 0.5);
+			}
+
+			&.is-error {
+				box-shadow: 0 0 0 2px #f08597;
+			}
+		}
+	}
+}

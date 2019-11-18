@@ -1,0 +1,19 @@
+.send-page {
+	.qr-code-small-container {
+		background-color: rgba(81, 155, 252, 0.1);
+		width: 36px;
+		height: 36px;
+		border-radius: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: 14px;
+		flex-shrink: 0;
+		margin-top: 4px;
+
+		.qr-code-small-blue-icon {
+			width: 22px;
+			height: 22px;
+		}
+	}
+}

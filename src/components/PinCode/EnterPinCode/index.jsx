@@ -59,7 +59,11 @@ const EnterPinCode = ({
 						</Button>
 					))}
 				</div>
-				<div className="dashboard-page__controls">
+				<a href="#" className="pin-page__fingerprint">
+					<i className="is-icon fingerprint-icon" />
+					<span>You can use Touch ID</span>
+				</a>
+				<div className="dashboard-controls">
 					<Button className="is-transparent is-white pin-page__button" onClick={() => onDeleteNumber()}>
 						Delete
 					</Button>

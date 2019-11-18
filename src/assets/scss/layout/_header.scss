@@ -1,16 +1,16 @@
 .header {
+	@include CircularStd_Medium;
 	position: relative;
 	background: linear-gradient(107deg, #519bfc 0%, #3f7ed0 100%);
 	min-height: 115px;
-	font-family: "Circularstd Medium", sans-serif;
 	display: flex;
 	flex-direction: column;
 	// padding: 15px 25px 8px 0;
 	padding: 15px 0px 8px 0;
 
 	&-title {
+		@include CircularStd_Book;
 		color: #fff;
-		font-family: "Circularstd Book", sans-serif;
 		font-size: 30px;
 		line-height: 40px;
 		padding-left: 17px;

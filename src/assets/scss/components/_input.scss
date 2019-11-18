@@ -1,5 +1,117 @@
-.input__text-error {
-  color: #f08597;
-  font-size: 12px;
-  transition: all 0.2s ease-out;
+.input-field {
+	width: 100%;
+	height: 100%;
+	font-size: 14px;
+	position: relative;
+
+	&__input {
+		align-items: center;
+		position: relative;
+		display: flex;
+		width: 100%;
+		height: 50px;
+		border: 1px solid transparent;
+		color: #1c1c1c;
+		outline: none;
+		transition: all 0.2s ease-out;
+		background-color: #fff;
+		font-size: 16px;
+		caret-color: #519bfc;
+
+		&:after {
+			content: "";
+			width: 100%;
+			height: 2px;
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding-left: 2px;
+			border-radius: 30px;
+			background: #eceef3;
+		}
+
+		&.is-active {
+			&:after {
+				background: #519bfc;
+			}
+		}
+
+		&.is-error {
+			&:after {
+				background: #f08597;
+			}
+		}
+
+		&.is-filled {
+			.input-field__label {
+				top: 4px;
+				color: rgba(126, 140, 155, 0.7);
+				font-size: 12px;
+				line-height: 16px;
+				transform: translateY(0%);
+			}
+
+			&.with-label {
+				input {
+					transform: translateY(8px);
+				}
+			}
+		}
+
+		&.read-only {
+			cursor: default !important;
+		}
+	}
+
+	&__label {
+		position: absolute;
+		top: 20px;
+		left: 0;
+		width: 100%;
+		overflow: hidden;
+		padding: 0;
+		color: rgba(126, 140, 155, 0.7);
+		font-size: 14px;
+		letter-spacing: 0.15px;
+		line-height: 16px;
+		text-align: left;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		transition: all 0.2s ease-out;
+	}
+
+	&__title {
+		margin-bottom: 4px;
+		margin-left: 1px;
+		color: #4859a2;
+		font-size: 11px;
+		font-weight: 500;
+		letter-spacing: 1.5px;
+		line-height: 16px;
+		text-transform: uppercase;
+	}
+
+	&__error {
+		line-height: 16px;
+		color: #f08597;
+		font-size: 12px;
+		margin-top: 2px;
+	}
+
+	input {
+		position: relative;
+		z-index: 2;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		background: transparent;
+		font-size: inherit;
+		letter-spacing: inherit;
+		text-align: inherit;
+		outline: none;
+		text-overflow: ellipsis;
+		margin-left: 0;
+	}
 }
