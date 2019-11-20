@@ -1,10 +1,12 @@
 {
 	"network": {
-		"url": "https://ropsten.infura.io/YUrnIhRuMGbA9HLPTJtx"
+		"url": "https://rinkeby.infura.io/v3/3733109dd9304d158d8def80a87fbcfe"
 	},
 	"contracts": {
 		"luvToken": "",
-		"sdcToken": ""
+		"sdcToken": "",
+		"swap": "",
+		"escrow": ""
 	},
 	"explorer": ""
 }

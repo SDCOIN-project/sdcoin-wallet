@@ -22,13 +22,6 @@ class Web3Service {
 		}
 	}
 
-	/**
-	 * Disconnect web3
-	 */
-	close() {
-		this._web3 = null;
-	}
-
 	get web3() {
 		if (!this._web3) {
 			throw new Error(WEB3_IS_UNAVAILABLE_ERROR);
@@ -43,17 +36,17 @@ class Web3Service {
 	 * @returns {BigNumber}
 	 */
 	toWei(amount, rate) {
-		return new BN(this.web3.toWei(amount, rate));
+		return new BN(this.web3.utils.toWei(amount, rate));
 	}
 
 	/**
 	 * Amount from WEI
-	 * @param {BigNumber} amount
+	 * @param {BigNumber|string} amount
 	 * @param {string} rate
 	 * @returns {BigNumber}
 	 */
 	fromWei(amount, rate) {
-		return new BN(this.web3.fromWei(amount, rate));
+		return new BN(this.web3.utils.fromWei(amount, rate));
 	}
 
 	/**
@@ -62,7 +55,7 @@ class Web3Service {
 	 * @returns {String}
 	 */
 	toHex(amount) {
-		return this.web3.toHex(amount);
+		return this.web3.utils.toHex(amount);
 	}
 
 }

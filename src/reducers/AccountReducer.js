@@ -8,7 +8,7 @@ import { CURRENCIES } from '../constants/CurrencyConstants';
 export const DEFAULT_FIELDS = Map({
 	address: null,
 	balances: Map(Object.values(CURRENCIES).reduce((obj, currency) => {
-		obj[currency] = 0;
+		obj[currency] = '0';
 		return obj;
 	}, {})),
 });

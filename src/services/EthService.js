@@ -11,6 +11,15 @@ class EthService {
 		return web3Service.web3.eth;
 	}
 
+	/**
+	 * Get balance
+	 * @param {string} address
+	 * @returns {Promise<string>}
+	 */
+	async getBalance(address) {
+		return this.eth.getBalance(address);
+	}
+
 }
 
 const ethService = new EthService();

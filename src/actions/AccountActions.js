@@ -1,10 +1,14 @@
 import AccountReducer from '../reducers/AccountReducer';
 import BaseActions from './BaseActions';
 
-import web3Service from '../services/Web3Service';
 import walletService from '../services/WalletService';
 
+import ethService from '../services/EthService';
+import sdcTokenService from '../services/contracts/SdcTokenService';
+import luvTokenService from '../services/contracts/LuvTokenService';
+
 import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED } from '../constants/ErrorConstants';
+import { ETH, SDC, LUV } from '../constants/CurrencyConstants';
 
 class AccountActions extends BaseActions {
 
@@ -50,7 +54,7 @@ class AccountActions extends BaseActions {
 	}
 
 	/**
-	 * Authorisation  account
+	 * Authorisation account
 	 * @param address
 	 * @returns {Function}
 	 */
@@ -60,11 +64,43 @@ class AccountActions extends BaseActions {
 				throw new Error(AUTHORIZATION_FAILED);
 			}
 
+			clearInterval(this.updateBalanceInterval);
+
 			dispatch(this.setValue('address', address));
 
-			web3Service.init();
+			dispatch(this.getBalances());
+			this.updateBalanceInterval = setInterval(() => {
+				dispatch(this.getBalances());
+			}, 30 * 1000);
+		};
+	}
 
-			// TODO: here load balance of user
+	/**
+	 * Get balances and set their to store
+	 * @returns {Function}
+	 */
+	getBalances() {
+		return async (dispatch, getState) => {
+			const address = getState().account.get('address');
+			try {
+				const currencies = {
+					[ETH]: ethService,
+					[SDC]: sdcTokenService,
+					[LUV]: luvTokenService,
+				};
+
+				const balances = await Promise.all(Object.keys(currencies).map((currency) => {
+					const service = currencies[currency];
+					return service.getBalance(address);
+				}));
+
+				Object.keys(currencies).forEach((currency, index) => {
+					dispatch(this.setValue(['balances', currency], balances[index]));
+				});
+			} catch (error) {
+				alert(error.message);
+				throw error;
+			}
 		};
 	}
 

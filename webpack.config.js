@@ -100,6 +100,8 @@ module.exports = {
 			__APP_NETWORK_URL__: JSON.stringify(config.network.url),
 			__APP_CONTRACT_LUV_TOKEN__: JSON.stringify(config.contracts.luvToken),
 			__APP_CONTRACT_SDC_TOKEN__: JSON.stringify(config.contracts.sdcToken),
+			__APP_CONTRACT_SWAP__: JSON.stringify(config.contracts.swap),
+			__APP_CONTRACT_ESCROW__: JSON.stringify(config.contracts.escrow),
 			__APP_EXPLORER_ADDRESS__: JSON.stringify(config.explorer),
 		}),
 		HTMLWebpackPluginConfig,

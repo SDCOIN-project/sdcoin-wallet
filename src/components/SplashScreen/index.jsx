@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 const SplashScreen = ({ title, children }) => (
@@ -21,4 +20,4 @@ SplashScreen.defaultProps = {
 	children: null,
 };
 
-export default withRouter(SplashScreen);
+export default SplashScreen;

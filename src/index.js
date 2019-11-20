@@ -11,15 +11,42 @@ import globalActions from './actions/GlobalActions';
 import history from './history';
 import store from './store';
 
-store.dispatch(globalActions.init()).then(() => {
+import SplashScreen from './components/SplashScreen';
+
+ReactDOM.render(
+	<SplashScreen title="Welcome to SDCoin Wallet">
+		<i className="loading" />
+	</SplashScreen>,
+	document.getElementById('root'),
+);
+
+const startApp = () => {
+	store.dispatch(globalActions.init()).then(() => {
 	// Now you can dispatch navigation actions from anywhere!
-	ReactDOM.render(
-		<Provider store={store}>
-			{/* ConnectedRouter will use the store from Provider automatically */}
-			<ConnectedRouter history={history}>
-				<Routes />
-			</ConnectedRouter>
-		</Provider>,
-		document.getElementById('root'),
+		ReactDOM.render(
+			<Provider store={store}>
+				{/* ConnectedRouter will use the store from Provider automatically */}
+				<ConnectedRouter history={history}>
+					<Routes />
+				</ConnectedRouter>
+			</Provider>,
+			document.getElementById('root'),
+		);
+	});
+
+};
+
+if (window.cordova) {
+	// Cordova application
+	document.addEventListener(
+		'deviceready',
+		() => {
+			startApp();
+		},
+		false,
 	);
-});
+} else {
+	// Web page
+	startApp();
+}
+
