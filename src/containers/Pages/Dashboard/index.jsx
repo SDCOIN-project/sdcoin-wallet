@@ -5,6 +5,7 @@ import Wallet from './Wallet';
 import Send from './Send';
 import Receive from './Receive';
 import Settings from './Settings';
+import Backup from './Settings/Backup';
 import ExchangeFunds from './ExchangeFunds';
 
 import PageNotFound from '../PageNotFound';
@@ -17,6 +18,7 @@ import {
 	RECEIVE_PATH,
 	SETTINGS_PATH,
 	EXCHANGE_FUNDS_PATH,
+	BACKUP_PATH,
 } from '../../../constants/RouterConstants';
 
 const Dashboard = () => (
@@ -26,6 +28,7 @@ const Dashboard = () => (
 			<Route exact path={SEND_TRANSACTION_PATH} component={Send} />
 			<Route exact path={RECEIVE_PATH} component={Receive} />
 			<Route exact path={SETTINGS_PATH} component={Settings} />
+			<Route exact path={BACKUP_PATH} component={Backup} />
 			<Route exact path={EXCHANGE_FUNDS_PATH} component={ExchangeFunds} />
 
 			<Route path="*" component={PageNotFound} />

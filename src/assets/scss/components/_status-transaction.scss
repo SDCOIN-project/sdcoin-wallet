@@ -1,0 +1,30 @@
+.status-transaction-page {
+	color: #fff;
+	text-align: center;
+	background: linear-gradient(151deg, #51cdfc 0%, #3f7ed0 100%);
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px 10px 35px 10px;
+
+	.is-icon {
+		width: 239px;
+		height: 239px;
+	}
+
+	&.is-violet {
+		background-image: linear-gradient(151deg, #dc80e2 0%, #3f7ed0 100%);
+	}
+
+	&__title {
+		@include CircularStd_Medium;
+		font-size: 30px;
+		line-height: 36px;
+	}
+
+	&__text {
+		font-size: 16px;
+		line-height: 20px;
+	}
+}

@@ -97,7 +97,9 @@
 		line-height: 16px;
 		color: #f08597;
 		font-size: 12px;
-		margin-top: 2px;
+		position: absolute;
+		top: 100%;
+		left: 0;
 	}
 
 	input {

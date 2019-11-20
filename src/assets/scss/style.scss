@@ -14,6 +14,8 @@
 @import "components/status-transaction-page";
 @import "components/select";
 @import "components/scan-qr-code";
+@import "components/switcher";
+@import "components/notification";
 
 @import "layout/header";
 @import "layout/sidebar.scss";
@@ -24,3 +26,5 @@
 @import "pages/send-pages";
 @import "pages/balances.scss";
 @import "pages/wallet-page";
+@import "pages/settings";
+@import "pages/backup-page";

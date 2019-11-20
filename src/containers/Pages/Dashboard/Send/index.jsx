@@ -90,12 +90,13 @@ const Send = () => {
 							error="Address does not exist"
 						/>
 					</div>
-					<div className="dashboard-form__row mt35">
+					<div className="dashboard-form__row mt30">
 						<p className="dashboard-form__row-text">Estimated fee:</p>
 						<p className="dashboard-form__row-value">0.0015 <span className="dashboard-form__row-postfix">ETH </span></p>
 					</div>
 				</form>
-				<div className="dashboard-controls">
+				<div className="dashboard-controls flex-columns">
+					<span className="text">Pay with Payment QR</span>
 					<Button className="is-large">Send</Button>
 				</div>
 			</div>

@@ -1,0 +1,52 @@
+.switcher-container {
+	position: relative;
+	margin-left: auto;
+	padding-left: 10px;
+
+	&:active {
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	input {
+		position: absolute;
+		width: 0;
+		height: 0;
+		margin: 0;
+		opacity: 0;
+	}
+
+	input:checked ~ .icon {
+		background: #519bfc;
+
+		.circle {
+			right: 2px;
+			left: auto;
+			background: #ffffff;
+		}
+	}
+
+	label {
+		.icon {
+			align-items: center;
+			position: relative;
+			display: flex;
+			width: 52px;
+			height: 32px;
+			border-radius: 37px;
+			background: rgba(126, 140, 155, 0.4);
+			cursor: pointer;
+			transition: all 0.2s ease-out;
+
+			.circle {
+				position: absolute;
+				left: 2px;
+				width: 28px;
+				height: 28px;
+				border-radius: 1000px;
+				background: #fff;
+				box-shadow: 1px 3px 1px rgba(0, 0, 0, 0.16);
+				transition: all 0.2s ease-out;
+			}
+		}
+	}
+}

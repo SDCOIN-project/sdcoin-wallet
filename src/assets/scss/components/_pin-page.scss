@@ -15,8 +15,9 @@
 		flex-direction: column;
 		padding-bottom: 36px;
 		flex-grow: 1;
+		margin-top: 10px;
 		@include res-375 {
-			padding-bottom: 26px;
+			padding-bottom: 16px;
 		}
 	}
 
@@ -26,10 +27,20 @@
 		line-height: 25px;
 		@include CircularStd_Medium;
 		margin-bottom: 32px;
-		@include res-375 {
-			margin-top: 6px;
-			margin-bottom: 25px;
+		position: relative;
+
+		&.with-subtitle {
+			margin-bottom: 42px;
 		}
+	}
+
+	&__subtitle {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -30px;
+		font-size: 16px;
+		line-height: 20;
 	}
 
 	&__text {
@@ -41,23 +52,16 @@
 	&__password-check {
 		display: flex;
 		justify-content: center;
-		margin-top: 10px;
 		margin-bottom: 50px;
 		width: max-content;
 		margin-left: auto;
 		margin-right: auto;
-		@include res-375 {
-			margin-bottom: 20px;
-		}
+		margin-bottom: 30px;
 
 		&.wrong-pin {
 			animation: wrongPin 0.4s linear;
 		}
 
-		@include res-375 {
-			margin-bottom: 30px;
-			margin-top: 0;
-		}
 		&-item {
 			width: 13px;
 			height: 13px;
@@ -85,8 +89,8 @@
 		margin-bottom: 20px;
 		@include res-375 {
 			grid-template-columns: 65px 65px 65px;
-			grid-column-gap: 22px;
-			grid-row-gap: 18px;
+			grid-column-gap: 18px;
+			grid-row-gap: 8px;
 		}
 		&-item {
 			@include res-375 {
@@ -110,6 +114,12 @@
 				grid-column-start: 2;
 			}
 
+			&:after {
+				opacity: 0;
+				width: 0;
+				height: 0;
+			}
+
 			&:active {
 				background: rgba(81, 155, 252, 0.3);
 				&:after {
@@ -119,7 +129,42 @@
 		}
 	}
 
-	&__fingerprint {
+	&-list.large-block {
+		font-size: 16px;
+		color: rgba(255, 255, 255, 0.7);
+
+		.pin-page-list__container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 10px;
+			@include res-375 {
+				margin-top: 0;
+			}
+
+			.pin-page-list__item {
+				margin-top: 0px;
+				@include res-375 {
+					margin: 0px 8px;
+				}
+			}
+
+			.pin-page-list__item:first-child {
+				margin-right: 8px;
+			}
+			.pin-page-list__item:last-child {
+				margin-left: 8px;
+			}
+
+			.is-icon {
+				@include res-375 {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	&-list__item {
 		background: rgba(255, 255, 255, 0.1);
 		display: flex;
 		align-items: center;
@@ -133,16 +178,20 @@
 		text-decoration: none;
 		outline: none;
 		margin-top: 5px;
-		@include res-375 {
-			margin-top: 0px;
-		}
+		line-height: 16px;
 
 		&:active {
 			-webkit-tap-highlight-color: transparent;
 		}
 
-		.fingerprint-icon {
+		.fingerprint-white-icon {
 			width: 19px;
+			height: 18px;
+			margin-right: 4px;
+		}
+
+		.face-id-white-icon {
+			width: 18px;
 			height: 18px;
 			margin-right: 4px;
 		}

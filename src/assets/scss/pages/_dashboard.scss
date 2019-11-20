@@ -27,8 +27,8 @@
 				font-size: 16px;
 			}
 
-			&.mt35 {
-				margin-top: 35px;
+			&.mt30 {
+				margin-top: 30px;
 			}
 
 			&:not(:last-child) {
@@ -54,5 +54,41 @@
 				margin-left: 2 px;
 			}
 		}
+	}
+
+	&-arrow-line {
+		display: flex;
+		align-items: center;
+		font-size: 16px;
+		color: #1c1c1c;
+		min-height: 46px;
+		text-decoration: none;
+
+		&:not(:last-child) {
+			.dashboard-arrow-line__container {
+				border-bottom: 1px solid #eceef3;
+			}
+		}
+
+		&__container {
+			display: flex;
+			width: 100%;
+			position: relative;
+			padding-right: 16px;
+			align-items: center;
+			min-height: 100%;
+		}
+
+		&__text {
+			padding: 4px 0;
+		}
+
+		&.bottom-container {
+			margin-top: auto;
+		}
+	}
+
+	.dashboard-arrow-line__container.no-border {
+		border: 0;
 	}
 }

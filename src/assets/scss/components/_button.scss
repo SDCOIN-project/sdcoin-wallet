@@ -20,6 +20,7 @@
 	}
 
 	&:active {
+		-webkit-tap-highlight-color: transparent;
 		&:after {
 			transform: translate(-50%, -50%) scale(3);
 			opacity: 1;
@@ -43,7 +44,9 @@
 	}
 
 	&__content {
-		display: inline-block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	&.is-light-bg {
@@ -122,6 +125,8 @@
 		&:active {
 			&:after {
 				opacity: 0;
+				width: 0;
+				height: 0;
 			}
 		}
 
@@ -185,30 +190,14 @@
 
 .qr-code-button {
 	@include CircularStd_Medium;
-	background: #519bfc;
-	color: #fff;
-	padding: 9px 8px;
-	display: flex;
-	align-items: center;
-	text-decoration: none;
 	border-radius: 6px;
-	min-width: 137px;
-	max-width: max-content;
 	font-size: 14px;
-	justify-content: center;
+	min-height: 40px;
+	padding: 8px 13px;
 
-	.is-icon {
+	.is-icon.qr-code-small-white-icon {
 		width: 22px;
 		height: 22px;
 		margin-right: 6px;
-	}
-
-	&.is-white {
-		background: #fff;
-		color: #519bfc;
-
-		.qr-code-small-icon {
-			background-image: url(../images/icons/qr-code-small-blue-icon.svg);
-		}
 	}
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Media from 'react-media';
 import Button from './../../Form/Button';
 
 const MAX_SYMBOL = 6;
@@ -44,7 +45,11 @@ const EnterPinCode = ({
 				</div>
 				<span className="back-button__text">Back</span>
 			</a>
-			<div className="pin-page__title">{title}</div>
+			{/* If you need to show the subtitle you need to uncomment it; add the class "with-subtitle" to the element with className = "pin-page__title with-subtitle" */}
+			<div className="pin-page__title with-subtitle">
+				<span>{title}</span>
+				{/* <div className="pin-page__subtitle">Incorrect PIN. Try again</div> */}
+			</div>
 			<div className="pin-page__wrapper">
 				<div className={`pin-page__password-check ${invalidPinCode ? 'wrong-pin' : ''}`}>
 					{new Array(MAX_SYMBOL).fill(0).map((_, key) =>
@@ -59,10 +64,52 @@ const EnterPinCode = ({
 						</Button>
 					))}
 				</div>
-				<a href="#" className="pin-page__fingerprint">
-					<i className="is-icon fingerprint-icon" />
+
+				{/* one of three options will be displayed */}
+
+				{/* <a href="#" className="pin-page-list__item">
+					<i className="is-icon fingerprint-white-icon" />
 					<span>You can use Touch ID</span>
-				</a>
+				</a> */}
+
+				{/* <a href="#" className="pin-page-list__item">
+					<i className="is-icon face-id-white-icon" />
+					<span>You can use Face ID</span>
+				</a> */}
+
+				<Media query="(max-width: 374px)">
+					{(matches) =>
+						(matches ? (
+							<div className="pin-page-list large-block">
+								<div className="pin-page-list__container">
+									<span>You can use</span>
+									<a href="#" className="pin-page-list__item ">
+										<i className="is-icon fingerprint-white-icon" />
+									</a>
+									<span>or</span>
+									<a href="#" className="pin-page-list__item">
+										<i className="is-icon face-id-white-icon" />
+									</a>
+								</div>
+							</div>
+						) : (
+							<div className="pin-page-list large-block">
+								<p>Also you can use</p>
+								<div className="pin-page-list__container">
+									<a href="#" className="pin-page-list__item">
+										<i className="is-icon fingerprint-white-icon" />
+										<span>Touch ID</span>
+									</a>
+									<span>or</span>
+									<a href="#" className="pin-page-list__item">
+										<i className="is-icon face-id-white-icon" />
+										<span>Face ID</span>
+									</a>
+								</div>
+							</div>
+						))
+					}
+				</Media>
 				<div className="dashboard-controls">
 					<Button className="is-transparent is-white pin-page__button" onClick={() => onDeleteNumber()}>
 						Delete

@@ -38,24 +38,24 @@ const Wallet = () => (
 		<div className="transaction-history">
 			<div className="transaction-history__title">Transaction History</div>
 			{/* Block notification  */}
-			{/* <a href="#" className="transaction-history__row transaction-history__notification">
+			<a href="#" className="transaction-history__row transaction-history__notification">
 				<div className="transaction-history__row-information">
 					<i className="is-icon bell-icon" />
 					<div className="information-details">You have new incoming payment</div>
 				</div>
-				<a href="#" className="qr-code-button">
-					<i className="is-icon qr-code-small-icon" />
+				<Button className="qr-code-button">
+					<i className="is-icon qr-code-small-white-icon" />
 					<span>Get Payment</span>
-				</a>
-			</a> */}
+				</Button>
+			</a>
 			<a href="#" className="transaction-history__row">
-				<a className="transaction-history__row-information">
+				<div className="transaction-history__row-information">
 					<i className="is-icon confirmation-icon" />
 					<div className="information-details">
 						<p className="information-details__title">Confirmation</p>
 						<p className="information-details__text">Wait please...</p>
 					</div>
-				</a>
+				</div>
 				<div className="transaction-history__row-value">0.03<span className="postfix">SDC</span></div>
 			</a>
 			<a href="#" className="transaction-history__row">

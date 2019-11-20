@@ -16,6 +16,7 @@ const Header = ({
 		{title &&
 			<div className="header-title">{title}</div>
 		}
+		{children}
 	</header>
 );
 
