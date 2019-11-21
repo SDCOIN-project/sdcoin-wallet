@@ -104,6 +104,21 @@ class AccountActions extends BaseActions {
 		};
 	}
 
+	/**
+	 * Logout from account
+	 * @returns {Function}
+	 */
+	logout() {
+		return (dispatch) => {
+			localStorage.removeItem('checkSum');
+			localStorage.removeItem('encryptedPrivateKey');
+			localStorage.removeItem('address');
+
+			clearInterval(this.updateBalanceInterval);
+			dispatch(this.clear());
+		};
+	}
+
 }
 
 const accountActions = new AccountActions(AccountReducer);
