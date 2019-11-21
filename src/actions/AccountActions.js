@@ -27,7 +27,9 @@ class AccountActions extends BaseActions {
 				}
 
 				const { checkSum, encryptedPrivateKey, address } = walletService.getEncryptedPrivateKey(pinCode, mnemonic);
+				const encryptedMnemonic = walletService.encryptOrDecryptData(mnemonic, pinCode, 'utf8').toString('hex');
 
+				localStorage.setItem('encryptedMnemonic', encryptedMnemonic);
 				localStorage.setItem('checkSum', checkSum);
 				localStorage.setItem('encryptedPrivateKey', encryptedPrivateKey);
 				localStorage.setItem('address', address);
@@ -112,10 +114,35 @@ class AccountActions extends BaseActions {
 		return (dispatch) => {
 			localStorage.removeItem('checkSum');
 			localStorage.removeItem('encryptedPrivateKey');
+			localStorage.removeItem('encryptedMnemonic');
 			localStorage.removeItem('address');
 
 			clearInterval(this.updateBalanceInterval);
 			dispatch(this.clear());
+		};
+	}
+
+	validatePinCode(pinCode) {
+		return () => {
+			const decryptedPrivateKey = walletService.getPrivateKeyInBuffer(localStorage.getItem('encryptedPrivateKey'), pinCode);
+			return walletService.comparePrivateKeyWithCheckSum(decryptedPrivateKey, localStorage.getItem('checkSum'));
+		};
+	}
+
+	/**
+	 * Decrypt mnemonic
+	 * @param {string} encryptedMnemonic
+	 * @param {string} pinCode
+	 * @returns {string}
+	 */
+	decryptMnemonic(encryptedMnemonic, pinCode) {
+		return walletService.encryptOrDecryptData(encryptedMnemonic, pinCode, 'hex').toString('utf8');
+	}
+
+	backupMnemonic(pinCode) {
+		return () => {
+			const mnemonic = localStorage.getItem('encryptedMnemonic');
+			return this.decryptMnemonic(mnemonic, pinCode);
 		};
 	}
 

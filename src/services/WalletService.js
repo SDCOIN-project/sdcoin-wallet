@@ -1,10 +1,8 @@
 import bip39 from 'bip39';
 import xor from 'buffer-xor';
-import sha256 from 'js-sha256';
-
+import * as ethUtil from 'ethereumjs-util';
 import * as ethWallet from 'ethereumjs-wallet';
 import * as hdKey from 'ethereumjs-wallet/hdkey';
-
 
 class WalletService {
 
@@ -31,16 +29,18 @@ class WalletService {
 	 * @returns {Buffer}
 	 */
 	getHash(data) {
-		return sha256(data);
+		return ethUtil.sha256(data);
 	}
 
 	/**
-	 * @param {Buffer} privateKey
-	 * @param {Buffer | Array | string | number} key
+	 * Encrypt or decrypt data from xor
+	 * @param {Buffer|string} data
+	 * @param {Buffer|Array|string|number} key
+	 * @param {string} encoding Parameter identifies the character encoding.  Example 'utf8'.
 	 * @return {Buffer}
 	 */
-	encryptOrDecryptPrivateKey(privateKey, key) {
-		return xor(privateKey, this.getHash(key));
+	encryptOrDecryptData(data, key, encoding = '') {
+		return xor(encoding ? Buffer.from(data, encoding) : data, this.getHash(key));
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WalletService {
 		const wallet = hdWallet.derivePath(DERIVATION_PATH).getWallet();
 
 		const privateKey = wallet.getPrivateKey();
-		const encryptedPrivateKey = this.encryptOrDecryptPrivateKey(privateKey, password).toString('hex');
+		const encryptedPrivateKey = this.encryptOrDecryptData(privateKey, password).toString('hex');
 
 		const checkSum = this.getHash(privateKey).toString('hex');
 		const address = this.getAddress(privateKey);
@@ -72,7 +72,7 @@ class WalletService {
 	 */
 	getPrivateKeyInBuffer(encryptedPrivateKey, password) {
 		const encryptedPrivateKeyBuffer = Buffer.from(encryptedPrivateKey, 'hex');
-		return this.encryptOrDecryptPrivateKey(encryptedPrivateKeyBuffer, password);
+		return this.encryptOrDecryptData(encryptedPrivateKeyBuffer, password);
 	}
 
 	/**
