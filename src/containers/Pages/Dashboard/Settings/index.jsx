@@ -44,45 +44,46 @@ const Settings = ({ logout }) => (
 					/>
 				</div>
 			</a>
-			{/* <div className="notification-list"> */}
-			{/*	<Notification > */}
-			{/*		<div className="notification-list__item-container-left"> */}
-			{/*			<span className="text">Something has happened</span> */}
-			{/*		</div> */}
-			{/*		<div className="notification-list__item-container-right"> */}
-			{/*			<Button className="notification-button">Accept</Button> */}
-			{/*		</div> */}
-			{/*	</Notification> */}
-			{/*	<Notification> */}
-			{/*		<div className="notification-list__item-container-left payment"> */}
-			{/*			<i className="is-icon bell-white-icon" /> */}
-			{/*			<Media query="(max-width: 374px)"> */}
-			{/*				{(matches) => */}
-			{/*					(matches ? ( */}
-			{/*						<span className="text">New incoming payment</span> */}
-			{/*					) : ( */}
-			{/*						<span className="text">You have new incoming payment</span> */}
-			{/*					)) */}
-			{/*				} */}
-			{/*			</Media> */}
-			{/*		</div> */}
-			{/*		<div className="notification-list__item-container-right"> */}
-			{/*			<Button className="qr-code-button"> */}
-			{/*				<i className="is-icon qr-code-small-white-icon" /> */}
-			{/*				<span>Get Payment</span> */}
-			{/*			</Button> */}
-			{/*		</div> */}
-			{/*	</Notification> */}
-			{/*	<Notification close={false}> */}
-			{/*		<div className="notification-list__item-container-left"> */}
-			{/*			<i className="is-icon lock-white-icon" /> */}
-			{/*			<span className="text">PIN has been changed successfully!</span> */}
-			{/*		</div> */}
-			{/*		<div className="notification-list__item-container-right"> */}
-			{/*			<Button className="notification-button is-notification-button-small">OK</Button> */}
-			{/*		</div> */}
-			{/*	</Notification> */}
-			{/* </div> */}
+			{/* <div className="notification-list">
+				<Notification>
+					<div className="notification-list__item-container-left">
+						<span className="text">Something has happened</span>
+					</div>
+					<div className="notification-list__item-container-right">
+						<Button className="notification-button">Accept</Button>
+					</div>
+				</Notification>
+				<Notification>
+					<div className="notification-list__item-container-left payment">
+						<i className="is-icon bell-white-icon" />
+						<Media query="(max-width: 374px)">
+							{(matches) =>
+								(matches ? (
+									<span className="text">New incoming payment</span>
+								) : (
+									<span className="text">You have new incoming payment</span>
+								))
+							}
+						</Media>
+					</div>
+					<div className="notification-list__item-container-right">
+						<Button className="qr-code-button">
+							<i className="is-icon qr-code-small-white-icon" />
+							<span>Get Payment</span>
+						</Button>
+					</div>
+				</Notification>
+
+				<Notification close={false}>
+					<div className="notification-list__item-container-left">
+						<i className="is-icon lock-white-icon" />
+						<span className="text">PIN has been changed successfully!</span>
+					</div>
+					<div className="notification-list__item-container-right">
+						<Button className="notification-button is-notification-button-small">OK</Button>
+					</div>
+				</Notification>
+			</div> */}
 			<a href="#" className="dashboard-arrow-line">
 				<div className="icon-container">
 					<i className="is-icon backup-icon" />

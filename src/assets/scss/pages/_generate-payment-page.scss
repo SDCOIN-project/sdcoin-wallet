@@ -1,0 +1,42 @@
+.generate-payment {
+	.header-title {
+		@include res-375 {
+			font-size: 24px;
+		}
+	}
+}
+
+.generate-payment-page {
+	.dashboard-form__row {
+		&.flex-start {
+			align-items: flex-start;
+		}
+
+		.text {
+			line-height: 20px;
+			&.is-orange {
+				color: #f0a285;
+			}
+		}
+
+		.value {
+			flex-shrink: 0;
+			font-size: 16px;
+			@include CircularStd_Bold;
+			color: #1c1c1c;
+			margin-left: 15px;
+			line-height: 20px;
+
+			.prefix {
+				color: rgba(28, 28, 28, 0.8);
+				font-size: 12px;
+				@include CircularStd_Book;
+				line-height: 16px;
+			}
+		}
+	}
+
+	.is-wide {
+		min-width: 278px;
+	}
+}

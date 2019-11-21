@@ -3,6 +3,7 @@ import Button from './../../../components/Form/Button';
 
 const StatusTransactionError = () => (
 	<div className="status-transaction-page is-violet">
+		{/* add a class - "payment-failed-icon" to change the image, and remove class transaction-failed-icon */}
 		<i className="is-icon transaction-failed-icon" />
 		<div className="status-transaction-page__title">Something went wrong</div>
 		<div className="status-transaction-page__text">Transaction has not been sent</div>

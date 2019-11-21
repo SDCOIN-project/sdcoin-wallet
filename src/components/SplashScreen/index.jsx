@@ -8,6 +8,9 @@ const SplashScreen = ({ title, children }) => (
 		<div className="authorization-page__bottom-container">
 			{children}
 		</div>
+		{/* <i className="loading loading-white-icon" />  */}
+
+
 	</div>
 );
 

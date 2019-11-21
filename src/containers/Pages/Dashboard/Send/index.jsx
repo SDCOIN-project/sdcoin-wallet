@@ -92,11 +92,11 @@ const Send = () => {
 					</div>
 					<div className="dashboard-form__row mt30">
 						<p className="dashboard-form__row-text">Estimated fee:</p>
-						<p className="dashboard-form__row-value">0.0015 <span className="dashboard-form__row-postfix">ETH </span></p>
+						<p className="dashboard-form__row-value">0.0015<span className="dashboard-form__row-postfix">ETH</span></p>
 					</div>
 				</form>
 				<div className="dashboard-controls flex-columns">
-					<span className="text">Pay with Payment QR</span>
+					<a href="#" className="text">Pay with Payment QR</a>
 					<Button className="is-large">Send</Button>
 				</div>
 			</div>

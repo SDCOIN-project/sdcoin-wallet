@@ -26,6 +26,29 @@
 			opacity: 1;
 		}
 	}
+	&.is-loading {
+		.button__content {
+			opacity: 0;
+		}
+
+		.loading-button {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 27px;
+			height: 27px;
+			background-image: url(../images/icons/loading-white-icon.svg);
+			animation: spin 1s linear infinite;
+			background-repeat: no-repeat;
+		}
+
+		&.is-transparent {
+			.loading-button {
+				background-image: url(../images/icons/loading-blue-icon.svg);
+			}
+		}
+	}
 
 	&:after {
 		content: "";
@@ -110,7 +133,7 @@
 		padding: 5px 13px;
 		font-size: 15px;
 		color: #fff;
-		line-height: 16px;
+		line-height: 15px;
 		min-height: auto;
 		@include res-375 {
 			font-size: 12px;
@@ -199,5 +222,77 @@
 		width: 22px;
 		height: 22px;
 		margin-right: 6px;
+	}
+}
+
+.copy-icon-container {
+	background: rgba(81, 155, 252, 0.1);
+	width: 36px;
+	height: 36px;
+	border-radius: 6px;
+	flex-shrink: 0;
+	margin-left: 12px;
+	position: relative;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.2s linear;
+
+	.is-icon {
+		width: 18px;
+		height: 18px;
+	}
+
+	.copy-icon {
+		background-image: url(../images/icons/copy-blue-icon.svg);
+	}
+
+	&:active {
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.text-block {
+		position: absolute;
+		width: 0;
+		height: 0;
+		opacity: 0;
+		display: flex;
+		background: #eceef3;
+		border-radius: 4px;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		color: #1c1c1c;
+		top: -34px;
+		@include CircularStd_Book;
+	}
+
+	&.is-active {
+		background: #519bfc;
+		.copy-icon {
+			background-image: url(../images/icons/copy-white-icon.svg);
+		}
+
+		.text-block {
+			animation: copy-block 0.5s linear;
+		}
+	}
+}
+
+@keyframes copy-block {
+	0% {
+		width: 66px;
+		height: 24px;
+		opacity: 1;
+	}
+
+	90% {
+		width: 66px;
+		height: 24px;
+		opacity: 0;
+		top: -55px;
 	}
 }

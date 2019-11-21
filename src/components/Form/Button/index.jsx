@@ -10,7 +10,10 @@ const Button = ({
 		disabled={loading || disabled}
 		{...props}
 	>
-		{children && <div className="button__content">{children}</div>}
+		<React.Fragment>
+			{children && <div className="button__content">{children}</div>}
+			{loading && <i className="is-icon loading-button" />}
+		</React.Fragment>
 	</button>
 );
 

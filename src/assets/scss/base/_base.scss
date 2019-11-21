@@ -14,10 +14,17 @@ html {
 }
 
 body {
+	color: #1c1c1c;
 	@include CircularStd_Book;
 	min-height: 100vh;
 	word-wrap: break-word;
 	word-break: break-word;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+a {
+	&:active {
+		-webkit-tap-highlight-color: transparent;
+	}
 }

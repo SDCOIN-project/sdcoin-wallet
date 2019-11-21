@@ -63,6 +63,11 @@
 			padding: 15px;
 			min-width: 155px;
 			align-items: center;
+
+			&.is-active {
+				box-shadow: 0 0 0 1px #fff;
+				background-color: rgba(255, 255, 255, 0.3);
+			}
 		}
 
 		.balances-list__item-title {
@@ -130,10 +135,12 @@
 	grid-template-columns: 1fr 1fr;
 	grid-row-gap: 9px;
 	grid-column-gap: 9px;
+
 	@include res-375 {
 		grid-row-gap: 8px;
 		grid-column-gap: 6px;
 	}
+
 	&__item {
 		background-color: rgba(255, 255, 255, 0.2);
 		padding: 10px 15px;
@@ -142,6 +149,16 @@
 		background-repeat: no-repeat;
 		background-position: right;
 		background-size: cover;
+		text-decoration: none;
+
+		&:active {
+			-webkit-tap-highlight-color: transparent;
+		}
+
+		&.is-active {
+			box-shadow: 0 0 0 1px #fff;
+			background-color: rgba(255, 255, 255, 0.3);
+		}
 
 		&.is-small {
 			grid-column: span 1;
@@ -223,6 +240,7 @@
 
 .transaction-history {
 	margin-bottom: 50px;
+
 	&__title {
 		font-size: 22px;
 		line-height: 28px;
@@ -255,6 +273,10 @@
 			margin-right: auto;
 			display: flex;
 
+			&.flex-center {
+				align-items: center;
+			}
+
 			.bell-icon {
 				width: 21px;
 				height: 21px;
@@ -262,6 +284,11 @@
 
 			.information-details {
 				color: #1c1c1c;
+
+				&.mt-2 {
+					margin-top: 2px;
+				}
+
 				&__title {
 					font-size: 16px;
 					color: #7e8c9b;
@@ -294,9 +321,16 @@
 	&__notification {
 		.information-details {
 			font-size: 14px;
-			line-height: 18px;
+			line-height: 17px;
 			width: 124px;
 		}
+	}
+
+	.loading-container {
+		min-height: 62px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
 

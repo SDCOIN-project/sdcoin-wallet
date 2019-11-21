@@ -1,0 +1,17 @@
+.payment-info-page {
+	@include res-375 {
+		padding-bottom: 16px;
+	}
+
+	.scan-qr-code-block {
+		border: 0;
+		margin-top: 100px;
+
+		@include res-375 {
+			width: 200px;
+			height: 200px;
+			padding: 13px;
+			margin-top: 50px;
+		}
+	}
+}

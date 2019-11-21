@@ -9,11 +9,11 @@
 
 @keyframes spin {
 	0% {
-		transform: rotate(0);
+		transform: translate(-50%, -50%) rotate(0);
 	}
 
 	100% {
-		transform: rotate(360deg);
+		transform: translate(-50%, -50%) rotate(360deg);
 	}
 }
 
@@ -21,10 +21,17 @@
 	display: block;
 	width: 27px;
 	height: 27px;
-	background-image: url(../images/icons/loading.svg);
 	background-size: contain;
 	animation: spin 1s linear infinite;
 	background-repeat: no-repeat;
+}
+
+.loading-white-icon {
+	background-image: url(../images/icons/loading-white-icon.svg);
+}
+
+.loading-blue-icon {
+	background-image: url(../images/icons/loading-blue-icon.svg);
 }
 
 .back-button-icon {
@@ -95,6 +102,14 @@
 	background-image: url(../images/icons/transaction-failed-icon.svg);
 }
 
+.payment-success-icon {
+	background-image: url(../images/icons/payment-success-icon.svg);
+}
+
+.payment-failed-icon {
+	background-image: url(../images/icons/payment-failed-icon.svg);
+}
+
 .fingerprint-white-icon {
 	background-image: url(../images/icons/fingerprint-white-icon.svg);
 }
@@ -133,4 +148,12 @@
 
 .face-id-white-icon {
 	background-image: url(../images/icons/face-id-white-icon.svg);
+}
+
+.copy-blue-icon {
+	background-image: url(../images/icons/copy-blue-icon.svg);
+}
+
+.copy-white-icon {
+	background-image: url(../images/icons/copy-white-icon.svg);
 }
