@@ -62,23 +62,6 @@ const Send = ({
 		content: <Option currency={currency} balance={balances[currency]} />,
 	}));
 
-	const validateBeforeSubmit = (values) => {
-		const balance = balances[values.currency];
-
-		const obj = {};
-
-		const neededAmount = web3Service.toWei(values.amount).plus(new BN(values.currency === ETH ? fee : 0));
-		if (neededAmount.isGreaterThan(new BN(balance))) {
-			obj.amount = `Amount exceeds ${values.currency} balance`;
-		}
-
-		if (values.currency !== ETH && new BN(fee).isGreaterThan(balances[ETH])) {
-			obj.amount = `${ETH} does not have enough funds to pay fee`;
-		}
-
-		return obj;
-	};
-
 	const validationSchema = () => Yup.object().shape({
 		currency: Yup.mixed(CURRENCIES)
 			.required('Currency is required'),
@@ -91,7 +74,20 @@ const Send = ({
 		amount: Yup.number()
 			.typeError('Invalid amount')
 			.required('Amount is required')
-			.positive('Amount must be a positive number'),
+			.positive('Amount must be a positive number')
+			.when('currency', (currency, schema) => schema.test(
+				'checkBalance', `Amount exceeds ${currency} balance`,
+				(value) => {
+					if (!value || value < 0) return false;
+					const balance = balances[currency];
+					const neededAmount = web3Service.toWei(`${value}`).plus(new BN(currency === ETH ? fee : 0));
+					return !neededAmount.isGreaterThan(new BN(balance));
+				},
+			))
+			.when('currency', (currency, schema) => schema.test(
+				'checkFee', `${ETH} does not have enough funds to pay fee`,
+				() => !(currency !== ETH && new BN(fee).isGreaterThan(balances[ETH])),
+			)),
 	});
 
 
@@ -107,9 +103,8 @@ const Send = ({
 						<Formik
 							initialValues={initialValues()}
 							onSubmit={(values) => submitTransaction(values)}
-							validationSchema={validationSchema}
+							validationSchema={() => validationSchema()}
 							validateOnChange={false}
-							validate={(values) => validateBeforeSubmit(values)}
 						>
 							{({
 								values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
