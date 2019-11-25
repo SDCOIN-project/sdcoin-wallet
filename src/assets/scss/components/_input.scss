@@ -118,8 +118,36 @@
 	}
 }
 
-.input__textarea-error {
+.textarea__text-error {
 	color: #f08597;
 	font-size: 12px;
 	transition: all 0.2s ease-out;
 }
+
+::-webkit-input-placeholder {
+	color: rgba(126, 140, 155, 0.7);
+	font-size: 14px;
+}
+
+::-moz-placeholder {
+	color: rgba(126, 140, 155, 0.7);
+	font-size: 14px;
+}
+
+:-ms-input-placeholder {
+	color: rgba(126, 140, 155, 0.7);
+	font-size: 14px;
+}
+
+.is-textarea::-webkit-input-placeholder {
+	font-size: 20px;
+}
+
+.is-textarea::-moz-placeholder {
+	font-size: 20px;
+}
+
+.is-textarea:-ms-input-placeholder {
+	font-size: 20px;
+}
+

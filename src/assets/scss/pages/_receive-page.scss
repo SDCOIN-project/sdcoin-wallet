@@ -10,6 +10,10 @@
 		color: #519bfc;
 		margin: 0 auto;
 		text-decoration: none;
+
+		&:active {
+			opacity: 0.7;
+		}
 	}
 
 	&__text-prefix {
@@ -66,6 +70,7 @@
 
 		&__container {
 			display: flex;
+			width: 100%;
 		}
 
 		&__value {
@@ -81,6 +86,10 @@
 				margin-left: 5px;
 				font-size: 12px;
 			}
+		}
+
+		&__text {
+			margin-right: auto;
 		}
 
 		@include res-375 {

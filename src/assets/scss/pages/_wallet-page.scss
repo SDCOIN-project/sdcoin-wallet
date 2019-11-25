@@ -26,6 +26,17 @@
 			}
 		}
 	}
+
+	&.import-wallet-page {
+		.wallet-page__text {
+			flex-shrink: 0;
+		}
+		.import-wallet-page-form {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+		}
+	}
 }
 
 .brain-key {

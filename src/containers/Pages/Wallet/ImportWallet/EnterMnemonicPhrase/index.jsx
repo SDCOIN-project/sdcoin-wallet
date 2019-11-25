@@ -40,7 +40,7 @@ const ImportWallet = ({ onNext }) => {
 	return (
 		<div className="dashboard-container">
 			<Header title="Import wallet" />
-			<div className="dashboard wallet-page">
+			<div className="dashboard wallet-page import-wallet-page">
 				<div className="wallet-page__text">Please insert your BrainKey to continue</div>
 				<Formik
 					initialValues={initialValues()}
@@ -51,7 +51,7 @@ const ImportWallet = ({ onNext }) => {
 					{({
 						values, errors, handleChange, handleSubmit, setFieldError,
 					}) => (
-						<form onSubmit={handleSubmit}>
+						<form onSubmit={handleSubmit} className="import-wallet-page-form">
 							<div className="brain-key">
 								<textarea
 									id="mnemonic"
@@ -64,7 +64,7 @@ const ImportWallet = ({ onNext }) => {
 									value={values.mnemonic}
 								/>
 								{errors.mnemonic && (
-									<p className="input__text-error">{errors.mnemonic}</p>
+									<p className="textarea__text-error">{errors.mnemonic}</p>
 								)}
 							</div>
 							<div className="dashboard-controls">

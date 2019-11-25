@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
-import Index from './Index';
+import Index from './Index/index';
 import Backup from './Backup';
 import ChangePassword from './ChangePassword';
 

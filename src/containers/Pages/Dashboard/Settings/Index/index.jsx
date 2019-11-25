@@ -36,7 +36,7 @@ const Index = ({ logout }) => (
 					/>
 				</div>
 			</a>
-			<a href="#" className="dashboard-arrow-line">
+			<a href="#" className="dashboard-arrow-line no-active-effect">
 				<div className="icon-container">
 					<i className="is-icon face-id-icon" />
 				</div>

@@ -66,15 +66,15 @@ const EnterPinCode = ({
 				<div className="dashboard-controls flex-column">
 					{/* one of three options will be displayed */}
 
-					{/* <a href="#" className="pin-page-list__item">
-					<i className="is-icon fingerprint-white-icon" />
-					<span>You can use Touch ID</span>
-				</a> */}
+					{/* <a href="#" className="pin-page-list__item mb18">
+						<i className="is-icon fingerprint-white-icon" />
+						<span>You can use Touch ID</span>
+					</a> */}
 
-					{/* <a href="#" className="pin-page-list__item">
-					<i className="is-icon face-id-white-icon" />
-					<span>You can use Face ID</span>
-				</a> */}
+					{/* <div className="pin-page-list__item mb18">
+						<i className="is-icon face-id-white-icon" />
+						<span>You can use Face ID</span>
+					</div> */}
 
 					<Media query="(max-width: 374px)">
 						{(matches) =>
@@ -82,28 +82,28 @@ const EnterPinCode = ({
 								<div className="pin-page-list large-block">
 									<div className="pin-page-list__container">
 										<span>You can use</span>
-										<a href="#" className="pin-page-list__item ">
+										<div className="pin-page-list__item ">
 											<i className="is-icon fingerprint-white-icon" />
-										</a>
+										</div>
 										<span>or</span>
-										<a href="#" className="pin-page-list__item">
+										<div href="#" className="pin-page-list__item">
 											<i className="is-icon face-id-white-icon" />
-										</a>
+										</div>
 									</div>
 								</div>
 							) : (
 								<div className="pin-page-list large-block">
 									<p>Also you can use</p>
 									<div className="pin-page-list__container">
-										<a href="#" className="pin-page-list__item">
+										<div className="pin-page-list__item">
 											<i className="is-icon fingerprint-white-icon" />
 											<span>Touch ID</span>
-										</a>
+										</div>
 										<span>or</span>
-										<a href="#" className="pin-page-list__item">
+										<div className="pin-page-list__item">
 											<i className="is-icon face-id-white-icon" />
 											<span>Face ID</span>
-										</a>
+										</div>
 									</div>
 								</div>
 							))

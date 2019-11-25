@@ -1,0 +1,33 @@
+.header-transaction-details {
+	min-height: 135px;
+	&__title {
+		display: flex;
+		align-items: flex-end;
+		font-size: 32px;
+		color: #fff;
+		padding-left: 17px;
+		@include CircularStd_Bold;
+		line-height: 32px;
+		margin-top: auto;
+
+		.postfix {
+			font-size: 16px;
+			@include CircularStd_Book;
+			color: #fff;
+			line-height: 22px;
+		}
+	}
+
+	&__text {
+		color: rgba(255, 255, 255, 0.5);
+		font-size: 14px;
+		padding-left: 17px;
+		@include CircularStd_Book;
+		margin-top: 5px;
+	}
+}
+
+.transaction-details-page {
+	height: calc(100vh - 185px);
+	padding-right: 0;
+}

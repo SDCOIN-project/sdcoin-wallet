@@ -1,0 +1,17 @@
+.payment-details-page {
+  padding-right: 0;
+
+  .dashboard-stripe__text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    &.last-child {
+      margin-top: 25px;
+      font-size: 14px;
+    }
+  }
+
+  .dashboard-controls {
+    padding-right: 15px;
+  }
+}

@@ -3,7 +3,10 @@ import Button from '../../../../../components/Form/Button';
 
 const TransactionHistory = () => (
 	<div className="transaction-history">
-		<div className="transaction-history__title">Transaction History</div>
+		<div className="transaction-history__title">
+			Transaction History
+			<span className="title-inner"><span className="title-inner-dot">·</span>SDC</span>
+		</div>
 		{/* Block notification  */}
 		<a href="#" className="transaction-history__row transaction-history__notification">
 			<div className="transaction-history__row-information">
