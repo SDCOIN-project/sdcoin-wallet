@@ -2,6 +2,7 @@ import React from 'react';
 // import Media from 'react-media';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
 import Header from './../../../../Layout/Header';
 import Switcher from './../../../../../components/Form/Switcher';
@@ -9,13 +10,13 @@ import Switcher from './../../../../../components/Form/Switcher';
 // import Notification from './../../../../components/Notifications';
 
 import AccountActions from '../../../../../actions/AccountActions';
-import { BACKUP_PATH } from '../../../../../constants/RouterConstants';
+import { BACKUP_PATH, CHANGE_PASSWORD_PATH } from '../../../../../constants/RouterConstants';
 
-const Index = ({ logout, history }) => (
+const Index = ({ logout }) => (
 	<React.Fragment>
 		<Header backButton={false} title="Settings" />
 		<div className="dashboard settings-page">
-			<a href="#" className="dashboard-arrow-line">
+			<NavLink to={CHANGE_PASSWORD_PATH} className="dashboard-arrow-line">
 				<div className="icon-container">
 					<i className="is-icon lock-icon" />
 				</div>
@@ -23,7 +24,7 @@ const Index = ({ logout, history }) => (
 					<span className="dashboard-arrow-line__text">Change Password</span>
 					<i className="is-icon arrow-gray-icon" />
 				</div>
-			</a>
+			</NavLink>
 			<a href="#" className="dashboard-arrow-line">
 				<div className="icon-container">
 					<i className="is-icon fingerprint-icon" />
@@ -85,14 +86,7 @@ const Index = ({ logout, history }) => (
 			{/*		</div> */}
 			{/*	</Notification> */}
 			{/* </div> */}
-			<a
-				href=""
-				onClick={(e) => {
-					e.preventDefault();
-					history.push(BACKUP_PATH);
-				}}
-				className="dashboard-arrow-line"
-			>
+			<NavLink to={BACKUP_PATH} className="dashboard-arrow-line">
 				<div className="icon-container">
 					<i className="is-icon backup-icon" />
 				</div>
@@ -100,7 +94,7 @@ const Index = ({ logout, history }) => (
 					<span className="dashboard-arrow-line__text">Backup</span>
 					<i className="is-icon arrow-gray-icon" />
 				</div>
-			</a>
+			</NavLink>
 			<a
 				href=""
 				onClick={(e) => {
@@ -119,12 +113,7 @@ const Index = ({ logout, history }) => (
 );
 
 Index.propTypes = {
-	history: PropTypes.object,
 	logout: PropTypes.func.isRequired,
-};
-
-Index.defaultProps = {
-	history: {},
 };
 
 export default connect(

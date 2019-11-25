@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
 import Header from './../../../../Layout/Header';
@@ -10,14 +9,18 @@ import accountActions from '../../../../../actions/AccountActions';
 import { SETTINGS_PATH } from '../../../../../constants/RouterConstants';
 import Button from '../../../../../components/Form/Button';
 
-const Backup = ({ history, backupMnemonic }) => {
+const Backup = ({ history }) => {
 	const [step, setStep] = useState(1);
 	const [mnemonic, setMnemonic] = useState(null);
 	const [btnCopyTitle, setBtnCopyTitle] = useState('Copy');
 
 	const onSubmit = (pinCode) => {
-		setMnemonic(backupMnemonic(pinCode));
-		setStep(2);
+		try {
+			setMnemonic(accountActions.getDecryptedMnemonic(pinCode));
+			setStep(2);
+		} catch (error) {
+			alert(error.message);
+		}
 	};
 
 	const onCopy = () => {
@@ -57,16 +60,10 @@ const Backup = ({ history, backupMnemonic }) => {
 
 Backup.propTypes = {
 	history: PropTypes.object,
-	backupMnemonic: PropTypes.func.isRequired,
 };
 
 Backup.defaultProps = {
 	history: {},
 };
 
-export default connect(
-	() => ({}),
-	(dispatch) => ({
-		backupMnemonic: (pinCode) => dispatch(accountActions.backupMnemonic(pinCode)),
-	}),
-)(Backup);
+export default Backup;

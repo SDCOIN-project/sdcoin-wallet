@@ -4,11 +4,9 @@ import BaseActions from './BaseActions';
 import walletService from '../services/WalletService';
 
 import ethService from '../services/EthService';
-import sdcTokenService from '../services/contracts/SdcTokenService';
-import luvTokenService from '../services/contracts/LuvTokenService';
 
-import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED } from '../constants/ErrorConstants';
-import { ETH, SDC, LUV } from '../constants/CurrencyConstants';
+import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED, MNEMONIC_NOT_FOUND } from '../constants/ErrorConstants';
+import { CURRENCY_SERVICES } from '../constants/CurrencyConstants';
 
 class AccountActions extends BaseActions {
 
@@ -83,18 +81,12 @@ class AccountActions extends BaseActions {
 		return async (dispatch, getState) => {
 			const address = getState().account.get('address');
 			try {
-				const currencies = {
-					[ETH]: ethService,
-					[SDC]: sdcTokenService,
-					[LUV]: luvTokenService,
-				};
-
-				const balances = await Promise.all(Object.keys(currencies).map((currency) => {
-					const service = currencies[currency];
+				const balances = await Promise.all(Object.keys(CURRENCY_SERVICES).map((currency) => {
+					const service = CURRENCY_SERVICES[currency];
 					return service.getBalance(address);
 				}));
 
-				Object.keys(currencies).forEach((currency, index) => {
+				Object.keys(CURRENCY_SERVICES).forEach((currency, index) => {
 					dispatch(this.setValue(['balances', currency], balances[index]));
 				});
 			} catch (error) {
@@ -138,11 +130,13 @@ class AccountActions extends BaseActions {
 		return walletService.encryptOrDecryptData(encryptedMnemonic, pinCode, 'hex').toString('utf8');
 	}
 
-	backupMnemonic(pinCode) {
-		return () => {
-			const mnemonic = localStorage.getItem('encryptedMnemonic');
-			return this.decryptMnemonic(mnemonic, pinCode);
-		};
+	getDecryptedMnemonic(pinCode) {
+		const mnemonic = localStorage.getItem('encryptedMnemonic');
+		if (!mnemonic) {
+			throw new Error(MNEMONIC_NOT_FOUND);
+		}
+
+		return this.decryptMnemonic(mnemonic, pinCode);
 	}
 
 	decryptAndWalletAdd(pinCode) {

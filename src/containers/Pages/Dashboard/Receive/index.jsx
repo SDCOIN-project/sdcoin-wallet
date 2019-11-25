@@ -3,53 +3,13 @@ import Media from 'react-media';
 import Input from './../../../../components/Form/Input';
 import SelectCurrency from './../../../../components/Form/SelectCurrency';
 import Header from './../../../../containers/Layout/Header';
-
+import Option from '../../../../components/Form/SelectCurrency/Option';
 
 const SelectDate = [
 	{
-		key: 'a1',
-		value: '530.0025',
-		text: '530.0025',
-		postfix: 'CHF',
-		content: (
-			<div className="select-inner-item">
-				<i className="is-icon sdc-coin-icon" />
-				<div className="select-inner-item__information">
-					<div className="select-inner-item__information-title">SDCoin</div>
-					<div className="select-inner-item__information-value">530.0025 <span className="postfix">SDC</span></div>
-				</div>
-			</div>
-		),
-	},
-	{
-		key: 'a2',
-		value: 'a2',
-		text: '530.0025',
-		postfix: 'CHF',
-		content: (
-			<div className="select-inner-item">
-				<i className="is-icon eth-coin-icon" />
-				<div className="select-inner-item__information">
-					<div className="select-inner-item__information-title">Ethereum</div>
-					<div className="select-inner-item__information-value">7 001.896 <span className="postfix">ETH</span></div>
-				</div>
-			</div>
-		),
-	},
-	{
-		key: 'a3',
-		value: 'a3',
-		text: '530.0025',
-		postfix: 'CHF',
-		content: (
-			<div className="select-inner-item">
-				<i className="is-icon luv-coin-icon" />
-				<div className="select-inner-item__information">
-					<div className="select-inner-item__information-title">LUV</div>
-					<div className="select-inner-item__information-value">0.258746 <span className="postfix">LUV</span></div>
-				</div>
-			</div>
-		),
+		text: 'ETH',
+		value: 'ETH',
+		content: <Option currency="ETH" balance="100000000" />,
 	},
 ];
 
@@ -61,11 +21,12 @@ const Receive = () => (
 			<form action="" className="dashboard-form">
 				<div className="dashboard-form__row">
 					<div className="dashboard-form__row-title">Select token:</div>
+
 					<SelectCurrency
 						selection
-						name="pair"
+						value="ETH"
+						amount={100}
 						options={SelectDate}
-						value={SelectDate[0]}
 						label="SDC Balance"
 					/>
 				</div>

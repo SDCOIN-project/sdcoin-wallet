@@ -6,3 +6,4 @@ export const AUTHORIZATION_FAILED = 'Authorization failed';
 export const PRIVATE_KEY_NOT_FOUND = 'Private key not found';
 export const INCORRECT_PIN_CODE = 'Incorrect pin code';
 export const CURRENCY_NOT_FOUND = 'Currency not found';
+export const MNEMONIC_NOT_FOUND = 'Mnemonic not found';
