@@ -19,21 +19,27 @@ const Balances = ({ balances }) => (
 						<span className="postfix-top">{SDC}</span>
 						<Button className="is-small">Swap to {LUV}</Button>
 					</div>
-					<div className="balances-list__value">{web3Service.fromWei(balances[SDC], 'ether').toNumber()}<span className="postfix">{SDC}</span></div>
+					<div className="balances-list__value">
+						{web3Service.fromWeiToEther(balances[SDC])}<span className="postfix">{SDC}</span>
+					</div>
 				</a>
 				<a href="#" className="balances-list__item is-small bg-eth">
 					<div className="balances-list__item-title">
 						<i className="is-icon sdc-coin-icon" />
 						<span className="postfix-top">Ethereum</span>
 					</div>
-					<div className="balances-list__value">{web3Service.fromWei(balances[ETH], 'ether').toNumber()}<span className="postfix">{ETH}</span></div>
+					<div className="balances-list__value">
+						{web3Service.fromWeiToEther(balances[ETH])}<span className="postfix">{ETH}</span>
+					</div>
 				</a>
 				<a href="#" className="balances-list__item is-small bg-luv">
 					<div className="balances-list__item-title">
 						<i className="is-icon sdc-coin-icon" />
 						<span className="postfix-top">{LUV}</span>
 					</div>
-					<div className="balances-list__value">{web3Service.fromWei(balances[LUV], 'ether').toNumber()}<span className="postfix">{LUV}</span></div>
+					<div className="balances-list__value">
+						{web3Service.fromWeiToEther(balances[LUV])}<span className="postfix">{LUV}</span>
+					</div>
 				</a>
 			</div>
 		</div>

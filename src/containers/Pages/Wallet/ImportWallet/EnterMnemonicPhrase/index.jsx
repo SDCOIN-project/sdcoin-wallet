@@ -10,25 +10,24 @@ import walletService from '../../../../../services/WalletService';
 
 const ImportWallet = ({ onNext }) => {
 
-	const validationSchema = Yup.object()
-		.shape({
-			mnemonic: Yup.string()
-				.test(
-					'isValidMnemonic', 'Incorrect Brain Key',
-					(mnemonic) => {
-						if (!mnemonic) {
-							return false;
-						}
+	const validationSchema = Yup.object().shape({
+		mnemonic: Yup.string()
+			.test(
+				'isValidMnemonic', 'Incorrect Brain Key',
+				(mnemonic) => {
+					if (!mnemonic) {
+						return false;
+					}
 
-						const formattedMnemonic = mnemonic.trim().toLowerCase();
-						if (!walletService.isValidMnemonic(formattedMnemonic)) {
-							return false;
-						}
+					const formattedMnemonic = mnemonic.trim().toLowerCase();
+					if (!walletService.isValidMnemonic(formattedMnemonic)) {
+						return false;
+					}
 
-						return true;
-					},
-				),
-		});
+					return true;
+				},
+			),
+	});
 
 	const initialValues = () => ({
 		mnemonic: '',

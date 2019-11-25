@@ -13,6 +13,15 @@
 		height: 239px;
 	}
 
+	.loading-container {
+		margin-top: 30px;
+
+		.loading-white-icon {
+			width: 27px;
+			height: 27px;
+		}
+	}
+
 	&.is-violet {
 		background: linear-gradient(151deg, #dc80e2 0%, #3f7ed0 100%);
 	}

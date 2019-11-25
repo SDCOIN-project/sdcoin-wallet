@@ -45,10 +45,8 @@ const EnterPinCode = ({
 				</div>
 				<span className="back-button__text">Back</span>
 			</a>
-			{/* If you need to show the subtitle you need to uncomment it; add the class "with-subtitle" to the element with className = "pin-page__title with-subtitle" */}
 			<div className="pin-page__title with-subtitle">
 				<span>{title}</span>
-				{/* <div className="pin-page__subtitle">Incorrect PIN. Try again</div> */}
 			</div>
 			<div className="pin-page__wrapper">
 				<div className={`pin-page__password-check ${invalidPinCode ? 'wrong-pin' : ''}`}>

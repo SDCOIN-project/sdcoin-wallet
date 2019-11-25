@@ -18,11 +18,13 @@ const ValidatePinCode = ({ validate, onSubmit, ...props }) => {
 	};
 
 	return (
-		<EnterPinCode
-			invalidPinCode={invalidPinCode}
-			onSubmit={(pinCode) => checkValidPinCode(pinCode)}
-			{...props}
-		/>
+		<div className="wrapper-transaction">
+			<EnterPinCode
+				invalidPinCode={invalidPinCode}
+				onSubmit={(pinCode) => checkValidPinCode(pinCode)}
+				{...props}
+			/>
+		</div>
 	);
 
 };

@@ -34,6 +34,10 @@ class LuvTokenService {
 		return parseInt(await this.contract.methods.decimals().call(), 10);
 	}
 
+	transfer(to, value) {
+		return this.contract.methods.transfer(to, value);
+	}
+
 }
 
 const luvTokenService = new LuvTokenService();

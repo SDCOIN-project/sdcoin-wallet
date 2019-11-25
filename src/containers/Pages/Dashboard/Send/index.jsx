@@ -1,108 +1,197 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as ethUtil from 'ethereumjs-util';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import BN from 'bignumber.js';
+import history from '../../../../history';
+
 import Button from './../../../../components/Form/Button';
 import Input from './../../../../components/Form/Input';
-import Select from './../../../../components/Form/Select';
+import SelectCurrency from './../../../../components/Form/SelectCurrency';
+import Option from './../../../../components/Form/SelectCurrency/Option';
 import Header from './../../../../containers/Layout/Header';
+import web3Service from '../../../../services/Web3Service';
+import ethService from '../../../../services/EthService';
 
-const SelectDate = [
-	{
-		key: 'a1',
-		value: '530.0025',
-		text: '530.0025',
-		postfix: 'CHF',
-		content: (
-			<div className="select-inner-item">
-				<i className="is-icon sdc-coin-icon" />
-				<div className="select-inner-item__information">
-					<div className="select-inner-item__information-title">SDCoin</div>
-					<div className="select-inner-item__information-value">530.0025 <span className="postfix">SDC</span></div>
-				</div>
-			</div>
-		),
-	},
-	{
-		key: 'a2',
-		value: 'a2',
-		text: '530.0025',
-		postfix: 'CHF',
-		content: (
-			<div className="select-inner-item">
-				<i className="is-icon eth-coin-icon" />
-				<div className="select-inner-item__information">
-					<div className="select-inner-item__information-title">Ethereum</div>
-					<div className="select-inner-item__information-value">7 001.896 <span className="postfix">ETH</span></div>
-				</div>
-			</div>
-		),
-	},
-	{
-		key: 'a3',
-		value: 'a3',
-		text: '530.0025',
-		postfix: 'CHF',
-		content: (
-			<div className="select-inner-item">
-				<i className="is-icon luv-coin-icon" />
-				<div className="select-inner-item__information">
-					<div className="select-inner-item__information-title">LUV</div>
-					<div className="select-inner-item__information-value">0.258746 <span className="postfix">LUV</span></div>
-				</div>
-			</div>
-		),
-	},
-];
+import { CURRENCIES, ETH } from '../../../../constants/CurrencyConstants';
+import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
+import TransactionBuilder from '../../../../components/TransactionBuilder';
+import transactionActions from '../../../../actions/TransactionActions';
+import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
 
 
-const Send = () => {
+const DEFAULT_CURRENCY = ETH;
 
-	const [address, setAddress] = useState('');
+const initialValues = () => ({
+	currency: DEFAULT_CURRENCY,
+	address: '',
+	amount: '',
+});
+
+const Send = ({
+	balances, transferSend, transferEstimateGas,
+}) => {
+
+	const [gas, setGas] = useState(0);
+	const [gasPrice, setGasPrice] = useState(0);
+
+	const fee = new BN(gas).times(gasPrice).toString(10);
+
+	const updateGas = (currency) => {
+		transferEstimateGas(currency).then((data) => setGas(data * PLUS_PERCENT_FEE));
+	};
+
+	useEffect(() => {
+		ethService.getGasPrice().then((data) => setGasPrice(data));
+		updateGas(DEFAULT_CURRENCY);
+	}, []);
+
+	const onSubmit = async ({ amount, ...values }) => {
+		amount = web3Service.toWei(amount).toString(10);
+
+		return transferSend({
+			...values, amount, gas, gasPrice,
+		});
+	};
+
+	const getCurrencyOptions = () => CURRENCIES.map((currency) => ({
+		text: currency,
+		value: currency,
+		content: <Option currency={currency} balance={balances[currency]} />,
+	}));
+
+	const validateBeforeSubmit = (values) => {
+		const balance = balances[values.currency];
+
+		const obj = {};
+
+		const neededAmount = web3Service.toWei(values.amount).plus(new BN(values.currency === ETH ? fee : 0));
+		if (neededAmount.isGreaterThan(new BN(balance))) {
+			obj.amount = `Amount exceeds ${values.currency} balance`;
+		}
+
+		if (values.currency !== ETH && new BN(fee).isGreaterThan(balances[ETH])) {
+			obj.amount = `${ETH} does not have enough funds to pay fee`;
+		}
+
+		return obj;
+	};
+
+	const validationSchema = () => Yup.object().shape({
+		currency: Yup.mixed(CURRENCIES)
+			.required('Currency is required'),
+		address: Yup.string()
+			.required('Address is required')
+			.test(
+				'isValidAddress', 'Address is not valid',
+				(value) => value && ethUtil.isValidAddress(value),
+			),
+		amount: Yup.number()
+			.typeError('Invalid amount')
+			.required('Amount is required')
+			.positive('Amount must be a positive number'),
+	});
+
 
 	return (
-		<React.Fragment>
-			<Header backButton={false} title="Send" />
-			<div className="dashboard send-page">
-				<form action="" className="dashboard-form">
-					<div className="dashboard-form__row">
-						<div className="dashboard-form__row-title">Select token:</div>
-						<Select
-							selection
-							name="pair"
-							options={SelectDate}
-							value={SelectDate[0]}
-							label="SDC Balance"
-						/>
+		<TransactionBuilder
+			handleTransaction={(values) => onSubmit(values)}
+			onDone={() => history.push(DASHBOARD_PATH)}
+		>
+			{({ submitTransaction }) => (
+				<React.Fragment>
+					<Header backButton={false} title="Send" />
+					<div className="dashboard send-page">
+						<Formik
+							initialValues={initialValues()}
+							onSubmit={(values) => submitTransaction(values)}
+							validationSchema={validationSchema}
+							validateOnChange={false}
+							validate={(values) => validateBeforeSubmit(values)}
+						>
+							{({
+								values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
+							}) => (
+								<form onSubmit={handleSubmit} className="dashboard-form with-controls">
+									<div className="dashboard-form__row">
+										<div className="dashboard-form__row-title">Select token:</div>
+										<SelectCurrency
+											selection
+											value={values.currency}
+											amount={web3Service.fromWeiToEther(balances[values.currency])}
+											name="currency"
+											options={getCurrencyOptions()}
+											onChange={(event, data) => {
+												setFieldValue('currency', data.value);
+												updateGas(data.value);
+											}}
+											label={`${values.currency} Balance`}
+											error={errors.currency}
+										/>
+									</div>
+									<div className="dashboard-form__row">
+										<Input
+											label="Address"
+											name="address"
+											onChange={(e) => {
+												handleChange(e);
+												setFieldError('address', '');
+											}}
+											value={values.address}
+											error={errors.address}
+										/>
+										<a href="#" className="qr-code-small-container">
+											<i className="is-icon qr-code-small-blue-icon" />
+										</a>
+									</div>
+									<div className="dashboard-form__row">
+										<Input
+											label="Amount"
+											name="amount"
+											onChange={(e) => {
+												handleChange(e);
+												setFieldError('amount', '');
+											}}
+											value={values.amount}
+											error={errors.amount}
+										/>
+									</div>
+									<div className="dashboard-form__row mt10">
+										<p className="dashboard-form__row-text">Estimated fee:</p>
+										<p className="dashboard-form__row-value">
+											{web3Service.fromWeiToEther(fee)} <span className="dashboard-form__row-postfix">{ETH}</span>
+										</p>
+									</div>
+									<div className="dashboard-controls flex-columns">
+										<a href="#" className="text">Pay with Payment QR</a>
+										<Button type="submit" className="is-large">Send</Button>
+									</div>
+								</form>
+							)}
+						</Formik>
 					</div>
-					<div className="dashboard-form__row">
-						<Input
-							label="Address"
-							onChange={(e) => setAddress(e.target.value)}
-							value={address}
-						/>
-						<a href="#" className="qr-code-small-container">
-							<i className="is-icon qr-code-small-blue-icon" />
-						</a>
-					</div>
-					<div className="dashboard-form__row">
-						<Input
-							label="00"
-							onChange={(e) => setAddress(e.target.value)}
-							value={address}
-							error="Address does not exist"
-						/>
-					</div>
-					<div className="dashboard-form__row mt30">
-						<p className="dashboard-form__row-text">Estimated fee:</p>
-						<p className="dashboard-form__row-value">0.0015<span className="dashboard-form__row-postfix">ETH</span></p>
-					</div>
-				</form>
-				<div className="dashboard-controls flex-columns">
-					<a href="#" className="text">Pay with Payment QR</a>
-					<Button className="is-large">Send</Button>
-				</div>
-			</div>
-		</React.Fragment>
+				</React.Fragment>
+			)}
+		</TransactionBuilder>
 	);
 
 };
 
-export default Send;
+Send.propTypes = {
+	balances: PropTypes.object.isRequired,
+	transferSend: PropTypes.func.isRequired,
+	transferEstimateGas: PropTypes.func.isRequired,
+};
+
+export default connect(
+	(state) => ({
+		address: state.account.get('address'),
+		balances: state.account.get('balances').toJSON(),
+	}),
+	(dispatch) => ({
+		transferEstimateGas: (currency) => dispatch(transactionActions.transferEstimateGas(currency)),
+		transferSend: (values) => dispatch(transactionActions.transferSend(values)),
+	}),
+)(Send);

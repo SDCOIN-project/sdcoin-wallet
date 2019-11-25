@@ -13,28 +13,26 @@ import { ETH, SDC, LUV } from '../constants/CurrencyConstants';
 class AccountActions extends BaseActions {
 
 	/**
-	 * Create and save encrypted private key from password, mnemonic
+	 * Create and save encrypted account from password, mnemonic
 	 * Set in store encryptedPrivateKey, checkSum, address
 	 * @param {string} pinCode
 	 * @param {string} mnemonic
 	 * @returns {Function}
 	 */
-	createAndEncryptPrivateKey(pinCode, mnemonic) {
+	createAndEncryptAccount(pinCode, mnemonic) {
 		return (dispatch) => {
 			try {
 				if (!pinCode || !walletService.isValidMnemonic(mnemonic)) {
 					throw new Error(IMPOSSIBLE_TO_CREATE_WALLET_ERROR);
 				}
 
-				const { checkSum, encryptedPrivateKey, address } = walletService.getEncryptedPrivateKey(pinCode, mnemonic);
+				const encryptedAccount = walletService.getEncryptedAccount(pinCode, mnemonic);
 				const encryptedMnemonic = walletService.encryptOrDecryptData(mnemonic, pinCode, 'utf8').toString('hex');
 
 				localStorage.setItem('encryptedMnemonic', encryptedMnemonic);
-				localStorage.setItem('checkSum', checkSum);
-				localStorage.setItem('encryptedPrivateKey', encryptedPrivateKey);
-				localStorage.setItem('address', address);
+				localStorage.setItem('account', JSON.stringify(encryptedAccount));
 
-				dispatch(this.authorisation({ address }));
+				dispatch(this.authorisation({ address: encryptedAccount.address }));
 			} catch (error) {
 				alert(error.message);
 				throw error;
@@ -51,7 +49,7 @@ class AccountActions extends BaseActions {
 	 */
 	createWallet(pinCode, mnemonic) {
 		return (dispatch) => {
-			dispatch(this.createAndEncryptPrivateKey(pinCode, mnemonic));
+			dispatch(this.createAndEncryptAccount(pinCode, mnemonic));
 		};
 	}
 
@@ -112,21 +110,22 @@ class AccountActions extends BaseActions {
 	 */
 	logout() {
 		return (dispatch) => {
-			localStorage.removeItem('checkSum');
-			localStorage.removeItem('encryptedPrivateKey');
 			localStorage.removeItem('encryptedMnemonic');
-			localStorage.removeItem('address');
+			localStorage.removeItem('account');
 
 			clearInterval(this.updateBalanceInterval);
 			dispatch(this.clear());
 		};
 	}
 
+	/**
+	 * Validate pin code
+	 * @param {string} pinCode
+	 * @returns {boolean}
+	 */
 	validatePinCode(pinCode) {
-		return () => {
-			const decryptedPrivateKey = walletService.getPrivateKeyInBuffer(localStorage.getItem('encryptedPrivateKey'), pinCode);
-			return walletService.comparePrivateKeyWithCheckSum(decryptedPrivateKey, localStorage.getItem('checkSum'));
-		};
+		const account = JSON.parse(localStorage.getItem('account'));
+		return !!ethService.accountDecrypt(account, pinCode);
 	}
 
 	/**
@@ -144,6 +143,10 @@ class AccountActions extends BaseActions {
 			const mnemonic = localStorage.getItem('encryptedMnemonic');
 			return this.decryptMnemonic(mnemonic, pinCode);
 		};
+	}
+
+	decryptAndWalletAdd(pinCode) {
+		return ethService.decryptAndWalletAdd(JSON.parse(localStorage.getItem('account')), pinCode);
 	}
 
 }

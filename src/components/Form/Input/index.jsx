@@ -34,24 +34,20 @@ class Input extends React.Component {
 				<div className={`input-field ${className || ''}`}>
 					{ title && <div className="input-field__title">{title}</div>}
 					<div className={`input-field__input ${label ? 'with-label' : ''} ${value || isFocused ? 'is-filled' : ''} ${readOnly ? 'read-only' : ''} ${isError || error ? ' is-error' : ''}`}>
-						{
-							<input
-								autoComplete="off"
-								value={value}
-								onFocus={() => this.onFocus()}
-								onBlur={() => this.onBlur()}
-								onChange={(e) => this.onChange(e)}
-								readOnly={readOnly}
-								type={type}
-								{...props}
-							/>
-						}
+						{<input
+							autoComplete="off"
+							value={value}
+							onFocus={() => this.onFocus()}
+							onBlur={() => this.onBlur()}
+							onChange={(e) => this.onChange(e)}
+							readOnly={readOnly}
+							type={type}
+							{...props}
+						/>}
 						{children}
 						{label && <div className="input-field__label">{label}</div>}
 					</div>
-					{
-						error && <div className="input-field__error">{error}</div>
-					}
+					{error && <div className="input-field__error">{error}</div>}
 				</div>
 			</React.Fragment>
 		);

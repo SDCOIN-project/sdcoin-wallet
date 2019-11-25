@@ -1,7 +1,7 @@
 import React from 'react';
 import Media from 'react-media';
 import Input from './../../../../components/Form/Input';
-import Select from './../../../../components/Form/Select';
+import SelectCurrency from './../../../../components/Form/SelectCurrency';
 import Header from './../../../../containers/Layout/Header';
 
 
@@ -61,7 +61,7 @@ const Receive = () => (
 			<form action="" className="dashboard-form">
 				<div className="dashboard-form__row">
 					<div className="dashboard-form__row-title">Select token:</div>
-					<Select
+					<SelectCurrency
 						selection
 						name="pair"
 						options={SelectDate}

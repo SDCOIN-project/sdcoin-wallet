@@ -2,29 +2,16 @@
 import Web3 from 'web3';
 import BN from 'bignumber.js';
 
-import { WEB3_IS_UNAVAILABLE_ERROR } from '../constants/ErrorConstants';
-
 class Web3Service {
 
 	constructor() {
 		this._web3 = null;
 	}
 
-	/**
-	 * Get web3 instance
-	 */
-	init() {
-		const provider = new Web3.providers.HttpProvider(__APP_NETWORK_URL__);
-
-		this._web3 = new Web3(provider);
-		if (!this._web3) {
-			throw new Error(WEB3_IS_UNAVAILABLE_ERROR);
-		}
-	}
-
 	get web3() {
 		if (!this._web3) {
-			throw new Error(WEB3_IS_UNAVAILABLE_ERROR);
+			const provider = new Web3.providers.HttpProvider(__APP_NETWORK_URL__);
+			this._web3 = new Web3(provider);
 		}
 		return this._web3;
 	}
@@ -47,6 +34,15 @@ class Web3Service {
 	 */
 	fromWei(amount, rate) {
 		return new BN(this.web3.utils.fromWei(amount, rate));
+	}
+
+	/**
+	 * Convert amount from wei to ether
+	 * @param {BigNumber|string} amount
+	 * @returns {number}
+	 */
+	fromWeiToEther(amount) {
+		return this.fromWei(amount, 'ether').toNumber();
 	}
 
 	/**

@@ -17,6 +17,10 @@
 	}
 }
 
+.loading-container {
+	position: relative;
+}
+
 .loading {
 	display: block;
 	width: 27px;
@@ -24,6 +28,9 @@
 	background-size: contain;
 	animation: spin 1s linear infinite;
 	background-repeat: no-repeat;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%);
 }
 
 .loading-white-icon {

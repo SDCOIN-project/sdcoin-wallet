@@ -21,6 +21,14 @@
 	}
 
 	&-form {
+		display: flex;
+		flex-direction: column;
+
+		&.with-controls {
+			flex-grow: 1;
+			margin-bottom: 0;
+		}
+
 		&__row {
 			display: flex;
 			align-items: center;
@@ -30,6 +38,10 @@
 				margin-right: 20px;
 				color: #7e8c9b;
 				font-size: 16px;
+			}
+
+			&.mt10 {
+				margin-top: 10px;
 			}
 
 			&.mt30 {
@@ -134,4 +146,9 @@
 	.dashboard-arrow-line__container.no-border {
 		border: 0;
 	}
+}
+
+.wrapper-transaction{
+	position: relative;
+	z-index: 10;
 }

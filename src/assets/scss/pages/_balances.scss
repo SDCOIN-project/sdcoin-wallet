@@ -328,9 +328,11 @@
 
 	.loading-container {
 		min-height: 62px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+
+		.loading.loading-blue-icon {
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
 	}
 }
 

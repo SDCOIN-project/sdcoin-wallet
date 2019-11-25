@@ -10,7 +10,7 @@ import accountActions from '../../../../../actions/AccountActions';
 import { SETTINGS_PATH } from '../../../../../constants/RouterConstants';
 import Button from '../../../../../components/Form/Button';
 
-const Backup = ({ history, validatePinCode, backupMnemonic }) => {
+const Backup = ({ history, backupMnemonic }) => {
 	const [step, setStep] = useState(1);
 	const [mnemonic, setMnemonic] = useState(null);
 	const [btnCopyTitle, setBtnCopyTitle] = useState('Copy');
@@ -47,7 +47,7 @@ const Backup = ({ history, validatePinCode, backupMnemonic }) => {
 			return (
 				<ValidatePinCode
 					title="Enter PIN"
-					validate={(pinCode) => validatePinCode(pinCode)}
+					validate={(pinCode) => accountActions.validatePinCode(pinCode)}
 					onSubmit={(pinCode) => onSubmit(pinCode)}
 					onBack={() => history.push(SETTINGS_PATH)}
 				/>
@@ -57,7 +57,6 @@ const Backup = ({ history, validatePinCode, backupMnemonic }) => {
 
 Backup.propTypes = {
 	history: PropTypes.object,
-	validatePinCode: PropTypes.func.isRequired,
 	backupMnemonic: PropTypes.func.isRequired,
 };
 
@@ -68,7 +67,6 @@ Backup.defaultProps = {
 export default connect(
 	() => ({}),
 	(dispatch) => ({
-		validatePinCode: (pinCode) => dispatch(accountActions.validatePinCode(pinCode)),
 		backupMnemonic: (pinCode) => dispatch(accountActions.backupMnemonic(pinCode)),
 	}),
 )(Backup);

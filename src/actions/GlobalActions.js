@@ -1,7 +1,6 @@
 import GlobalReducer from '../reducers/GlobalReducer';
 import BaseActions from './BaseActions';
 import accountActions from './AccountActions';
-import web3Service from '../services/Web3Service';
 
 class GlobalActions extends BaseActions {
 
@@ -28,15 +27,13 @@ class GlobalActions extends BaseActions {
 	init() {
 		return (dispatch) => new Promise((resolve) => {
 			try {
-				web3Service.init();
-
 				Promise.all([
 					// Load data after start page
 				]).then((data) => {
 					dispatch(this.afterInit()).then(() => {});
-					const address = localStorage.getItem('address');
-					if (address) {
-						dispatch(accountActions.authorisation({ address }));
+					const account = JSON.parse(localStorage.getItem('account'));
+					if (account) {
+						dispatch(accountActions.authorisation({ address: account.address }));
 					}
 					resolve(data);
 				}).catch((error) => {
