@@ -1,5 +1,5 @@
 import React from 'react';
-import Media from 'react-media';
+import MediaQuery from 'react-responsive';
 import Input from './../../../../components/Form/Input';
 import SelectCurrency from './../../../../components/Form/SelectCurrency';
 import Header from './../../../../containers/Layout/Header';
@@ -44,12 +44,9 @@ const Receive = () => (
 			{/* <p className="receive-page__text-prefix">or</p> */}
 			{/* <a href="#" className="receive-page__text-signature">Generate payment QR code</a> */}
 			<div className="dashboard-form__row transaction-information">
-				<Media
-					query="(min-width: 375px)"
-					render={() => (
-						<p className="transaction-information__title">Address</p>
-					)}
-				/>
+				<MediaQuery minWidth={375}>
+					<p className="transaction-information__title">Address</p>
+				</MediaQuery>
 				<div className="transaction-information__container">
 					<p className="transaction-information__text">0xea674fdde714fd979de3edf0f56aa9716b898ec8</p>
 					{/* to play animation add - "is-active" */}

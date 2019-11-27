@@ -183,6 +183,7 @@
 	font-size: 17px;
 	line-height: 18px;
 	transition: all 0.2s ease-out;
+	@include CircularStd_Book;
 
 	&__container {
 		width: 28px;

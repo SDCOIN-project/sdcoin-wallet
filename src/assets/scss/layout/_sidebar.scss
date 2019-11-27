@@ -1,5 +1,4 @@
 .sidebar {
-	// height: 50px;
 	min-height: 50px;
 	background-color: #f5f6f9;
 	display: flex;
@@ -21,6 +20,7 @@
 		padding-bottom: 4px;
 		text-decoration: none;
 		line-height: 10px;
+		transition: all 0.2s ease-out;
 
 		&.is-active {
 			color: #519bfc;

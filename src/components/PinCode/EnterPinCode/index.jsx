@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Media from 'react-media';
+import MediaQuery from 'react-responsive';
 import Button from './../../Form/Button';
 
 const MAX_SYMBOL = 6;
@@ -45,7 +45,7 @@ const EnterPinCode = ({
 				</div>
 				<span className="back-button__text">Back</span>
 			</a>
-			<div className="pin-page__title with-subtitle">
+			<div className="pin-page__title">
 				<span>{title}</span>
 			</div>
 			<div className="pin-page__wrapper">
@@ -54,6 +54,8 @@ const EnterPinCode = ({
 						// eslint-disable-next-line react/no-array-index-key
 						<div key={key} className={`pin-page__password-check-item ${key <= pinCode.length - 1 ? 'is-white' : ''}`} />)
 					}
+					{/* loading */}
+					{/* <i className="loading loading-white-icon" /> */}
 				</div>
 				<div className="pin-page__keyboard">
 					{numbers.map((number) => (
@@ -75,23 +77,25 @@ const EnterPinCode = ({
 						<i className="is-icon face-id-white-icon" />
 						<span>You can use Face ID</span>
 					</div> */}
-
-					<Media query="(max-width: 374px)">
-						{(matches) =>
-							(matches ? (
-								<div className="pin-page-list large-block">
-									<div className="pin-page-list__container">
-										<span>You can use</span>
-										<div className="pin-page-list__item ">
-											<i className="is-icon fingerprint-white-icon" />
-										</div>
-										<span>or</span>
-										<div href="#" className="pin-page-list__item">
-											<i className="is-icon face-id-white-icon" />
+					<MediaQuery maxWidth={374}>
+						{(matches) => {
+							if (matches) {
+								return (
+									<div className="pin-page-list large-block">
+										<div className="pin-page-list__container">
+											<span>You can use</span>
+											<div className="pin-page-list__item ">
+												<i className="is-icon fingerprint-white-icon" />
+											</div>
+											<span>or</span>
+											<div href="#" className="pin-page-list__item">
+												<i className="is-icon face-id-white-icon" />
+											</div>
 										</div>
 									</div>
-								</div>
-							) : (
+								);
+							}
+							return (
 								<div className="pin-page-list large-block">
 									<p>Also you can use</p>
 									<div className="pin-page-list__container">
@@ -106,9 +110,9 @@ const EnterPinCode = ({
 										</div>
 									</div>
 								</div>
-							))
-						}
-					</Media>
+							);
+						}}
+					</MediaQuery>
 					<Button className="is-transparent is-white pin-page__button" onClick={() => onDeleteNumber()}>
 						Delete
 					</Button>

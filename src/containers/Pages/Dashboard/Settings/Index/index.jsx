@@ -1,13 +1,12 @@
 import React from 'react';
-// import Media from 'react-media';
+// import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
 import Header from './../../../../Layout/Header';
 import Switcher from './../../../../../components/Form/Switcher';
-// import Button from './../../../../components/Form/Button';
-// import Notification from './../../../../components/Notifications';
+// import Button from './../../../../../components/Form/Button';
+// import Notification from './../../../../../components/Notifications';
 
 import AccountActions from '../../../../../actions/AccountActions';
 import { BACKUP_PATH, CHANGE_PASSWORD_PATH } from '../../../../../constants/RouterConstants';
@@ -25,7 +24,7 @@ const Index = ({ logout }) => (
 					<i className="is-icon arrow-gray-icon" />
 				</div>
 			</NavLink>
-			<a href="#" className="dashboard-arrow-line">
+			<a href="#" className="dashboard-arrow-line no-active-effect">
 				<div className="icon-container">
 					<i className="is-icon fingerprint-icon" />
 				</div>
@@ -48,43 +47,42 @@ const Index = ({ logout }) => (
 				</div>
 			</a>
 			{/* <div className="notification-list"> */}
-			{/*	<Notification > */}
-			{/*		<div className="notification-list__item-container-left"> */}
-			{/*			<span className="text">Something has happened</span> */}
-			{/*		</div> */}
-			{/*		<div className="notification-list__item-container-right"> */}
-			{/*			<Button className="notification-button">Accept</Button> */}
-			{/*		</div> */}
-			{/*	</Notification> */}
-			{/*	<Notification> */}
-			{/*		<div className="notification-list__item-container-left payment"> */}
-			{/*			<i className="is-icon bell-white-icon" /> */}
-			{/*			<Media query="(max-width: 374px)"> */}
-			{/*				{(matches) => */}
-			{/*					(matches ? ( */}
-			{/*						<span className="text">New incoming payment</span> */}
-			{/*					) : ( */}
-			{/*						<span className="text">You have new incoming payment</span> */}
-			{/*					)) */}
-			{/*				} */}
-			{/*			</Media> */}
-			{/*		</div> */}
-			{/*		<div className="notification-list__item-container-right"> */}
-			{/*			<Button className="qr-code-button"> */}
-			{/*				<i className="is-icon qr-code-small-white-icon" /> */}
-			{/*				<span>Get Payment</span> */}
-			{/*			</Button> */}
-			{/*		</div> */}
-			{/*	</Notification> */}
-			{/*	<Notification close={false}> */}
-			{/*		<div className="notification-list__item-container-left"> */}
-			{/*			<i className="is-icon lock-white-icon" /> */}
-			{/*			<span className="text">PIN has been changed successfully!</span> */}
-			{/*		</div> */}
-			{/*		<div className="notification-list__item-container-right"> */}
-			{/*			<Button className="notification-button is-notification-button-small">OK</Button> */}
-			{/*		</div> */}
-			{/*	</Notification> */}
+			{/* <Notification >
+					<div className="notification-list__item-container-left">
+						<span className="text">Something has happened</span>
+					</div>
+					<div className="notification-list__item-container-right">
+						<Button className="notification-button">Accept</Button>
+					</div>
+				</Notification>
+				<Notification>
+					<div className="notification-list__item-container-left payment">
+						<i className="is-icon bell-white-icon" />
+						<MediaQuery maxWidth={374}>
+							{(matches) => {
+								if (matches) {
+									return (<span className="text">New incoming payment</span>);
+								}
+								return (<span className="text">You have new incoming payment</span>);
+							}}
+						</MediaQuery>
+					</div>
+					<div className="notification-list__item-container-right">
+						<Button className="qr-code-button">
+							<i className="is-icon qr-code-small-white-icon" />
+							<span>Get Payment</span>
+						</Button>
+					</div>
+				</Notification>
+				<Notification close={false}>
+					<div className="notification-list__item-container-left">
+						<i className="is-icon lock-white-icon" />
+						<span className="text">PIN has been changed successfully!</span>
+					</div>
+					<div className="notification-list__item-container-right">
+						<Button className="notification-button is-notification-button-small">OK</Button>
+					</div>
+				</Notification> */}
 			{/* </div> */}
 			<NavLink to={BACKUP_PATH} className="dashboard-arrow-line">
 				<div className="icon-container">

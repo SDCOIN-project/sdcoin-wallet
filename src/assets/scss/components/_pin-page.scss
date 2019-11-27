@@ -7,7 +7,7 @@
 	flex-direction: column;
 
 	&-back-button {
-		padding-top: 20px;
+		padding-top: 15px;
 	}
 
 	&__wrapper {
@@ -52,11 +52,13 @@
 	&__password-check {
 		display: flex;
 		justify-content: center;
-		margin-bottom: 50px;
+		// margin-bottom: 50px;
 		width: max-content;
 		margin-left: auto;
 		margin-right: auto;
 		margin-bottom: 30px;
+		position: relative;
+		min-height: 13px;
 
 		&.wrong-pin {
 			animation: wrongPin 0.4s linear;
@@ -77,6 +79,11 @@
 				border: 0;
 				background: #fff;
 			}
+		}
+
+		.loading {
+			top: 50%;
+			transform: translate(-50%, -50%);
 		}
 	}
 
