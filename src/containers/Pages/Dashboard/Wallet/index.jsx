@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Balances from './Balances';
 import TransactionHistory from './TransactionHistory';
 
-
-const Wallet = () => (
-	<React.Fragment>
-		<Balances />
-		<TransactionHistory />
-	</React.Fragment>
-);
+const Wallet = () => {
+	const [parent, setParent] = useState(null);
+	return (
+		<div ref={(ref) => { setParent(ref); }}>
+			<Balances />
+			<TransactionHistory parent={() => parent} />
+		</div>
+	);
+};
 
 export default Wallet;

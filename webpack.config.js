@@ -97,6 +97,7 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(['www']),
 		new webpack.DefinePlugin({
+			__API_URL__: JSON.stringify(config.api),
 			__APP_NETWORK_URL__: JSON.stringify(config.network.url),
 			__APP_CONTRACT_LUV_TOKEN__: JSON.stringify(config.contracts.luvToken),
 			__APP_CONTRACT_SDC_TOKEN__: JSON.stringify(config.contracts.sdcToken),

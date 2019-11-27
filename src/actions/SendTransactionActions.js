@@ -1,7 +1,7 @@
 import { CURRENCY_NOT_FOUND } from '../constants/ErrorConstants';
 import { CURRENCY_SERVICES } from '../constants/CurrencyConstants';
 
-class TransactionsActions {
+class SendTransactionsActions {
 
 	/**
 	 * Transfer amount for currencies ETH, SDC, LUV
@@ -54,5 +54,5 @@ class TransactionsActions {
 
 }
 
-const transactionsActions = new TransactionsActions();
-export default transactionsActions;
+const sendTransactionsActions = new SendTransactionsActions();
+export default sendTransactionsActions;

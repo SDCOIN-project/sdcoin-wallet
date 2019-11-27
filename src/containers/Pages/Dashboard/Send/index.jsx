@@ -18,7 +18,7 @@ import ethService from '../../../../services/EthService';
 import { CURRENCIES, ETH } from '../../../../constants/CurrencyConstants';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
 import TransactionBuilder from '../../../../components/TransactionBuilder';
-import transactionActions from '../../../../actions/TransactionActions';
+import sendTransactionActions from '../../../../actions/SendTransactionActions';
 import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
 import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
 
@@ -205,8 +205,8 @@ export default connect(
 		balances: state.account.get('balances').toJSON(),
 	}),
 	(dispatch) => ({
+		transferEstimateGas: (currency) => dispatch(sendTransactionActions.transferEstimateGas(currency)),
+		transferSend: (values) => dispatch(sendTransactionActions.transferSend(values)),
 		scanQrCode: (params) => dispatch(scanQrCodeActions.scan(params)),
-		transferEstimateGas: (currency) => dispatch(transactionActions.transferEstimateGas(currency)),
-		transferSend: (values) => dispatch(transactionActions.transferSend(values)),
 	}),
 )(Send);

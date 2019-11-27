@@ -222,10 +222,11 @@
 }
 
 .transaction-history {
-	margin-bottom: 50px;
-	height: calc(100vh - 345px);
-	overflow: auto;
-	margin-bottom: 0;
+    margin-bottom: 45px;
+  	// TODO: fix
+  	//margin-bottom: 0;
+  	height: calc(100vh - 345px);
+	//overflow: auto;
 	@include res-375 {
 		height: calc(100vh - 312px);
 	}
@@ -363,6 +364,13 @@
 		}
 	}
 
+	&__empty {
+	  display: flex;
+	  justify-content: center;
+	  margin-top: 58px;
+	  color: #7e8c9b;
+	}
+
 	.loading-container {
 		min-height: 62px;
 
@@ -379,4 +387,13 @@
 	font-size: 12px;
 	text-transform: uppercase;
 	margin-left: 5px;
+}
+
+.loading-container-balances {
+  height: calc(100vh - 345px);
+
+  .loading {
+	top: 50%;
+	transform: translate(-50%, -50%);
+  }
 }

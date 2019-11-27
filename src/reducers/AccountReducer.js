@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 import _ from 'lodash';
 import TransformModules from '../utils/TransformModules';
 
-import { CURRENCIES } from '../constants/CurrencyConstants';
+import { CURRENCIES, SDC } from '../constants/CurrencyConstants';
 
 export const DEFAULT_FIELDS = Map({
 	address: null,
@@ -11,6 +11,7 @@ export const DEFAULT_FIELDS = Map({
 		obj[currency] = '0';
 		return obj;
 	}, {})),
+	selectedCurrency: SDC,
 });
 
 export default createModule({

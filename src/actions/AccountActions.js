@@ -6,7 +6,7 @@ import walletService from '../services/WalletService';
 import ethService from '../services/EthService';
 
 import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED, MNEMONIC_NOT_FOUND } from '../constants/ErrorConstants';
-import { CURRENCY_SERVICES } from '../constants/CurrencyConstants';
+import { CURRENCY_SERVICES, CURRENCIES } from '../constants/CurrencyConstants';
 
 class AccountActions extends BaseActions {
 
@@ -64,7 +64,7 @@ class AccountActions extends BaseActions {
 
 			clearInterval(this.updateBalanceInterval);
 
-			dispatch(this.setValue('address', address));
+			dispatch(this.setValue('address', `0x${address}`));
 
 			dispatch(this.getBalances());
 			this.updateBalanceInterval = setInterval(() => {
@@ -111,6 +111,18 @@ class AccountActions extends BaseActions {
 	}
 
 	/**
+	 * Set selected currency
+	 * @param {string} selectedCurrency
+	 * @returns {Function}
+	 */
+	setSelectedCurrency(selectedCurrency) {
+		return (dispatch) => {
+			if (!CURRENCIES.includes(selectedCurrency)) return;
+			dispatch(this.setValue('selectedCurrency', selectedCurrency));
+		};
+	}
+
+	/**
 	 * Validate pin code
 	 * @param {string} pinCode
 	 * @returns {boolean}
@@ -142,6 +154,7 @@ class AccountActions extends BaseActions {
 	decryptAndWalletAdd(pinCode) {
 		return ethService.decryptAndWalletAdd(JSON.parse(localStorage.getItem('account')), pinCode);
 	}
+
 
 }
 

@@ -55,6 +55,8 @@ class WalletService {
 		const hdWallet = hdKey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
 		const wallet = hdWallet.derivePath(DERIVATION_PATH).getWallet();
 
+		console.log('!PK', `0x${wallet.getPrivateKey().toString('hex')}`);
+
 		return ethService.accountEncrypt(`0x${wallet.getPrivateKey().toString('hex')}`, password);
 	}
 

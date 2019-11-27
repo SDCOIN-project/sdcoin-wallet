@@ -1,37 +1,62 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import moment from 'moment';
+
+import history from '../../../../../history';
+
 import Header from './../../../../Layout/Header';
+import web3Service from '../../../../../services/Web3Service';
+import { DASHBOARD_PATH } from '../../../../../constants/RouterConstants';
 
 
-const TransactionDetails = () => (
+const TransactionDetails = ({ selectedCurrency, address, selectedTransaction }) => (selectedTransaction && Object.keys(selectedTransaction).length ? (
 	<React.Fragment>
-		<Header className="header-transaction-details">
+		<Header backButton={() => history.push(DASHBOARD_PATH)} className="header-transaction-details">
 			<div className="header-transaction-details__title">
-				25.07<div className="postfix">SDC</div>
+				{web3Service.fromWei(selectedTransaction.value, 'ether').toNumber()}<div className="postfix">{selectedCurrency}</div>
 			</div>
 			<div className="header-transaction-details__text">
-				<p>Received</p>
+				<p>{selectedTransaction.from === address ? 'Send' : 'Received'}</p>
 			</div>
 		</Header>
 		<div className="dashboard transaction-details-page">
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">Date</div>
-				<div className="dashboard-stripe__text">October 30, 08:57</div>
+				<div className="dashboard-stripe__text">{moment(selectedTransaction.utc).format('MMM DD, HH:mm')}</div>
 			</div>
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">From</div>
-				<div className="dashboard-stripe__text">0x542cc7300EbE9ba4Bb5C8E646C82cfE83f995014</div>
+				<div className="dashboard-stripe__text">{selectedTransaction.from}</div>
 			</div>
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">To</div>
-				<div className="dashboard-stripe__text">5C8E646C82cfE83f9950140x542cc7300EbE9ba4Bb</div>
+				<div className="dashboard-stripe__text">{selectedTransaction.to}</div>
 			</div>
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">Transaction hash</div>
-				<div className="dashboard-stripe__text">0xdede4a8308233dbe75174f2c1755c2a2b189c5b4f746afa2354a759ae25db004</div>
+				<div className="dashboard-stripe__text">{selectedTransaction.hash || selectedTransaction.transaction_hash}</div>
 			</div>
 		</div>
 	</React.Fragment>
-);
+) : <Redirect to={DASHBOARD_PATH} />);
 
+TransactionDetails.propTypes = {
+	selectedCurrency: PropTypes.string.isRequired,
+	address: PropTypes.string.isRequired,
+	selectedTransaction: PropTypes.object,
+};
 
-export default TransactionDetails;
+TransactionDetails.defaultProps = {
+	selectedTransaction: {},
+};
+
+export default connect(
+	(state) => ({
+		selectedCurrency: state.account.get('selectedCurrency'),
+		address: state.account.get('address'),
+		selectedTransaction: state.transaction.get('selectedTransaction').toJS(),
+	}),
+	() => ({}),
+)(TransactionDetails);

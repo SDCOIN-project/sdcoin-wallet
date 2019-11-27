@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import history from '../../../../../history';
+
 import Header from '../../../../Layout/Header';
 import Button from '../../../../../components/Form/Button';
 
 import walletService from '../../../../../services/WalletService';
+
+import { WALLET_PATH } from '../../../../../constants/RouterConstants';
 
 const ImportWallet = ({ onNext }) => {
 
@@ -39,7 +43,7 @@ const ImportWallet = ({ onNext }) => {
 
 	return (
 		<div className="dashboard-container">
-			<Header title="Import wallet" />
+			<Header backButton={() => history.push(WALLET_PATH)} title="Import wallet" />
 			<div className="dashboard wallet-page import-wallet-page">
 				<div className="wallet-page__text">Please insert your BrainKey to continue</div>
 				<Formik
