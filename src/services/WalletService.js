@@ -50,7 +50,7 @@ class WalletService {
 	 * @returns {EncryptedKeystoreV3Json}
 	 */
 	getEncryptedAccount(password, mnemonic) {
-		const DERIVATION_PATH = "m/0'/0'/0'/0";
+		const DERIVATION_PATH = "m/44'/60'/0'/0/0";
 
 		const hdWallet = hdKey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
 		const wallet = hdWallet.derivePath(DERIVATION_PATH).getWallet();

@@ -10,7 +10,7 @@ import PaymentInfo2 from './Receive/PaymentInfo2';
 import Settings from './Settings';
 import ExchangeFunds from './ExchangeFunds';
 import TransactionDetails from './Wallet/TransactionDetails';
-import PaymentDetails from './Send/PaymentDetails';
+import PaymentDetails from './Receive/PaymentDetails';
 
 import PageNotFound from '../PageNotFound';
 

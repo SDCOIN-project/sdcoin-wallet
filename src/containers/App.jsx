@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Toast from '../components/Toast';
 import { InfoModal } from '../components/Modals';
+import ScanQrCode from '../components/ScanQrCode';
 
-const App = ({ children }) => {
+const App = ({ children, isActiveCamera }) => {
 
 	const renderModals = () => (
 		<React.Fragment>
@@ -13,16 +15,26 @@ const App = ({ children }) => {
 	);
 
 	return (
-		<div className="wrapper">
-			{children}
+		<div className="wrapper" style={{ backgroundColor: isActiveCamera ? 'transparent' : 'white' }}>
+			<div style={{ display: isActiveCamera ? 'none' : 'block' }}>
+				{children}
+			</div>
 			{renderModals()}
 			<Toast />
+			<ScanQrCode />
 		</div>
 	);
 };
 
 App.propTypes = {
 	children: PropTypes.element.isRequired,
+	isActiveCamera: PropTypes.bool.isRequired,
 };
 
-export default App;
+export default connect(
+	(state) => ({
+		isActiveCamera: state.scanQrCode.get('show'),
+	}),
+	() => ({}),
+)(App);
+

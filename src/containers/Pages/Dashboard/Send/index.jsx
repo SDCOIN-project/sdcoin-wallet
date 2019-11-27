@@ -19,8 +19,8 @@ import { CURRENCIES, ETH } from '../../../../constants/CurrencyConstants';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
 import TransactionBuilder from '../../../../components/TransactionBuilder';
 import transactionActions from '../../../../actions/TransactionActions';
+import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
 import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
-
 
 const DEFAULT_CURRENCY = ETH;
 
@@ -31,7 +31,7 @@ const initialValues = () => ({
 });
 
 const Send = ({
-	balances, transferSend, transferEstimateGas,
+	balances, transferSend, transferEstimateGas, scanQrCode,
 }) => {
 
 	const [gas, setGas] = useState(0);
@@ -53,6 +53,24 @@ const Send = ({
 
 		return transferSend({
 			...values, amount, gas, gasPrice,
+		});
+	};
+
+	const onScanQrCode = (e, setFieldValue) => {
+		e.preventDefault();
+		scanQrCode({
+			description: 'Scan QRcode to get recipient address',
+			onScan: (qrCodeData) => {
+				const arrAddress = qrCodeData.split(':');
+
+				if (web3Service.web3.utils.isAddress(qrCodeData)) {
+					setFieldValue('address', qrCodeData);
+				} else if (arrAddress[0] === 'ethereum' && web3Service.web3.utils.isAddress(arrAddress[1])) {
+					setFieldValue('address', arrAddress[1]);
+				} else {
+					alert('Address in QR Code is not found');
+				}
+			},
 		});
 	};
 
@@ -98,7 +116,7 @@ const Send = ({
 		>
 			{({ submitTransaction }) => (
 				<React.Fragment>
-					<Header backButton={false} title="Send" />
+					<Header title="Send" />
 					<div className="dashboard send-page">
 						<Formik
 							initialValues={initialValues()}
@@ -137,7 +155,7 @@ const Send = ({
 											value={values.address}
 											error={errors.address}
 										/>
-										<a href="#" className="qr-code-small-container">
+										<a href="#" onClick={(e) => onScanQrCode(e, setFieldValue)} className="qr-code-small-container">
 											<i className="is-icon qr-code-small-blue-icon" />
 										</a>
 									</div>
@@ -178,6 +196,7 @@ Send.propTypes = {
 	balances: PropTypes.object.isRequired,
 	transferSend: PropTypes.func.isRequired,
 	transferEstimateGas: PropTypes.func.isRequired,
+	scanQrCode: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -186,6 +205,7 @@ export default connect(
 		balances: state.account.get('balances').toJSON(),
 	}),
 	(dispatch) => ({
+		scanQrCode: (params) => dispatch(scanQrCodeActions.scan(params)),
 		transferEstimateGas: (currency) => dispatch(transactionActions.transferEstimateGas(currency)),
 		transferSend: (values) => dispatch(transactionActions.transferSend(values)),
 	}),

@@ -191,7 +191,18 @@
 	}
 }
 
-.wrapper-transaction{
+.wrapper-transaction {
 	position: relative;
 	z-index: 10;
+}
+
+.show-top {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	// background: #fff;
+	background: transparent;
+	z-index: 2;
 }

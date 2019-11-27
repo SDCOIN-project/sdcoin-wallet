@@ -14,7 +14,7 @@ import { BACKUP_PATH, CHANGE_PASSWORD_PATH } from '../../../../../constants/Rout
 
 const Index = ({ logout }) => (
 	<React.Fragment>
-		<Header backButton={false} title="Settings" />
+		<Header title="Settings" />
 		<div className="dashboard settings-page">
 			<NavLink to={CHANGE_PASSWORD_PATH} className="dashboard-arrow-line">
 				<div className="icon-container">

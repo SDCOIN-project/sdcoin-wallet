@@ -32,13 +32,14 @@
 				"copy-to-clipboard": "^3.2.0",
 				"cordova-android": "^8.1.0",
 				"cordova-ios": "^5.0.1",
+				"cordova-plugin-qrscanner": "^3.0.1",
 				"core-js": "^2.5.7",
 				"es6-object-assign": "^1.1.0",
 				"es6-promise": "^4.2.4",
 				"ethereumjs-util": "6.1.0",
 				"ethereumjs-wallet": "^0.6.3",
 				"file-loader": "^1.1.11",
-				"formik": "^1.5.8",
+				"formik": "^2.0.6",
 				"history": "^4.7.2",
 				"immutable": "^3.8.2",
 				"lodash": "^4.17.15",
@@ -91,7 +92,8 @@
 		},
 		"cordova": {
 				"plugins": {
-						"cordova-plugin-whitelist": {}
+						"cordova-plugin-whitelist": {},
+						"cordova-plugin-qrscanner": {}
 				},
 				"platforms": [
 						"ios",

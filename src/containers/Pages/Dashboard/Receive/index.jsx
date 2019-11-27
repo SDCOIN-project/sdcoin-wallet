@@ -16,7 +16,7 @@ const SelectDate = [
 const Receive = () => (
 
 	<React.Fragment>
-		<Header backButton={false} title="Receive" />
+		<Header title="Receive" />
 		<div className="dashboard receive-page">
 			<form action="" className="dashboard-form">
 				<div className="dashboard-form__row">

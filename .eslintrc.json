@@ -68,6 +68,7 @@
 		"__APP_EXPLORER_ADDRESS__": false,
 		"__APP_CONTRACT_SWAP__": false,
 		"__APP_CONTRACT_ESCROW__": false,
-		"Camera": false
+		"Camera": false,
+		"QRScanner": false
 	}
 }

@@ -6,7 +6,7 @@ const Header = ({
 }) => (
 	<header className={`header ${className}`} {...props}>
 		{backButton &&
-			<a href="#" className="back-button">
+			<a href="#" onClick={(e) => backButton(e)} className="back-button">
 				<div className="back-button__container">
 					<i className="is-icon back-button-icon" />
 				</div>
@@ -22,14 +22,14 @@ const Header = ({
 
 Header.propTypes = {
 	className: PropTypes.string,
-	backButton: PropTypes.bool,
+	backButton: PropTypes.func,
 	title: PropTypes.string,
 	children: PropTypes.any,
 };
 
 Header.defaultProps = {
 	className: '',
-	backButton: true,
+	backButton: null,
 	title: '',
 	children: null,
 };

@@ -92,6 +92,7 @@
 			grid-column-gap: 18px;
 			grid-row-gap: 8px;
 		}
+
 		&-item {
 			@include res-375 {
 				width: 65px;

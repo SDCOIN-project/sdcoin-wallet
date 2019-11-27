@@ -5,7 +5,7 @@ import Button from './../../../../../components/Form/Button';
 
 const PaymentDetails = () => (
 	<React.Fragment>
-		<Header title="Payment details" backButton={false} />
+		<Header title="Payment details" />
 		<div className="dashboard payment-details-page">
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">Currency</div>
