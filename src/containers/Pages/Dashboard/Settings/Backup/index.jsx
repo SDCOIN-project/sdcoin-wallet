@@ -32,7 +32,7 @@ const Backup = ({ history }) => {
 		case 2:
 			return (
 				<React.Fragment>
-					<Header title="Backup" />
+					<Header backButton={() => history.push(SETTINGS_PATH)} title="Backup" />
 					<div className="dashboard backup-page">
 						<div className="backup-page__text">
 							Write down your BrainKey

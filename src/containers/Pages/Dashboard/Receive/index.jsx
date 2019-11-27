@@ -38,7 +38,7 @@ const Receive = () => (
 			</form>
 			{/* to reduce the block you need to add the class "is-small" */}
 			<div className="scan-qr-code-block">
-				<img className="img-placeholder" src="/images/placeholder-qr-code.svg" alt="Placeholder qr code" />
+				<img className="img-placeholder" src="../images/placeholder-qr-code.svg" alt="Placeholder qr code" />
 			</div>
 			<a href="#" className="receive-page__text-signature">Share QR code</a>
 			{/* <p className="receive-page__text-prefix">or</p> */}

@@ -6,7 +6,14 @@ const Header = ({
 }) => (
 	<header className={`header ${className}`} {...props}>
 		{backButton &&
-			<a href="#" onClick={(e) => backButton(e)} className="back-button">
+			<a
+				href="#"
+				onClick={(e) => {
+					e.preventDefault();
+					backButton(e);
+				}}
+				className="back-button"
+			>
 				<div className="back-button__container">
 					<i className="is-icon back-button-icon" />
 				</div>

@@ -48,17 +48,11 @@ const ScanQrCode = ({
 		};
 	}, [show]);
 
-
-	const onBack = (e) => {
-		e.preventDefault();
-		hide();
-	};
-
 	const style = !show ? { display: 'none' } : {};
 
 	return (
 		<div className={`scan-wrapper ${show ? 'show-top' : ''}`} style={style}>
-			<Header backButton={(e) => onBack(e)} title={title} />
+			<Header backButton={() => hide()} title={title} />
 			<div className="dashboard scan-qr-code-page">
 				<div className="scan-qr-code-page__text">{description}</div>
 				<div className="scan-qr-code-page__wrapper">
