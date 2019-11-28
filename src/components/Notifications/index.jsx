@@ -1,35 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-const Notification = ({
-	className, close, children, ...props
-}) => (
-	<div
-		className={`notification-list__item ${className}`}
-		{...props}
-	>
-		{children}
-		{
-			close && (
-				<a href="#">
-					<i className="is-icon close-white-icon" />
-				</a>
-			)
-		}
-	</div>
-);
+import { DISPLAYED_NOTITFICATION_COUNT } from '../../constants/NotificationConstants';
+import Item from './Item';
 
-Notification.propTypes = {
-	className: PropTypes.string,
-	close: PropTypes.bool,
-	children: PropTypes.any,
+const Notifications = ({ notifications }) => {
+
+	const displayedNotifications = notifications.slice(0, DISPLAYED_NOTITFICATION_COUNT).reverse();
+
+	return (
+		<div className="notification-list">
+			{displayedNotifications.map(({
+				text, icon, closeCallback, className, button, buttonCallback, id,
+			}) => (
+				<Item
+					key={id}
+					text={text}
+					icon={icon}
+					className={className}
+					id={id}
+					closeCallback={closeCallback}
+					button={button}
+					buttonCallback={buttonCallback}
+				/>
+			))}
+		</div>
+	);
 };
 
-Notification.defaultProps = {
-	className: '',
-	close: true,
-	children: null,
+Notifications.propTypes = {
+	notifications: PropTypes.array.isRequired,
 };
 
-
-export default Notification;
+export default connect((state) => ({
+	notifications: state.notifications.toJSON(),
+}))(Notifications);

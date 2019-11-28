@@ -20,6 +20,7 @@ import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
 import TransactionBuilder from '../../../../components/TransactionBuilder';
 import sendTransactionActions from '../../../../actions/SendTransactionActions';
 import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
+import notificationActions from '../../../../actions/NotificationActions';
 import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
 
 const DEFAULT_CURRENCY = ETH;
@@ -31,7 +32,7 @@ const initialValues = () => ({
 });
 
 const Send = ({
-	balances, transferSend, transferEstimateGas, scanQrCode,
+	balances, transferSend, transferEstimateGas, scanQrCode, showErrorNotification,
 }) => {
 
 	const [gas, setGas] = useState(0);
@@ -68,7 +69,7 @@ const Send = ({
 				} else if (arrAddress[0] === 'ethereum' && web3Service.web3.utils.isAddress(arrAddress[1])) {
 					setFieldValue('address', arrAddress[1]);
 				} else {
-					alert('Address in QR Code is not found');
+					showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
 				}
 			},
 		});
@@ -197,6 +198,7 @@ Send.propTypes = {
 	transferSend: PropTypes.func.isRequired,
 	transferEstimateGas: PropTypes.func.isRequired,
 	scanQrCode: PropTypes.func.isRequired,
+	showErrorNotification: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -208,5 +210,6 @@ export default connect(
 		transferEstimateGas: (currency) => dispatch(sendTransactionActions.transferEstimateGas(currency)),
 		transferSend: (values) => dispatch(sendTransactionActions.transferSend(values)),
 		scanQrCode: (params) => dispatch(scanQrCodeActions.scan(params)),
+		showErrorNotification: (currency) => dispatch(notificationActions.errorNotification(currency)),
 	}),
 )(Send);

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Toast from '../components/Toast';
 import { InfoModal } from '../components/Modals';
+import Notifications from '../components/Notifications';
 import ScanQrCode from '../components/ScanQrCode';
 
 const App = ({ children, isActiveCamera }) => {
@@ -21,6 +22,7 @@ const App = ({ children, isActiveCamera }) => {
 			</div>
 			{renderModals()}
 			<Toast />
+			<Notifications />
 			<ScanQrCode />
 		</div>
 	);

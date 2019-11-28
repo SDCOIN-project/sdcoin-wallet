@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
 import Header from './../../../../Layout/Header';
 import ValidatePinCode from '../../../../../components/PinCode/ValidatePinCode';
 
 import accountActions from '../../../../../actions/AccountActions';
+import notificationActions from '../../../../../actions/NotificationActions';
 import { SETTINGS_PATH } from '../../../../../constants/RouterConstants';
 import Button from '../../../../../components/Form/Button';
 
-const Backup = ({ history }) => {
+const Backup = ({
+	history, showErrorNotification,
+}) => {
 	const [step, setStep] = useState(1);
 	const [mnemonic, setMnemonic] = useState(null);
 	const [btnCopyTitle, setBtnCopyTitle] = useState('Copy');
@@ -19,7 +23,7 @@ const Backup = ({ history }) => {
 			setMnemonic(accountActions.getDecryptedMnemonic(pinCode));
 			setStep(2);
 		} catch (error) {
-			alert(error.message);
+			showErrorNotification({ text: error.message });
 		}
 	};
 
@@ -60,10 +64,16 @@ const Backup = ({ history }) => {
 
 Backup.propTypes = {
 	history: PropTypes.object,
+	showErrorNotification: PropTypes.func.isRequired,
 };
 
 Backup.defaultProps = {
 	history: {},
 };
 
-export default Backup;
+export default connect(
+	() => ({}),
+	(dispatch) => ({
+		showErrorNotification: (currency) => dispatch(notificationActions.errorNotification(currency)),
+	}),
+)(Backup);

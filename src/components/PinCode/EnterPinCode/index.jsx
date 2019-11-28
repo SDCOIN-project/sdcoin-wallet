@@ -31,7 +31,7 @@ const EnterPinCode = ({
 	};
 
 	return (
-		<div className="pin-page">
+		<div className="pin-page wrapper-transaction">
 			<a
 				href="#"
 				onClick={(e) => {

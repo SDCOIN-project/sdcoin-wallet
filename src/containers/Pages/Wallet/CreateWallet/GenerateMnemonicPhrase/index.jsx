@@ -24,7 +24,7 @@ const CreateWallet = ({ onNext }) => {
 		<div className="dashboard-container">
 			<Header backButton={() => history.push(WALLET_PATH)} title="Create wallet" />
 			<div className="dashboard wallet-page">
-				<div className="wallet-page__text attention-icon">
+				<div className="wallet-page__text attention-icon-container">
 					Write down your BrainKey! Once you lose this key you won&apos;t be able to get a new one.
 				</div>
 				<div className="brain-key__item">{phrase}</div>

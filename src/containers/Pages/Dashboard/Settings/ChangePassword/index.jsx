@@ -6,10 +6,12 @@ import ValidatePinCode from '../../../../../components/PinCode/ValidatePinCode';
 import CreatePinCode from '../../../../../components/PinCode/CreatePinCode';
 
 import accountActions from '../../../../../actions/AccountActions';
+import notificationActions from '../../../../../actions/NotificationActions';
 import { SETTINGS_PATH } from '../../../../../constants/RouterConstants';
+import { ICONS } from '../../../../../constants/NotificationConstants';
 
 const ChangePassword = ({
-	history, createWallet,
+	history, createWallet, showNotification, showErrorNotification,
 }) => {
 	const [step, setStep] = useState(1);
 	const [oldPassword, setOldPassword] = useState(null);
@@ -23,9 +25,9 @@ const ChangePassword = ({
 		try {
 			createWallet(pinCode, accountActions.getDecryptedMnemonic(oldPassword));
 			history.push(SETTINGS_PATH);
-			alert('PIN has been changed successfully');
+			showNotification({ text: 'PIN has been changed successfully', button: 'OK', icon: ICONS.lock });
 		} catch (error) {
-			alert(error.message);
+			showErrorNotification({ text: error.message });
 		}
 	};
 
@@ -52,6 +54,8 @@ const ChangePassword = ({
 ChangePassword.propTypes = {
 	history: PropTypes.object,
 	createWallet: PropTypes.func.isRequired,
+	showNotification: PropTypes.func.isRequired,
+	showErrorNotification: PropTypes.func.isRequired,
 };
 
 ChangePassword.defaultProps = {
@@ -62,5 +66,7 @@ export default connect(
 	() => ({}),
 	(dispatch) => ({
 		createWallet: (pinCode, mnemonic) => dispatch(accountActions.createWallet(pinCode, mnemonic)),
+		showNotification: (currency) => dispatch(notificationActions.add(currency)),
+		showErrorNotification: (currency) => dispatch(notificationActions.errorNotification(currency)),
 	}),
 )(ChangePassword);

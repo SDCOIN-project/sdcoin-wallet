@@ -7,6 +7,7 @@ import ethService from '../services/EthService';
 
 import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED, MNEMONIC_NOT_FOUND } from '../constants/ErrorConstants';
 import { CURRENCY_SERVICES, CURRENCIES } from '../constants/CurrencyConstants';
+import notificationActions from './NotificationActions';
 
 class AccountActions extends BaseActions {
 
@@ -32,7 +33,7 @@ class AccountActions extends BaseActions {
 
 				dispatch(this.authorisation({ address: encryptedAccount.address }));
 			} catch (error) {
-				alert(error.message);
+				dispatch(notificationActions.errorNotification({ text: error.message }));
 				throw error;
 			}
 		};
@@ -90,7 +91,7 @@ class AccountActions extends BaseActions {
 					dispatch(this.setValue(['balances', currency], balances[index]));
 				});
 			} catch (error) {
-				alert(error.message);
+				dispatch(notificationActions.errorNotification({ text: error.message }));
 				throw error;
 			}
 		};

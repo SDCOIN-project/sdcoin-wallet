@@ -1,6 +1,7 @@
 import GlobalReducer from '../reducers/GlobalReducer';
 import BaseActions from './BaseActions';
 import accountActions from './AccountActions';
+import notificationActions from './NotificationActions';
 
 class GlobalActions extends BaseActions {
 
@@ -26,25 +27,20 @@ class GlobalActions extends BaseActions {
 	 */
 	init() {
 		return (dispatch) => new Promise((resolve) => {
-			try {
-				Promise.all([
-					// Load data after start page
-				]).then((data) => {
-					dispatch(this.afterInit()).then(() => {});
-					const account = JSON.parse(localStorage.getItem('account'));
-					if (account) {
-						dispatch(accountActions.authorisation({ address: account.address }));
-					}
-					resolve(data);
-				}).catch((error) => {
-					throw error;
-				}).then(() => {
-					resolve();
-				});
-
-			} catch (error) {
-				alert(error.message);
-			}
+			Promise.all([
+				// Load data after start page
+			]).then((data) => {
+				dispatch(this.afterInit()).then(() => {});
+				const account = JSON.parse(localStorage.getItem('account'));
+				if (account) {
+					dispatch(accountActions.authorisation({ address: account.address }));
+				}
+				resolve(data);
+			}).catch((error) => {
+				dispatch(notificationActions.errorNotification({ text: error.message }));
+			}).then(() => {
+				resolve();
+			});
 		});
 	}
 

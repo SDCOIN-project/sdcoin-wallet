@@ -50,4 +50,3 @@ export default connect(
 		setSelectedCurrency: (currency) => dispatch(accountActions.setSelectedCurrency(currency)),
 	}),
 )(BalanceCard);
-
