@@ -33,6 +33,7 @@
 				"copy-to-clipboard": "^3.2.0",
 				"cordova-android": "^8.1.0",
 				"cordova-ios": "^5.0.1",
+				"cordova-plugin-fastclick": "^1.0.0",
 				"cordova-plugin-file": "^6.0.2",
 				"cordova-plugin-qrscanner": "^3.0.1",
 				"core-js": "^2.5.7",
@@ -98,7 +99,8 @@
 				"plugins": {
 						"cordova-plugin-whitelist": {},
 						"cordova-plugin-qrscanner": {},
-						"cordova-plugin-file": {}
+						"cordova-plugin-file": {},
+						"cordova-plugin-fastclick": {}
 				},
 				"platforms": [
 						"ios",

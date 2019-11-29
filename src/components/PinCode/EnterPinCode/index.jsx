@@ -5,12 +5,12 @@ import Button from './../../Form/Button';
 
 const MAX_SYMBOL = 6;
 
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
 const EnterPinCode = ({
-	onBack, title, invalidPinCode, onSubmit,
+	onBack, title, invalidPinCode, onSubmit, loading,
 }) => {
 	const [pinCode, setPinCode] = useState([]);
-
-	const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
 	const onClickNumber = (number) => {
 		const updatedPinCode = [...pinCode];
@@ -50,16 +50,17 @@ const EnterPinCode = ({
 			</div>
 			<div className="pin-page__wrapper">
 				<div className={`pin-page__password-check ${invalidPinCode ? 'wrong-pin' : ''}`}>
-					{new Array(MAX_SYMBOL).fill(0).map((_, key) =>
-						// eslint-disable-next-line react/no-array-index-key
-						<div key={key} className={`pin-page__password-check-item ${key <= pinCode.length - 1 ? 'is-white' : ''}`} />)
+					{loading ?
+						<i className="loading loading-white-icon" />
+						:
+						new Array(MAX_SYMBOL).fill(0).map((_, key) =>
+							// eslint-disable-next-line react/no-array-index-key
+							<div key={key} className={`pin-page__password-check-item ${key <= pinCode.length - 1 ? 'is-white' : ''}`} />)
 					}
-					{/* loading */}
-					{/* <i className="loading loading-white-icon" /> */}
 				</div>
 				<div className="pin-page__keyboard">
 					{numbers.map((number) => (
-						<Button key={number} className="pin-page__keyboard-item" onClick={() => onClickNumber(number)}>
+						<Button key={number} className="pin-page__keyboard-item" onPointerUp={() => onClickNumber(number)}>
 							{number}
 						</Button>
 					))}
@@ -88,7 +89,7 @@ const EnterPinCode = ({
 												<i className="is-icon fingerprint-white-icon" />
 											</div>
 											<span>or</span>
-											<div href="#" className="pin-page-list__item">
+											<div className="pin-page-list__item">
 												<i className="is-icon face-id-white-icon" />
 											</div>
 										</div>
@@ -113,7 +114,7 @@ const EnterPinCode = ({
 							);
 						}}
 					</MediaQuery>
-					<Button className="is-transparent is-white pin-page__button" onClick={() => onDeleteNumber()}>
+					<Button className="is-transparent is-white pin-page__button" onPointerUp={() => onDeleteNumber()}>
 						Delete
 					</Button>
 				</div>
@@ -127,12 +128,14 @@ EnterPinCode.propTypes = {
 	title: PropTypes.string,
 	onBack: PropTypes.func.isRequired,
 	invalidPinCode: PropTypes.bool,
+	loading: PropTypes.bool,
 	onSubmit: PropTypes.func.isRequired,
 };
 
 EnterPinCode.defaultProps = {
 	title: '',
 	invalidPinCode: false,
+	loading: false,
 };
 
 

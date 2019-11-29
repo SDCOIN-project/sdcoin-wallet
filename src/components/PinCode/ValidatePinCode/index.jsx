@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import EnterPinCode from '../EnterPinCode';
 
-
 const ValidatePinCode = ({ validate, onSubmit, ...props }) => {
-	const [invalidPinCode, setInvalidPinCode] = useState(false);
 
-	const checkValidPinCode = (pinCode) => {
+	const [invalidPinCode, setInvalidPinCode] = useState(false);
+	const [loading, setLoading] = useState(false);
+
+	const checkValidPinCode = async (pinCode) => {
+		setLoading(true);
 		if (!validate(pinCode)) {
 			setInvalidPinCode(true);
 			setTimeout(() => {
 				setInvalidPinCode(false);
 			}, 500);
+			setLoading(false);
 		} else {
 			onSubmit(pinCode);
+			setLoading(false);
 		}
 	};
 
@@ -21,6 +25,7 @@ const ValidatePinCode = ({ validate, onSubmit, ...props }) => {
 		<div className="wrapper-transaction">
 			<EnterPinCode
 				invalidPinCode={invalidPinCode}
+				loading={loading}
 				onSubmit={(pinCode) => checkValidPinCode(pinCode)}
 				{...props}
 			/>

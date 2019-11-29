@@ -9,7 +9,11 @@ const DefaultButton = ({
 	id, buttonText, buttonCallback, deleteNotification,
 }) => (
 	<Button
-		onClick={(e) => { e.preventDefault(); buttonCallback(); deleteNotification(id); }}
+		onClick={(e) => {
+			e.preventDefault();
+			buttonCallback();
+			deleteNotification(id);
+		}}
 		className="notification-button is-notification-button-small"
 	>
 		{buttonText}

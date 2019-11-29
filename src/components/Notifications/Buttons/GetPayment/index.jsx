@@ -8,7 +8,14 @@ import Button from '../../../Form/Button';
 const GetPaymentButton = ({
 	id, buttonCallback, deleteNotification,
 }) => (
-	<Button onClick={(e) => { e.preventDefault(); buttonCallback(); deleteNotification(id); }} className="qr-code-button">
+	<Button
+		onClick={(e) => {
+			e.preventDefault();
+			buttonCallback();
+			deleteNotification(id);
+		}}
+		className="qr-code-button"
+	>
 		<i className="is-icon qr-code-small-white-icon" />
 		<span>Get Payment</span>
 	</Button>
