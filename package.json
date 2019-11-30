@@ -5,7 +5,7 @@
 		"description": "",
 		"scripts": {
 				"start": "cross-env NODE_ENV=development webpack-dev-server --mode development --progress --colors --history-api-fallback --hot --inline",
-				"build": "cross-env NODE_ENV=production webpack --progress --display-error-details --colors --mode production",
+				"build": "cross-env NODE_ENV=production webpack --display-error-details --colors --mode production",
 				"lint": "$(npm bin)/eslint 'src/**/*.jsx' 'src/**/*.js'",
 				"lint-win": "cross-env eslint 'src/**/*.jsx' 'src/**/*.js' --fix",
 				"stylelint": "stylelint '**/*.scss'; --config src/assets/.stylelintrc.json",

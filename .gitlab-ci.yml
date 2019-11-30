@@ -1,11 +1,11 @@
 stages:
   - test
+  - deploy
 
 eslint:
   image: node:10.15
   stage: test
   cache:
-    key: $CI_COMMIT_REF_NAME
     paths:
     - node_modules/
   script:
@@ -14,3 +14,26 @@ eslint:
     - npm run lint
   tags:
     - docker
+  only:
+    - merge_requests
+
+
+.deploy:
+  stage: deploy
+  variables:
+    NODE_ENV: production
+  script:
+    - docker build -t $CI_REGISTRY_IMAGE:$NODE_APP_INSTANCE --build-arg NODE_APP_INSTANCE=$NODE_APP_INSTANCE .
+    - docker-compose -p 699-sdcoin up -d
+
+deploy.develop:
+  extends: .deploy
+  environment:
+    name: develop
+    url:  https://699-sdcoin.pixelplex-test.by/
+  variables:
+    NODE_APP_INSTANCE: develop
+  only:
+    - develop
+  tags:
+    - pp-develop

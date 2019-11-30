@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  webui:
-    image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+  wallet:
+    image: $CI_REGISTRY_IMAGE:$NODE_APP_INSTANCE
     restart: always
     ports:
-      - "27780:80"
+      - "26992:80"

@@ -4,7 +4,7 @@
     <description>
 
     </description>
-	<author email="dev@pixelplex.io" href="https://pixelplex.io">
+    <author email="dev@pixelplex.io" href="https://pixelplex.io">
         Pixelplex inc
     </author>
     <content src="index.html" />
@@ -23,4 +23,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+
+    <preference name="UseSwiftLanguageVersion" value="5" />
 </widget>
