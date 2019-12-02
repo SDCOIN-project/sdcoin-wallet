@@ -7,8 +7,8 @@ const ValidatePinCode = ({ validate, onSubmit, ...props }) => {
 	const [invalidPinCode, setInvalidPinCode] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const checkValidPinCode = async (pinCode) => {
-		setLoading(true);
+
+	const validatePin = (pinCode) => {
 		if (!validate(pinCode)) {
 			setInvalidPinCode(true);
 			setTimeout(() => {
@@ -19,6 +19,12 @@ const ValidatePinCode = ({ validate, onSubmit, ...props }) => {
 			onSubmit(pinCode);
 			setLoading(false);
 		}
+	};
+
+	const checkValidPinCode = async (pinCode) => {
+		setLoading(true);
+		// use timeout to prevent process blocking
+		setTimeout(() => validatePin(pinCode), 300);
 	};
 
 	return (
