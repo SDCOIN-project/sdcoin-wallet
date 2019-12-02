@@ -43,7 +43,9 @@ Item.propTypes = {
 };
 
 export default connect(
-	() => ({}),
+	(state) => ({
+		address: state.account.get('address'),
+	}),
 	(dispatch) => ({
 		setSelectedTransaction: (item) => dispatch(transactionHistoryActions.setSelectedTransaction(item)),
 	}),

@@ -56,7 +56,7 @@ export default connect(
 	(state) => ({
 		selectedCurrency: state.account.get('selectedCurrency'),
 		address: state.account.get('address'),
-		selectedTransaction: state.transaction.get('selectedTransaction').toJS(),
+		selectedTransaction: state.transactionsHistory.get('selectedTransaction').toJS(),
 	}),
 	() => ({}),
 )(TransactionDetails);

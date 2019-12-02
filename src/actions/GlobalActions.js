@@ -1,7 +1,9 @@
+import io from 'socket.io-client';
 import GlobalReducer from '../reducers/GlobalReducer';
 import BaseActions from './BaseActions';
 import accountActions from './AccountActions';
 import notificationActions from './NotificationActions';
+import transactionHistoryActions from './TransactionHistoryActions';
 
 class GlobalActions extends BaseActions {
 
@@ -43,6 +45,32 @@ class GlobalActions extends BaseActions {
 			});
 		});
 	}
+
+	initializeSocket(address) {
+		return (dispatch) => {
+			const socket = io(__SOCKET_URL__);
+			dispatch(this.setValue('socket', socket));
+
+			socket.on('connect', () => {
+				socket.emit('subscribeToAddress', { address });
+			});
+
+			dispatch(transactionHistoryActions.initSocketEvents());
+		};
+	}
+
+	deactivateSocket() {
+		return (dispatch, getState) => {
+			const socket = getState().global.get('socket');
+
+			if (socket) {
+				socket.disconnect();
+			}
+
+			dispatch(this.setValue('socket', null));
+		};
+	}
+
 
 }
 

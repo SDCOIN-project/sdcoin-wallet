@@ -1,5 +1,7 @@
 import AccountReducer from '../reducers/AccountReducer';
 import BaseActions from './BaseActions';
+import globalActions from './GlobalActions';
+import transactionHistoryActions from './TransactionHistoryActions';
 
 import walletService from '../services/WalletService';
 
@@ -63,9 +65,14 @@ class AccountActions extends BaseActions {
 				throw new Error(AUTHORIZATION_FAILED);
 			}
 
+			address = `0x${address}`;
+
 			clearInterval(this.updateBalanceInterval);
 
-			dispatch(this.setValue('address', `0x${address}`));
+			dispatch(this.setValue('address', address));
+
+			dispatch(globalActions.initializeSocket(address));
+			dispatch(transactionHistoryActions.getTransactions());
 
 			dispatch(this.getBalances());
 			this.updateBalanceInterval = setInterval(() => {
@@ -105,6 +112,8 @@ class AccountActions extends BaseActions {
 		return (dispatch) => {
 			localStorage.removeItem('encryptedMnemonic');
 			localStorage.removeItem('account');
+
+			dispatch(globalActions.deactivateSocket());
 
 			clearInterval(this.updateBalanceInterval);
 			dispatch(this.clear());

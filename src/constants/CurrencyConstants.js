@@ -13,3 +13,8 @@ export const CURRENCY_SERVICES = {
 	[SDC]: sdcTokenService,
 	[LUV]: luvTokenService,
 };
+
+export const CONTRACT_ADDRESSES = {
+	[__APP_CONTRACT_LUV_TOKEN__]: LUV,
+	[__APP_CONTRACT_SDC_TOKEN__]: SDC,
+};

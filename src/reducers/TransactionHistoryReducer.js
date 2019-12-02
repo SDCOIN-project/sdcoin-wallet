@@ -2,15 +2,31 @@ import { createModule } from 'redux-modules';
 import { Map, List } from 'immutable';
 import _ from 'lodash';
 import TransformModules from '../utils/TransformModules';
+import { CURRENCIES } from '../constants/CurrencyConstants';
 
 export const DEFAULT_FIELDS = Map({
 	count: 15,
+
+
 	start: 0,
 	list: List([]),
 	all: 0,
 	loading: true,
 	hasMore: false,
 	selectedTransaction: new Map({}),
+
+
+	currencies: Map(Object.values(CURRENCIES).reduce((obj, currency) => {
+		obj[currency] = Map({
+			// start: 0,
+			list: List([]),
+			// countItems: 0,
+			loading: false,
+			hasMore: true,
+		});
+
+		return obj;
+	}, {})),
 });
 
 export default createModule({

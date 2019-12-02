@@ -6,7 +6,7 @@ import { get } from '../utils/Api';
  * @param {string} address
  * @param {object} params
  * @param {string} params.currencyType
- * @param {number} params.start
+ * @param {number} params.offset
  * @param {number} params.count
  * @returns {Promise<any>}
  */

@@ -10,6 +10,6 @@ export default {
 	global: globalReducer.reducer,
 	account: accountReducer.reducer,
 	notifications: notificationReducer.reducer,
-	transaction: transactionHistoryReducer.reducer,
+	transactionsHistory: transactionHistoryReducer.reducer,
 	scanQrCode: scanQrCodeReducer.reducer,
 };

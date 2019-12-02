@@ -4,7 +4,7 @@ import _ from 'lodash';
 import TransformModules from '../utils/TransformModules';
 
 const DEFAULT_FIELDS = Map({
-
+	socket: null,
 });
 
 export default createModule({

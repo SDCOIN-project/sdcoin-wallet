@@ -1,13 +1,13 @@
 {
 	"api": "",
+	"socket": "",
 	"network": {
 		"url": "https://rinkeby.infura.io/v3/3733109dd9304d158d8def80a87fbcfe"
 	},
 	"contracts": {
-		"luvToken": "",
-		"sdcToken": "",
-		"swap": "",
-		"escrow": ""
-	},
-	"explorer": ""
+		"luvToken": "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
+		"sdcToken": "0x271A509DA2dc7DDB46Ed25E7d109579C363EE4ac",
+		"swap": "0x1E78Db4b3B50a31cc07c7505a4840C86727Bab84",
+		"escrow": "0x5CB6F4c0b3AA1f4195E41A4976fC816e0F139955"
+	}
 }
