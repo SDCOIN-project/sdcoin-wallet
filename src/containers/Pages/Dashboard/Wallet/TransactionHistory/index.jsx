@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import transactionHistoryActions from '../../../../../actions/TransactionHistoryActions';
 import InfiniteScroll from './InfiniteScroll';
 import Loading from '../../../../../components/Loading';

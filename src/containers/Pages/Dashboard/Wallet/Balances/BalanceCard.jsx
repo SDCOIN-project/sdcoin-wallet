@@ -25,7 +25,7 @@ const BalanceCard = ({
 			<span className="postfix-top">{name}</span>
 			{name === SDC ? <Button className="is-small">Swap to {LUV}</Button> : null}
 		</div>
-		<div className="balances-list__value">{web3Service.fromWei(balances[name], 'ether').toNumber()}<span className="postfix">{name}</span></div>
+		<div className="balances-list__value">{web3Service.fromWei(balances[name], 'ether').toNumber()}</div>
 	</a>
 );
 

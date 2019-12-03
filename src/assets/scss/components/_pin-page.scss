@@ -5,9 +5,19 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 
 	&-back-button {
-		padding-top: 15px;
+		padding-top: constant(safe-area-inset-top); //for ios 11
+		padding-top: env(safe-area-inset-top);
+		margin-top: 10px;
+		
+		@include iphone-with-face-id  {
+			margin-top: 0;
+		}
 	}
 
 	&__wrapper {
@@ -28,6 +38,16 @@
 		@include CircularStd_Medium;
 		margin-bottom: 32px;
 		position: relative;
+
+		&.pading-top-offset {
+			padding-top: constant(safe-area-inset-top); //for ios 11
+			padding-top: env(safe-area-inset-top);
+			margin-top: 35px;
+		
+			@include iphone-with-face-id  {
+				margin-top: 20px;
+			}
+		}
 
 		&.with-subtitle {
 			margin-bottom: 42px;
@@ -52,7 +72,6 @@
 	&__password-check {
 		display: flex;
 		justify-content: center;
-		// margin-bottom: 50px;
 		width: max-content;
 		margin-left: auto;
 		margin-right: auto;
@@ -189,6 +208,12 @@
 		outline: none;
 		margin-top: 5px;
 		line-height: 16px;
+		border: 0;
+		outline: 0;
+
+		&:active {
+			-webkit-tap-highlight-color: transparent;
+		}
 
 		&.mb18 {
 			margin-bottom: 18px;

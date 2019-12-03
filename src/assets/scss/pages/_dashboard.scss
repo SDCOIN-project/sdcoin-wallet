@@ -5,9 +5,17 @@
 	height: calc(100vh - 165px);
 	overflow: auto;
 
+	@include iphone-with-face-id {
+		height: calc(100vh - 200px);
+	}
+
 	&-controls {
 		display: flex;
 		margin: auto auto 0 auto;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 
 		&.flex-column {
 			flex-direction: column;
@@ -17,6 +25,11 @@
 			&:not(:last-child) {
 				margin-right: 10px;
 			}
+		}
+
+		.clear-button {
+			margin-right: 0;
+			margin-bottom: 10px;
 		}
 	}
 
@@ -32,6 +45,7 @@
 		&__row {
 			display: flex;
 			align-items: center;
+			background: #fff;
 
 			&-title {
 				flex-shrink: 0;
@@ -149,7 +163,7 @@
 			position: relative;
 			padding-right: 16px;
 			align-items: center;
-			min-height: 100%;
+			min-height: 46px;
 		}
 
 		&__text {
@@ -173,8 +187,7 @@
 			padding-top: 0;
 		}
 
-
-		& :last-child {
+		&:last-child {
 			border-bottom: 0;
 			padding-bottom: 0;
 		}
@@ -193,7 +206,7 @@
 	}
 }
 
-.wrapper-transaction {
+.show-top-all {
 	position: relative;
 	z-index: 10;
 }

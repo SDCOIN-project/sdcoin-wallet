@@ -6,16 +6,12 @@ import { CURRENCIES } from '../constants/CurrencyConstants';
 
 export const DEFAULT_FIELDS = Map({
 	count: 15,
-
-
 	start: 0,
 	list: List([]),
 	all: 0,
 	loading: true,
 	hasMore: false,
 	selectedTransaction: new Map({}),
-
-
 	currencies: Map(Object.values(CURRENCIES).reduce((obj, currency) => {
 		obj[currency] = Map({
 			// start: 0,

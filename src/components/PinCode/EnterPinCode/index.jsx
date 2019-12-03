@@ -30,7 +30,7 @@ const EnterPinCode = ({
 	};
 
 	return (
-		<div className="pin-page wrapper-transaction">
+		<div className="pin-page show-top-all">
 			{onBack ? (
 				<a
 					href="#"
@@ -45,7 +45,7 @@ const EnterPinCode = ({
 					</div>
 					<span className="back-button__text">Back</span>
 				</a>) : null}
-			<div className="pin-page__title" style={{ marginTop: onBack ? 0 : 43 }}>
+			<div className={`pin-page__title ${onBack ? '' : 'pading-top-offset '}`}>
 				<span>{title}</span>
 			</div>
 			<div className="pin-page__wrapper">
@@ -69,7 +69,7 @@ const EnterPinCode = ({
 				<div className="dashboard-controls flex-column">
 
 					{pinCode.length ? (
-						<Button className="is-transparent is-white pin-page__button" onPointerUp={() => onDeleteNumber()}>
+						<Button className="is-transparent is-white pin-page__button clear-button" onPointerUp={() => onDeleteNumber()}>
 							Clear
 						</Button>
 					) : <span className="is-transparent is-white pin-page__button" />}
@@ -80,13 +80,13 @@ const EnterPinCode = ({
 									<div className="pin-page-list large-block">
 										<div className="pin-page-list__container">
 											<span>You can use</span>
-											<div className="pin-page-list__item ">
+											<button className="pin-page-list__item ">
 												<i className="is-icon fingerprint-white-icon" />
-											</div>
+											</button>
 											<span>or</span>
-											<div className="pin-page-list__item">
+											<button className="pin-page-list__item">
 												<i className="is-icon face-id-white-icon" />
-											</div>
+											</button>
 										</div>
 									</div>
 								);
@@ -95,15 +95,15 @@ const EnterPinCode = ({
 								<div className="pin-page-list large-block">
 									<p>Also you can use</p>
 									<div className="pin-page-list__container">
-										<div className="pin-page-list__item">
+										<button className="pin-page-list__item">
 											<i className="is-icon fingerprint-white-icon" />
 											<span>Touch ID</span>
-										</div>
+										</button>
 										<span>or</span>
-										<div className="pin-page-list__item">
+										<button className="pin-page-list__item">
 											<i className="is-icon face-id-white-icon" />
 											<span>Face ID</span>
-										</div>
+										</button>
 									</div>
 								</div>
 							);

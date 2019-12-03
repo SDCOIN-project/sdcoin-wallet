@@ -59,7 +59,7 @@ const TransactionBuilder = ({
 	}
 
 	return (
-		<div className="wrapper-transaction">
+		<div className="show-top-all">
 			<TransactionStatus
 				status={status}
 				error={txError}

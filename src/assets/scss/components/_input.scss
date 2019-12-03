@@ -115,6 +115,8 @@
 		outline: none;
 		text-overflow: ellipsis;
 		margin-left: 0;
+		//fix safari bug
+		height: 30px;
 	}
 }
 
@@ -150,4 +152,3 @@
 .is-textarea:-ms-input-placeholder {
 	font-size: 20px;
 }
-

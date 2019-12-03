@@ -184,6 +184,12 @@
 	line-height: 18px;
 	transition: all 0.2s ease-out;
 	@include CircularStd_Book;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding-top: constant(safe-area-inset-top); //for ios 11
+	padding-top: env(safe-area-inset-top);
 
 	&__container {
 		width: 28px;

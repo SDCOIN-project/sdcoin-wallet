@@ -71,6 +71,10 @@
 		color: #f08597;
 		text-align: center;
 		padding-top: 30px;
+		background: #fff;
+		@include res-375 {
+			padding-top: 5px;
+		}
 	}
 
 	.loading-container {

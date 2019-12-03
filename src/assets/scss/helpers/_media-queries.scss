@@ -5,3 +5,11 @@ $res-375: 375px;
 		@content;
 	}
 }
+
+//This mixin is written for all iphone with face id and no home button
+@mixin iphone-with-face-id {
+	@media only screen and (device-height: 896px) and (-webkit-min-device-pixel-ratio: 2),
+		only screen and (device-height: 812px) and (-webkit-min-device-pixel-ratio: 2) {
+		@content;
+	}
+}

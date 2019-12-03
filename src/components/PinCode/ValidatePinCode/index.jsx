@@ -55,7 +55,7 @@ const ValidatePinCode = ({
 	}, [availableType, hasPassword]);
 
 	return (
-		<div className="wrapper-transaction">
+		<div className="show-top-all">
 			<EnterPinCode
 				invalidPinCode={invalidPinCode}
 				loading={loading}

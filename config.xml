@@ -29,6 +29,7 @@
         <preference name="android-targetSdkVersioin" value="23"/>
     </platform>
     <platform name="ios">
+        <preference name="DisallowOverscroll" value="true" />
         <allow-intent href="itms:*"/>
         <allow-intent href="itms-apps:*"/>
         <edit-config target="NSFaceIDUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">

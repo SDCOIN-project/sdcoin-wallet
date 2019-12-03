@@ -1,5 +1,9 @@
 .header-transaction-details {
 	min-height: 135px;
+	@include iphone-with-face-id {
+		padding-bottom: 5px;
+	}
+
 	&__title {
 		display: flex;
 		align-items: flex-end;
@@ -30,4 +34,8 @@
 .transaction-details-page {
 	height: calc(100vh - 185px);
 	padding-right: 0;
+	
+	@include iphone-with-face-id {
+		height: calc(100vh - 221px);
+	}
 }

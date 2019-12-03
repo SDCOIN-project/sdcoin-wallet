@@ -10,8 +10,7 @@ const balancesInfo = [
 
 const Balances = () => (
 	<div className="balances">
-		{/* add className "animation-change-size" to reduce block size */}
-		<div className="balances-body ">
+		<div className="balances-body">
 			<div className="header-title header-title-balances">Balances</div>
 			<div className="balances-list">
 				{balancesInfo.map(({ name, cardClassName }) => <BalanceCard key={name} name={name} cardClassName={cardClassName} />)}

@@ -5,8 +5,14 @@
 	min-height: 115px;
 	display: flex;
 	flex-direction: column;
-	// padding: 15px 25px 8px 0;
-	padding: 15px 0px 8px 0;
+	// padding: 15px 0px 8px 0;
+	padding: 10px 0px 8px 0;
+
+	@include iphone-with-face-id  {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
 
 	&-title {
 		@include CircularStd_Book;

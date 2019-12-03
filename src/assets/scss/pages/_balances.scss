@@ -1,106 +1,35 @@
 .balances {
-	position: sticky;
-	top: 0;
 	z-index: 2;
+	background: linear-gradient(133deg, #519bfc 0%, #3f7ed0 100%);
 
-	&.animation-change-size {
-		& + .transaction-history {
-			height: calc(100vh - 135px);
-			overflow: auto;
-			margin-bottom: 0;
-		}
+	//dont work on Iphone X
+	// position: -webkit-sticky;
+	// position: sticky;
+	// top: 0;
 
-		.header-title-balances {
-			opacity: 0;
-		}
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	height: 316px;
 
-		.postfix-top {
-			font-size: 0;
-			line-height: 0;
-			height: 0;
-		}
-
-		.button.is-small {
-			padding: 0;
-			height: 0;
-			width: 0;
-			border: 0;
-			min-width: 0;
-		}
-
-		.balances-list {
-			grid-template-columns: max-content;
-			grid-auto-flow: column;
-			grid-auto-columns: max-content;
-			grid-column-gap: 6px;
-			margin-top: 0;
-
-			&:after {
-				content: "";
-				display: block;
-				width: 10px;
-			}
-		}
-
-		.balances-list__item {
-			display: flex;
-			grid-column: initial;
-			padding: 15px;
-			min-width: 155px;
-			align-items: center;
-
-			&.is-active {
-				box-shadow: 0 0 0 1px #fff;
-				background-color: rgba(255, 255, 255, 0.3);
-			}
-		}
-
-		.balances-list__item-title {
-			margin-bottom: 0;
-			align-items: initial;
-			margin-right: initial;
-		}
-
-		.balances-list__value {
-			font-size: 16px;
-		}
-
-		.postfix {
-			font-size: 12px;
-			@include CircularStd_Book;
-		}
-
-		.is-small .balances-list__item-title {
-			margin-bottom: 0;
-		}
-
-		.is-small .balances-list__value {
-			font-size: 16px;
-		}
-
-		.bg-sdc,
-		.bg-eth,
-		.bg-luv {
-			background-image: initial;
-		}
+	@include res-375 {
+		height: 269px;
 	}
+
 }
 
 .balances-body {
-	background: linear-gradient(133deg, #519bfc 0%, #3f7ed0 100%);
 	padding: 20px 16px 16px;
 	overflow-x: auto;
 }
 
 .header-title-balances {
-	position: absolute;
-	top: 20px;
-	left: 16px;
+	margin-top: 45px;
 	padding-left: 0;
-	transition: opacity 0.5s ease-out, line-height 0.5s ease-out;
 	@include res-375 {
 		font-size: 25px;
-		margin-bottom: 6px;
+		margin-top: 37px;
 	}
 }
 
@@ -109,12 +38,12 @@
 	grid-template-columns: 1fr 1fr;
 	grid-row-gap: 9px;
 	grid-column-gap: 9px;
-	margin-top: 50px;
-	transition: margin-top 0.5s ease-out;
+	margin-top: 13px;
 
 	@include res-375 {
 		grid-row-gap: 8px;
 		grid-column-gap: 6px;
+		margin-top: 8px;
 	}
 
 	&__item {
@@ -139,22 +68,16 @@
 		&.is-small {
 			grid-column: span 1;
 			.balances-list__item-title {
-				margin-bottom: 37px;
+				margin-bottom: 14px;
 				@include res-375 {
-					margin-bottom: 30px;
+					margin-bottom: 8px;
 				}
 			}
+
 			.balances-list__value {
 				font-size: 20px;
 				@include res-375 {
 					font-size: 17px;
-				}
-				.postfix {
-					font-size: 12px;
-					@include CircularStd_Bold;
-					@include res-375 {
-						font-size: 10px;
-					}
 				}
 			}
 		}
@@ -177,7 +100,6 @@
 			display: flex;
 			align-items: center;
 			margin-bottom: 15px;
-			transition: margin-bottom 0.5s ease-out;
 
 			@include res-375 {
 				margin-bottom: 4px;
@@ -200,35 +122,26 @@
 
 			.button.is-small {
 				margin-left: auto;
-				transition: all 0s;
 			}
 		}
 	}
 
 	&__value {
-		font-size: 32px;
+		font-size: 24px;
 		@include CircularStd_Bold;
 		color: #fff;
 
-		.postfix {
-			font-size: 16px;
-			color: rgba(255, 255, 255, 0.8);
-			margin-left: 5px;
-			@include res-375 {
-				font-size: 13px;
-			}
+		@include res-375 {
+			font-size: 20px;
 		}
 	}
 }
 
 .transaction-history {
-    margin-bottom: 45px;
-  	// TODO: fix
-  	//margin-bottom: 0;
-  	height: calc(100vh - 345px);
-	//overflow: auto;
+	padding-top: 316px;
+
 	@include res-375 {
-		height: calc(100vh - 312px);
+		padding-top: 269px;
 	}
 
 	&__title {
@@ -239,6 +152,7 @@
 		padding-bottom: 6px;
 		padding-left: 16px;
 		@include CircularStd_Medium;
+		background: #fff;
 
 		.title-inner {
 			font-size: 16px;
@@ -260,7 +174,7 @@
 		border-bottom: 1px solid #eceef3;
 		position: relative;
 		overflow: hidden;
-	  	background: #fff;
+		background: #fff;
 
 		&:after {
 			content: "";
@@ -290,9 +204,13 @@
 			margin-top: 5px;
 		}
 
-		// &:not(:last-child) {
-		// 	border-bottom: 1px solid #eceef3;
-		// }
+		&:last-child {
+			margin-bottom: 50px;
+
+			@include iphone-with-face-id {
+				margin-bottom: 84px;
+			}
+		}
 
 		&-information {
 			margin-right: auto;
@@ -366,20 +284,19 @@
 	}
 
 	&__empty {
-	  display: flex;
-	  justify-content: center;
-	  margin-top: 58px;
-	  color: #7e8c9b;
+		display: flex;
+		justify-content: center;
+		margin-top: 58px;
+		color: #7e8c9b;
+		background: #fff;
 	}
 
 	.loading-container {
-		min-height: 62px;
-	  	background: #fff;
-
-		.loading.loading-blue-icon {
-			top: 50%;
-			transform: translate(-50%, -50%);
-		}
+		position: absolute;
+		top: 10px;
+		bottom: 0;
+		left: 0;
+		right: 0;
 	}
 }
 
@@ -392,11 +309,15 @@
 }
 
 .loading-container-balances {
-  height: calc(100vh - 345px);
-  background: #fff;
+	background: #fff;
+	padding-top: 450px;
 
-  .loading {
-	top: 50%;
-	transform: translate(-50%, -50%);
-  }
+	@include res-375 {
+		padding-top: 370px;
+	}
+
+	.loading {
+		bottom: 0;
+    	transform: translateX(-50%);
+	}
 }
