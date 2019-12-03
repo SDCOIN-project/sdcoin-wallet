@@ -51,6 +51,8 @@ class AccountActions extends BaseActions {
 	createWallet(pinCode, mnemonic) {
 		return (dispatch) => {
 			dispatch(this.createAndEncryptAccount(pinCode, mnemonic));
+
+			dispatch(globalActions.unlock());
 		};
 	}
 

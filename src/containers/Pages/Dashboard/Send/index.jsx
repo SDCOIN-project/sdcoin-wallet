@@ -164,6 +164,7 @@ const Send = ({
 										<Input
 											label="Amount"
 											name="amount"
+											// type="number"
 											onChange={(e) => {
 												handleChange(e);
 												setFieldError('amount', '');

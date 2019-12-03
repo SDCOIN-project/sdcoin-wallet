@@ -4,12 +4,15 @@ import accountReducer from './AccountReducer';
 import notificationReducer from './NotificationReducer';
 import transactionHistoryReducer from './TransactionHistoryReducer';
 import scanQrCodeReducer from './ScanQrCodeReducer';
+import touchIdReducer from './TouchIdReducer';
 
 export default {
 	modal,
 	global: globalReducer.reducer,
 	account: accountReducer.reducer,
+	transactionHistory: transactionHistoryReducer.reducer,
 	notifications: notificationReducer.reducer,
 	transactionsHistory: transactionHistoryReducer.reducer,
 	scanQrCode: scanQrCodeReducer.reducer,
+	touchId: touchIdReducer.reducer,
 };

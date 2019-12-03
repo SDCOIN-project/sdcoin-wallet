@@ -2,6 +2,8 @@ import io from 'socket.io-client';
 import GlobalReducer from '../reducers/GlobalReducer';
 import BaseActions from './BaseActions';
 import accountActions from './AccountActions';
+import touchIdService from '../services/TouchIdService';
+import { PASSWORD } from '../constants/GlobalConstants';
 import notificationActions from './NotificationActions';
 import transactionHistoryActions from './TransactionHistoryActions';
 
@@ -30,6 +32,9 @@ class GlobalActions extends BaseActions {
 	init() {
 		return (dispatch) => new Promise((resolve) => {
 			Promise.all([
+
+				touchIdService.isAvailable((biometryType) => biometryType),
+				touchIdService.has(PASSWORD),
 				// Load data after start page
 			]).then((data) => {
 				dispatch(this.afterInit()).then(() => {});
@@ -37,13 +42,32 @@ class GlobalActions extends BaseActions {
 				if (account) {
 					dispatch(accountActions.authorisation({ address: account.address }));
 				}
+				if (data[0]) {
+					const biometryVarName = (data[0] === 'face') ? 'hasFaceId' : 'hasTouchId';
+					dispatch(this.setValue(biometryVarName, true));
+					dispatch(this.setValue('alternativeIdEnabled', !!data[1]));
+				}
 				resolve(data);
 			}).catch((error) => {
 				dispatch(notificationActions.errorNotification({ text: error.message }));
 			}).then(() => {
 				resolve();
 			});
+
 		});
+	}
+
+	disableAltId() {
+		return (dispatch) => {
+			dispatch(this.setValue('alternativeIdEnabled', false));
+			try {
+				touchIdService.delete(PASSWORD, (result) => result, (error) => {
+					throw error;
+				});
+			} catch (error) {
+				dispatch(notificationActions.errorNotification({ text: error.message }));
+			}
+		};
 	}
 
 	initializeSocket(address) {
@@ -71,6 +95,11 @@ class GlobalActions extends BaseActions {
 		};
 	}
 
+	unlock() {
+		return (dispatch) => {
+			dispatch(this.setValue('isLocked', false));
+		};
+	}
 
 }
 

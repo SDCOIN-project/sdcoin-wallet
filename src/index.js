@@ -11,14 +11,12 @@ import globalActions from './actions/GlobalActions';
 import history from './history';
 import store from './store';
 
-import SplashScreen from './components/SplashScreen';
-
-ReactDOM.render(
-	<SplashScreen title="Welcome to SDCoin Wallet">
-		<i className="loading" />
-	</SplashScreen>,
-	document.getElementById('root'),
-);
+// ReactDOM.render(
+// 	<SplashScreen title="Welcome to SDCoin Wallet">
+// 		<i className="loading" />
+// 	</SplashScreen>,
+// 	document.getElementById('root'),
+// );
 
 const startApp = () => {
 	store.dispatch(globalActions.init()).then(() => {

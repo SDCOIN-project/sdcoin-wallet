@@ -6,6 +6,7 @@
 		"scripts": {
 				"start": "cross-env NODE_ENV=development webpack-dev-server --mode development --progress --colors --history-api-fallback --hot --inline",
 				"build": "cross-env NODE_ENV=production webpack --display-error-details --colors --mode production",
+				"build:dev": "cross-env NODE_ENV=production webpack --display-error-details --colors --mode development",
 				"lint": "$(npm bin)/eslint 'src/**/*.jsx' 'src/**/*.js'",
 				"lint-win": "cross-env eslint 'src/**/*.jsx' 'src/**/*.js' --fix",
 				"stylelint": "stylelint '**/*.scss'; --config src/assets/.stylelintrc.json",
@@ -32,9 +33,11 @@
 				"connected-react-router": "^6.1.0",
 				"copy-to-clipboard": "^3.2.0",
 				"cordova-android": "^8.1.0",
-				"cordova-ios": "^5.0.1",
+				"cordova-ios": "^5.1.1",
 				"cordova-plugin-fastclick": "^1.0.0",
 				"cordova-plugin-file": "^6.0.2",
+				"cordova-plugin-ios-longpress-fix": "^1.1.0",
+				"cordova-plugin-keychain-touch-id": "git+https://github.com/sjhoeksma/cordova-plugin-keychain-touch-id.git",
 				"cordova-plugin-qrscanner": "^3.0.1",
 				"core-js": "^2.5.7",
 				"es6-object-assign": "^1.1.0",
@@ -99,13 +102,15 @@
 		"cordova": {
 				"plugins": {
 						"cordova-plugin-whitelist": {},
+						"cordova-plugin-keychain-touch-id": {},
 						"cordova-plugin-qrscanner": {},
 						"cordova-plugin-file": {},
-						"cordova-plugin-fastclick": {}
+						"cordova-plugin-fastclick": {},
+						"cordova-plugin-ios-longpress-fix": {}
 				},
 				"platforms": [
-						"ios",
-						"android"
+						"android",
+						"ios"
 				]
 		}
 }

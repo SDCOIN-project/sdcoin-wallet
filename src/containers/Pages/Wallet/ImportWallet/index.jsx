@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import CreatePinCode from '../../../../components/PinCode/CreatePinCode';
 import EnterMnemonicPhrase from './EnterMnemonicPhrase';
-
 import accountActions from '../../../../actions/AccountActions';
 
 const ImportWallet = ({ createWallet }) => {

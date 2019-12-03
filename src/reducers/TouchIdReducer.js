@@ -4,15 +4,12 @@ import _ from 'lodash';
 import TransformModules from '../utils/TransformModules';
 
 const DEFAULT_FIELDS = Map({
-	hasTouchId: false,
-	hasFaceId: false,
-	isLocked: true,
-	alternativeIdEnabled: false, // true if touch or false id was enabled
-	socket: null,
+	faceIdEnabled: false,
+	touchIdEnabled: false,
 });
 
 export default createModule({
-	name: 'global',
+	name: 'touch_id',
 	initialState: _.cloneDeep(DEFAULT_FIELDS),
 	transformations: {
 		..._.cloneDeep(TransformModules(DEFAULT_FIELDS)),

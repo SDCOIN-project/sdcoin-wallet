@@ -14,6 +14,7 @@ const CreatePinCode = ({ onSubmit, onBack }) => {
 			return (
 				<ValidatePinCode
 					title="Confirm PIN"
+					useAltId={false}
 					validate={(pinCode) => newPinCode === pinCode}
 					onSubmit={() => onSubmit(newPinCode)}
 					onBack={() => setStep(1)}

@@ -15,5 +15,6 @@ export const PAYMENT_INFO2 = `${RECEIVE_PATH}/payment-info2`;
 export const SETTINGS_PATH = `${DASHBOARD_PATH}/settings`;
 export const BACKUP_PATH = `${SETTINGS_PATH}/backup`;
 export const CHANGE_PASSWORD_PATH = `${SETTINGS_PATH}/change-password`;
+export const CREATE_TOUCH_ID_PATH = `${SETTINGS_PATH}/touch-id`;
 export const EXCHANGE_FUNDS_PATH = `${DASHBOARD_PATH}/exchange-funds`;
 export const TRANSACTION_DETAILS = `${DASHBOARD_PATH}/transaction-details`;

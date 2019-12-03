@@ -260,6 +260,7 @@
 		border-bottom: 1px solid #eceef3;
 		position: relative;
 		overflow: hidden;
+	  	background: #fff;
 
 		&:after {
 			content: "";
@@ -373,6 +374,7 @@
 
 	.loading-container {
 		min-height: 62px;
+	  	background: #fff;
 
 		.loading.loading-blue-icon {
 			top: 50%;
@@ -391,6 +393,7 @@
 
 .loading-container-balances {
   height: calc(100vh - 345px);
+  background: #fff;
 
   .loading {
 	top: 50%;

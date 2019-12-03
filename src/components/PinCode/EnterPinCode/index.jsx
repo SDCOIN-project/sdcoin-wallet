@@ -26,26 +26,26 @@ const EnterPinCode = ({
 	};
 
 	const onDeleteNumber = () => {
-		pinCode.pop();
-		setPinCode([...pinCode]);
+		setPinCode([]);
 	};
 
 	return (
 		<div className="pin-page wrapper-transaction">
-			<a
-				href="#"
-				onClick={(e) => {
-					e.preventDefault();
-					onBack();
-				}}
-				className="pin-page-back-button back-button"
-			>
-				<div className="back-button__container">
-					<i className="is-icon back-button-icon" />
-				</div>
-				<span className="back-button__text">Back</span>
-			</a>
-			<div className="pin-page__title">
+			{onBack ? (
+				<a
+					href="#"
+					onClick={(e) => {
+						e.preventDefault();
+						onBack();
+					}}
+					className="pin-page-back-button back-button"
+				>
+					<div className="back-button__container">
+						<i className="is-icon back-button-icon" />
+					</div>
+					<span className="back-button__text">Back</span>
+				</a>) : null}
+			<div className="pin-page__title" style={{ marginTop: onBack ? 0 : 43 }}>
 				<span>{title}</span>
 			</div>
 			<div className="pin-page__wrapper">
@@ -60,24 +60,19 @@ const EnterPinCode = ({
 				</div>
 				<div className="pin-page__keyboard">
 					{numbers.map((number) => (
-						<Button key={number} className="pin-page__keyboard-item" onPointerUp={() => onClickNumber(number)}>
+						<Button key={number} className="pin-page__keyboard-item" onClick={() => onClickNumber(number)}>
 							{number}
 						</Button>
 					))}
 				</div>
 
 				<div className="dashboard-controls flex-column">
-					{/* one of three options will be displayed */}
 
-					{/* <a href="#" className="pin-page-list__item mb18">
-						<i className="is-icon fingerprint-white-icon" />
-						<span>You can use Touch ID</span>
-					</a> */}
-
-					{/* <div className="pin-page-list__item mb18">
-						<i className="is-icon face-id-white-icon" />
-						<span>You can use Face ID</span>
-					</div> */}
+					{pinCode.length ? (
+						<Button className="is-transparent is-white pin-page__button" onPointerUp={() => onDeleteNumber()}>
+							Clear
+						</Button>
+					) : <span className="is-transparent is-white pin-page__button" />}
 					<MediaQuery maxWidth={374}>
 						{(matches) => {
 							if (matches) {
@@ -114,9 +109,6 @@ const EnterPinCode = ({
 							);
 						}}
 					</MediaQuery>
-					<Button className="is-transparent is-white pin-page__button" onPointerUp={() => onDeleteNumber()}>
-						Delete
-					</Button>
 				</div>
 			</div>
 		</div>
@@ -126,7 +118,7 @@ const EnterPinCode = ({
 
 EnterPinCode.propTypes = {
 	title: PropTypes.string,
-	onBack: PropTypes.func.isRequired,
+	onBack: PropTypes.func,
 	invalidPinCode: PropTypes.bool,
 	loading: PropTypes.bool,
 	onSubmit: PropTypes.func.isRequired,
@@ -136,6 +128,7 @@ EnterPinCode.defaultProps = {
 	title: '',
 	invalidPinCode: false,
 	loading: false,
+	onBack: null,
 };
 
 
