@@ -10,9 +10,13 @@
 		color: #519bfc;
 		margin: 0 auto;
 		text-decoration: none;
+		outline: 0;
+		border: 0;
+	  	background: transparent;
 
 		&:active {
 			opacity: 0.7;
+		  	-webkit-tap-highlight-color: transparent;
 		}
 	}
 

@@ -5,6 +5,7 @@ import * as ethUtil from 'ethereumjs-util';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import BN from 'bignumber.js';
+import qs from 'query-string';
 import history from '../../../../history';
 
 import Button from './../../../../components/Form/Button';
@@ -15,15 +16,13 @@ import Header from './../../../../containers/Layout/Header';
 import web3Service from '../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
 
-import { CURRENCIES, ETH } from '../../../../constants/CurrencyConstants';
+import { CURRENCIES, ETH, DEFAULT_CURRENCY } from '../../../../constants/CurrencyConstants';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
 import TransactionBuilder from '../../../../components/TransactionBuilder';
 import sendTransactionActions from '../../../../actions/SendTransactionActions';
 import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
 import notificationActions from '../../../../actions/NotificationActions';
 import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
-
-const DEFAULT_CURRENCY = ETH;
 
 const initialValues = () => ({
 	currency: DEFAULT_CURRENCY,
@@ -57,6 +56,17 @@ const Send = ({
 		});
 	};
 
+	const parseQrParams = (paramsString, setFieldValue) => {
+		const params = qs.parse(paramsString);
+		if (params.currency && CURRENCIES.includes(params.currency.toUpperCase())) {
+			setFieldValue('currency', params.currency);
+			updateGas(params.currency);
+		}
+		if (params.value && params.value > 0) {
+			setFieldValue('amount', params.value);
+		}
+	};
+
 	const onScanQrCode = (e, setFieldValue) => {
 		e.preventDefault();
 		scanQrCode({
@@ -66,6 +76,14 @@ const Send = ({
 
 				if (web3Service.web3.utils.isAddress(qrCodeData)) {
 					setFieldValue('address', qrCodeData);
+				} else if (arrAddress[0] === 'ethereum' && arrAddress[1].includes('?')) {
+					const arrAddressParams = arrAddress[1].split('?');
+					if (web3Service.web3.utils.isAddress(arrAddressParams[0])) {
+						setFieldValue('address', arrAddressParams[0]);
+						parseQrParams(arrAddressParams[1], setFieldValue);
+					} else {
+						showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
+					}
 				} else if (arrAddress[0] === 'ethereum' && web3Service.web3.utils.isAddress(arrAddress[1])) {
 					setFieldValue('address', arrAddress[1]);
 				} else {

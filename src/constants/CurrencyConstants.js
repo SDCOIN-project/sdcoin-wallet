@@ -20,3 +20,5 @@ export const CONTRACT_ADDRESSES = {
 	[__APP_CONTRACT_LUV_TOKEN__]: LUV,
 	[__APP_CONTRACT_SDC_TOKEN__]: SDC,
 };
+
+export const DEFAULT_CURRENCY = ETH;
