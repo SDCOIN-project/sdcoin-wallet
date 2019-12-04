@@ -17,6 +17,14 @@ class SwapService {
 		return this._contract;
 	}
 
+	getSdcExchangeRate() {
+		return this.contract.methods.exchangeRate().call();
+	}
+
+	swap(receiver) {
+		return this.contract.methods.swap(receiver);
+	}
+
 }
 
 const swapService = new SwapService();

@@ -38,6 +38,9 @@ class SdcTokenService {
 		return this.contract.methods.transfer(to, value);
 	}
 
+	approve(spender, count) {
+		return this.contract.methods.approve(spender, count);
+	}
 
 }
 
