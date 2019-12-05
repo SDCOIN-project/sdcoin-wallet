@@ -14,12 +14,13 @@ import { CURRENCIES, DEFAULT_CURRENCY, LUV } from '../../../../constants/Currenc
 import web3Service from '../../../../services/Web3Service';
 import QRCodeService from '../../../../services/QRCodeService';
 import clipboardService from '../../../../services/ClipboardService';
+import GlobalActions from '../../../../actions/GlobalActions';
 
 const initialValues = () => ({
 	currency: DEFAULT_CURRENCY,
 });
 
-const Receive = ({ balances, address }) => {
+const Receive = ({ balances, address, shareImage }) => {
 	const [qrCode, setQrCode] = useState('data:image/png;base64,');
 	const [active, setActive] = useState(false);
 	let timeout = null;
@@ -100,7 +101,7 @@ const Receive = ({ balances, address }) => {
 							<div className={classNames('scan-qr-code-block', { 'is-small': values.currency && values.currency === LUV })}>
 								{qrCode ? <img className="img-placeholder" src={qrCode} alt="Placeholder qr code" /> : null}
 							</div>
-							<button type="submit" className="receive-page__text-signature">Share QR code</button>
+							<button type="submit" className="receive-page__text-signature" onClick={() => shareImage(qrCode)}>Share QR code</button>
 							{values.currency && values.currency === LUV && (
 								<React.Fragment>
 									<p className="receive-page__text-prefix">or</p>
@@ -139,6 +140,7 @@ const Receive = ({ balances, address }) => {
 Receive.propTypes = {
 	address: PropTypes.string.isRequired,
 	balances: PropTypes.object.isRequired,
+	shareImage: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -146,5 +148,7 @@ export default connect(
 		address: state.account.get('address'),
 		balances: state.account.get('balances').toJSON(),
 	}),
-	() => ({}),
+	(dispatch) => ({
+		shareImage: (image) => dispatch(GlobalActions.shareImage(image)),
+	}),
 )(Receive);

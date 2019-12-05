@@ -4,6 +4,7 @@ import accountActions from './AccountActions';
 import touchIdService from '../services/TouchIdService';
 import { PASSWORD } from '../constants/GlobalConstants';
 import notificationActions from './NotificationActions';
+import shareService from '../services/ShareService';
 
 class GlobalActions extends BaseActions {
 
@@ -83,6 +84,12 @@ class GlobalActions extends BaseActions {
 	unlock() {
 		return (dispatch) => {
 			dispatch(this.setValue('isLocked', false));
+		};
+	}
+
+	shareImage(image) {
+		return async () => {
+			await shareService.shareImage(image);
 		};
 	}
 
