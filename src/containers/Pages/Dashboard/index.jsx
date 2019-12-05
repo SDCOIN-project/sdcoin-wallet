@@ -27,7 +27,9 @@ import {
 	PAYMENT_INFO2,
 	TRANSACTION_DETAILS,
 	PAYMENT_DETAILS,
+	GET_PAYMENT_PATH,
 } from '../../../constants/RouterConstants';
+import GetPayment from './GetPayment';
 
 const Dashboard = () => (
 	<React.Fragment>
@@ -42,6 +44,7 @@ const Dashboard = () => (
 			<Route path={SETTINGS_PATH} component={Settings} />
 			<Route exact path={EXCHANGE_FUNDS_PATH} component={ExchangeFunds} />
 			<Route exact path={TRANSACTION_DETAILS} component={TransactionDetails} />
+			<Route exact path={GET_PAYMENT_PATH} component={GetPayment} />
 
 			<Route path="*" component={PageNotFound} />
 		</Switch>

@@ -1,20 +1,21 @@
-/* eslint-disable no-underscore-dangle */
+import BigNumber from 'bignumber.js';
 import ethService from '../EthService';
 
 import abi from '../../../abi/escrow.json';
 
 class EscrowService {
 
-	constructor() {
-		this._contract = null;
+	async withdrawEstimateGas(escrow, sender) {
+		this.contract = new ethService.eth.Contract(abi, escrow);
+		return new BigNumber(await this.contract.methods.withdraw().estimateGas({ from: sender }));
 	}
 
-	get contract() {
-		if (!this._contract) {
-			this._contract = new ethService.eth.Contract(abi, __APP_CONTRACT_ESCROW__);
-		}
-
-		return this._contract;
+	async withdraw(escrow, sender) {
+		this.contract = new ethService.eth.Contract(abi, escrow);
+		return new BigNumber(await this.contract.methods.withdraw().send({
+			from: sender,
+			gas: await this.withdrawEstimateGas(escrow, sender),
+		}));
 	}
 
 }

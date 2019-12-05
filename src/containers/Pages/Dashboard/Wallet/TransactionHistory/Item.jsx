@@ -17,7 +17,7 @@ const onItemClick = (e, item, setSelectedTransaction) => {
 const Item = ({
 	item, address, selectedCurrency, setSelectedTransaction,
 }) => {
-	const isSend = item.from === address;
+	const isSend = item.from.toLowerCase() === address.toLowerCase();
 
 	return (
 		<a href="#" onClick={(e) => onItemClick(e, item, setSelectedTransaction)} className="transaction-history__row">
@@ -29,7 +29,7 @@ const Item = ({
 				</div>
 			</div>
 			<div className="transaction-history__row-value">
-				{web3Service.fromWei(item.value, 'ether').toNumber()}<span className="postfix">{selectedCurrency}</span>
+				{web3Service.fromWei(item.value, 'ether').toString(10)}<span className="postfix">{selectedCurrency}</span>
 			</div>
 		</a>
 	);

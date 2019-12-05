@@ -63,12 +63,14 @@
 	},
 	"globals": {
 		"__APP_NETWORK_URL__": false,
-		"__SOCKET_URL__": false,
 		"__APP_CONTRACT_LUV_TOKEN__": false,
 		"__APP_CONTRACT_SDC_TOKEN__": false,
 		"__APP_EXPLORER_ADDRESS__": false,
 		"__APP_CONTRACT_SWAP__": false,
-		"__APP_CONTRACT_ESCROW__": false,
+		"__APP_CONTRACT_ESCROW_FACTORY__": false,
+		"__NODE_ENV__": false,
+		"__CRYPTO_API_TOKEN__": false,
+		"__CRYPTO_API_URL__": false,
 		"Camera": false,
 		"QRScanner": false
 	}

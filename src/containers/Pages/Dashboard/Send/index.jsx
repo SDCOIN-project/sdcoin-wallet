@@ -5,7 +5,6 @@ import * as ethUtil from 'ethereumjs-util';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import BN from 'bignumber.js';
-import qs from 'query-string';
 import history from '../../../../history';
 
 import Button from './../../../../components/Form/Button';
@@ -56,38 +55,23 @@ const Send = ({
 		});
 	};
 
-	const parseQrParams = (paramsString, setFieldValue) => {
-		const params = qs.parse(paramsString);
-		if (params.currency && CURRENCIES.includes(params.currency.toUpperCase())) {
-			setFieldValue('currency', params.currency);
-			updateGas(params.currency);
-		}
-		if (params.value && params.value > 0) {
-			setFieldValue('amount', params.value);
-		}
-	};
-
 	const onScanQrCode = (e, setFieldValue) => {
 		e.preventDefault();
 		scanQrCode({
 			description: 'Scan QRcode to get recipient address',
 			onScan: (qrCodeData) => {
-				const arrAddress = qrCodeData.split(':');
-
-				if (web3Service.web3.utils.isAddress(qrCodeData)) {
-					setFieldValue('address', qrCodeData);
-				} else if (arrAddress[0] === 'ethereum' && arrAddress[1].includes('?')) {
-					const arrAddressParams = arrAddress[1].split('?');
-					if (web3Service.web3.utils.isAddress(arrAddressParams[0])) {
-						setFieldValue('address', arrAddressParams[0]);
-						parseQrParams(arrAddressParams[1], setFieldValue);
-					} else {
-						showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
-					}
-				} else if (arrAddress[0] === 'ethereum' && web3Service.web3.utils.isAddress(arrAddress[1])) {
-					setFieldValue('address', arrAddress[1]);
-				} else {
+				const data = web3Service.parseUrl(qrCodeData);
+				if (!data.address) {
 					showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
+				} else {
+					setFieldValue('address', data.address);
+					if (data.value) {
+						setFieldValue('amount', data.value);
+					}
+					if (data.token) {
+						setFieldValue('currency', data.token);
+						updateGas(data.token);
+					}
 				}
 			},
 		});

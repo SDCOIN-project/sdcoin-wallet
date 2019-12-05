@@ -7,7 +7,7 @@ import scanQrCodeActions from './../../actions/ScanQrCodeActions';
 import qrScannerService from '../../services/QRScannerService';
 
 const ScanQrCode = ({
-	show, title = 'Scan QR code', description, setValue, onScan,
+	show, title = 'Scan QR code', description, setValue, onScan, onClose,
 }) => {
 	const [error, setError] = useState(null);
 
@@ -52,7 +52,7 @@ const ScanQrCode = ({
 
 	return (
 		<div className={`scan-wrapper ${show ? 'show-top' : ''}`} style={style}>
-			<Header backButton={() => hide()} title={title} />
+			<Header backButton={() => { hide(); onClose(); }} title={title} />
 			<div className="dashboard scan-qr-code-page">
 				<div className="scan-qr-code-page__text">{description}</div>
 				<div className="scan-qr-code-page__wrapper">
@@ -78,6 +78,7 @@ ScanQrCode.propTypes = {
 	title: PropTypes.string,
 	description: PropTypes.string,
 	onScan: PropTypes.func,
+	onClose: PropTypes.func,
 	setValue: PropTypes.func.isRequired,
 };
 
@@ -85,6 +86,7 @@ ScanQrCode.defaultProps = {
 	title: '',
 	description: '',
 	onScan: () => {},
+	onClose: () => {},
 };
 
 export default connect(
@@ -93,6 +95,7 @@ export default connect(
 		title: state.scanQrCode.get('title'),
 		description: state.scanQrCode.get('description'),
 		onScan: state.scanQrCode.get('onScan'),
+		onClose: state.scanQrCode.get('onClose'),
 	}),
 	(dispatch) => ({
 		setValue: (field, value) => dispatch(scanQrCodeActions.setValue(field, value)),

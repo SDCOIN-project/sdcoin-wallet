@@ -97,14 +97,15 @@ module.exports = {
 	plugins: [
 		new CleanWebpackPlugin(['www']),
 		new webpack.DefinePlugin({
-			__API_URL__: JSON.stringify(config.api),
-			__SOCKET_URL__: JSON.stringify(config.socket),
 			__APP_NETWORK_URL__: JSON.stringify(config.network.url),
 			__APP_CONTRACT_LUV_TOKEN__: JSON.stringify(config.contracts.luvToken),
 			__APP_CONTRACT_SDC_TOKEN__: JSON.stringify(config.contracts.sdcToken),
 			__APP_CONTRACT_SWAP__: JSON.stringify(config.contracts.swap),
-			__APP_CONTRACT_ESCROW__: JSON.stringify(config.contracts.escrow),
+			__APP_CONTRACT_ESCROW_FACTORY__: JSON.stringify(config.contracts.escrowFactory),
 			__APP_EXPLORER_ADDRESS__: JSON.stringify(config.explorer),
+			__NODE_ENV__: JSON.stringify(process.env.NODE_ENV),
+			__CRYPTO_API_TOKEN__: JSON.stringify(config.cryptoapi.token),
+			__CRYPTO_API_URL__: JSON.stringify(config.cryptoapi.url),
 		}),
 		HTMLWebpackPluginConfig,
 		extractSass,

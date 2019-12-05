@@ -9,7 +9,7 @@ import { ICONS } from '../constants/NotificationConstants';
 class NotificationActions extends BaseActions {
 
 	add({
-		text, icon, closeCallback, className, button, buttonCallback,
+		text, icon, closeCallback, className, button, buttonCallback, id,
 	}) {
 		return (dispatch) => {
 
@@ -18,7 +18,7 @@ class NotificationActions extends BaseActions {
 			}
 
 			dispatch(this.reducer.actions.add({
-				id: randomString.generate(10),
+				id: id || randomString.generate(10),
 				text,
 				icon,
 				closeCallback,
@@ -58,19 +58,15 @@ class NotificationActions extends BaseActions {
 		};
 	}
 
-	getPaymentNotification({
-		text, closeCallback, className, buttonCallback,
-	}) {
+	getPaymentNotification() {
 		return (dispatch) => {
-			const id = randomString.generate(10);
+			const id = 'paymentnotify';
 
-			dispatch(this.reducer.actions.add({
+			dispatch(this.add({
 				id,
-				text,
+				text: 'You have new incoming payment',
 				icon: ICONS.bell,
-				closeCallback,
-				className,
-				button: <GetPaymentButton id={id} buttonCallback={buttonCallback} />,
+				button: <GetPaymentButton id={id} />,
 			}));
 		};
 	}

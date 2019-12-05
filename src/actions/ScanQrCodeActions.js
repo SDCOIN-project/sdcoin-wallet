@@ -8,12 +8,15 @@ class ScanQrCodeActions extends BaseActions {
 	 * @param {string} title
 	 * @param {string} description
 	 * @param {Function} onScan
+	 * @param {Function} onClose
 	 * @returns {function(...[*]=)}
 	 */
-	scan({ title, description, onScan = () => {} } = {}) {
+	scan({
+		title, description, onScan = () => {}, onClose = () => {},
+	} = {}) {
 		return (dispatch) => {
 			dispatch(this.setMultipleValue({
-				show: true, title, description, onScan,
+				show: true, title, description, onScan, onClose,
 			}));
 		};
 	}

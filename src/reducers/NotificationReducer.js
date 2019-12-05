@@ -13,7 +13,9 @@ export default createModule({
 
 		add: {
 			reducer: (state, { payload }) => {
-				state = state.unshift(payload);
+				if (!state.find((notification) => notification.id === payload.id)) {
+					state = state.unshift(payload);
+				}
 				return state;
 			},
 		},

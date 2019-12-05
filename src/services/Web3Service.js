@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import Web3 from 'web3';
 import BN from 'bignumber.js';
+import qs from 'query-string';
+import { CURRENCIES } from '../constants/CurrencyConstants';
 
 class Web3Service {
 
@@ -52,6 +54,35 @@ class Web3Service {
 	 */
 	toHex(amount) {
 		return this.web3.utils.toHex(amount);
+	}
+
+	parseUrl(string) {
+		const arrAddress = string.split(':');
+		const result = {
+			address: null,
+			value: null,
+			token: null,
+		};
+
+		if (this.web3.utils.isAddress(string)) {
+			result.address = string;
+		} else if (arrAddress[0] === 'ethereum' && arrAddress[1].includes('?')) {
+			const arrAddressParams = arrAddress[1].split('?');
+			if (this.web3.utils.isAddress(arrAddressParams[0])) {
+				[result.address] = arrAddressParams;
+				const params = qs.parse(string);
+				if (params.currency && CURRENCIES.includes(params.currency.toUpperCase())) {
+					result.token = params.currency;
+				}
+				if (params.value && params.value > 0) {
+					result.value = params.value;
+				}
+			}
+		} else if (arrAddress[0] === 'ethereum' && this.web3.utils.isAddress(arrAddress[1])) {
+			// eslint-disable-next-line prefer-destructuring
+			result.address = arrAddress[1];
+		}
+		return result;
 	}
 
 }

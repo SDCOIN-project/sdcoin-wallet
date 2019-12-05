@@ -8,8 +8,9 @@ import walletService from '../services/WalletService';
 import ethService from '../services/EthService';
 
 import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED, MNEMONIC_NOT_FOUND } from '../constants/ErrorConstants';
-import { CURRENCY_SERVICES, CURRENCIES } from '../constants/CurrencyConstants';
+import { CURRENCY_SERVICES, CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
 import notificationActions from './NotificationActions';
+import escrowActions from './EscrowActions';
 
 class AccountActions extends BaseActions {
 
@@ -62,7 +63,7 @@ class AccountActions extends BaseActions {
 	 * @returns {Function}
 	 */
 	authorisation({ address }) {
-		return (dispatch) => {
+		return async (dispatch) => {
 			if (!address) {
 				throw new Error(AUTHORIZATION_FAILED);
 			}
@@ -73,10 +74,14 @@ class AccountActions extends BaseActions {
 
 			dispatch(this.setValue('address', address));
 
-			dispatch(globalActions.initializeSocket(address));
 			dispatch(transactionHistoryActions.getTransactions());
+			dispatch(transactionHistoryActions.subscribeToTransactions(address));
+			dispatch(transactionHistoryActions.subscribeToTokenTransactions(address, LUV));
+			dispatch(transactionHistoryActions.subscribeToTokenTransactions(address, SDC));
 
 			dispatch(this.getBalances());
+			await dispatch(escrowActions.bindEscrowList());
+			dispatch(escrowActions.bindUnclaimedBalance());
 			this.updateBalanceInterval = setInterval(() => {
 				dispatch(this.getBalances());
 			}, 30 * 1000);

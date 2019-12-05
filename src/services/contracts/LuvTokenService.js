@@ -28,7 +28,7 @@ class LuvTokenService {
 
 	/**
 	 * Get decimals
-	 * @returns {Promise<string>}
+	 * @returns {Promise<number>}
 	 */
 	async getDecimals() {
 		return parseInt(await this.contract.methods.decimals().call(), 10);

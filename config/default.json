@@ -1,13 +1,15 @@
 {
-	"api": "https://699-sdcoin.pixelplex-test.by",
-	"socket": "https://699-sdcoin.pixelplex-test.by",
 	"network": {
 		"url": "https://rinkeby.infura.io/v3/3733109dd9304d158d8def80a87fbcfe"
 	},
 	"contracts": {
-		"luvToken": "0xDa2A36bDe6b0b87C72701d94Fa4C2BC2d70D9b2c",
-		"sdcToken": "0x271A509DA2dc7DDB46Ed25E7d109579C363EE4ac",
-		"swap": "0x1E78Db4b3B50a31cc07c7505a4840C86727Bab84",
-		"escrow": "0x5CB6F4c0b3AA1f4195E41A4976fC816e0F139955"
+		"luvToken": "0xBF0bC37F7c8c5BA926A2E1897Ad84523d4821108",
+		"sdcToken": "0xc667a054a236F4D56C12CC447e12880Bb74faf20",
+		"swap": "0x4ba5E3c3C7DCe40A64A9FE03623e0D3FF11C48Ae",
+		"escrowFactory": "0xd75C984347a709e033aCC043C132d618eAb03C5a"
+	},
+	"cryptoapi": {
+		"token": "f25dad2aacc926604190852e94e5e9a705a72a8439281716",
+		"url": "https://697-crypto-api.pixelplex-test.by/api/v1"
 	}
 }

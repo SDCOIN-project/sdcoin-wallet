@@ -9,7 +9,7 @@ eslint:
     paths:
     - node_modules/
   script:
-    - npm i --silent
+    - npm i
     - npm run audit
     - npm run lint
   tags:

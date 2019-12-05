@@ -1,7 +1,8 @@
 import BaseActions from './BaseActions';
 import TransactionHistoryReducer from '../reducers/TransactionHistoryReducer';
-import * as TransactionApi from '../api/TransactionApi';
-import { CONTRACT_ADDRESSES, CURRENCIES, ETH } from '../constants/CurrencyConstants';
+import { CURRENCIES, ETH, TOKEN_ADDRESS } from '../constants/CurrencyConstants';
+import escrowActions from './EscrowActions';
+import cryptoApiService from '../services/CryptoApiService';
 
 class TransactionHistoryActions extends BaseActions {
 
@@ -16,7 +17,7 @@ class TransactionHistoryActions extends BaseActions {
 			const address = getState().account.get('address');
 
 			const transactionsHistory = await Promise.all(CURRENCIES.map((currency) =>
-				TransactionApi.getTransactions(address, { currencyType: currency, offset: 0, count })))
+				cryptoApiService.getTransfers(currency, address, 0, count)))
 				.finally(() => {
 					dispatch(this.setValue('loading', false));
 				});
@@ -28,6 +29,25 @@ class TransactionHistoryActions extends BaseActions {
 
 				dispatch(this.setValue([...path, 'hasMore'], history.items.length < history.count));
 
+			});
+		};
+	}
+
+	subscribeToTransactions(address) {
+		return async (dispatch, getState) => {
+			await cryptoApiService.subscribeToTransactions(address, (data) => {
+				const list = getState().transactionsHistory.getIn(['currencies', ETH, 'list']).unshift(data);
+				dispatch(this.setValue(['currencies', ETH, 'list'], list));
+				dispatch(escrowActions.checkIsTxToEscrowFactory(data));
+			});
+		};
+	}
+
+	subscribeToTokenTransactions(address, currency) {
+		return async (dispatch, getState) => {
+			await cryptoApiService.subscribeToTokenTransfers(TOKEN_ADDRESS[currency], address, (data) => {
+				const list = getState().transactionsHistory.getIn(['currencies', currency, 'list']).unshift(data);
+				dispatch(this.setValue(['currencies', currency, 'list'], list));
 			});
 		};
 	}
@@ -57,11 +77,7 @@ class TransactionHistoryActions extends BaseActions {
 			const countExists = getState().transactionsHistory.getIn([...path, 'list']).size;
 			const address = getState().account.get('address');
 
-			const transactions = await TransactionApi.getTransactions(address, {
-				currencyType: currency,
-				offset: countExists,
-				count,
-			});
+			const transactions = await cryptoApiService.getTransfers(currency, address, countExists, count);
 
 			let list = getState().transactionsHistory.getIn([...path, 'list']).toJS();
 			list = list.concat(transactions.items);
@@ -80,25 +96,6 @@ class TransactionHistoryActions extends BaseActions {
 		return (dispatch) => {
 			if (!transaction) return;
 			dispatch(this.setValue('selectedTransaction', transaction));
-		};
-	}
-
-	/**
-	 * Init socket events by new transaction
-	 * @returns {Function}
-	 */
-	initSocketEvents() {
-		return (dispatch, getState) => {
-			const socket = getState().global.get('socket');
-			socket.on('new_transaction', (data) => {
-				const list = getState().transactionsHistory.getIn(['currencies', ETH, 'list']).unshift(data);
-				dispatch(this.setValue(['currencies', ETH, 'list'], list));
-			});
-			socket.on('new_transfer', (data) => {
-				const token = CONTRACT_ADDRESSES[data.address];
-				const list = getState().transactionsHistory.getIn(['currencies', token, 'list']).unshift(data);
-				dispatch(this.setValue(['currencies', token, 'list'], list));
-			});
 		};
 	}
 
