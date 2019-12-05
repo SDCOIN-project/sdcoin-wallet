@@ -1,7 +1,7 @@
 .pin-page {
 	color: #fff;
 	text-align: center;
-	background: linear-gradient(107deg, #519bfc 0%, #3f7ed0 100%);
+	background: linear-gradient(180deg, #519bfc 0%, #3f7ed0 100%);
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -14,10 +14,6 @@
 		padding-top: constant(safe-area-inset-top); //for ios 11
 		padding-top: env(safe-area-inset-top);
 		margin-top: 10px;
-		
-		@include iphone-with-face-id  {
-			margin-top: 0;
-		}
 	}
 
 	&__wrapper {
@@ -43,10 +39,6 @@
 			padding-top: constant(safe-area-inset-top); //for ios 11
 			padding-top: env(safe-area-inset-top);
 			margin-top: 35px;
-		
-			@include iphone-with-face-id  {
-				margin-top: 20px;
-			}
 		}
 
 		&.with-subtitle {

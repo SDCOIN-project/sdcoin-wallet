@@ -108,7 +108,7 @@ const ExchangeFunds = ({
 							{({
 								values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
 							}) => (
-								<form onSubmit={handleSubmit} className="dashboard-form">
+								<form onSubmit={handleSubmit} className="dashboard-form with-controls">
 									<div className="dashboard-form__row">
 										<p className="dashboard-form__row-text">Available balance:</p>
 										<p className="dashboard-form__row-value">

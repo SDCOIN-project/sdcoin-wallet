@@ -1,5 +1,6 @@
 .header-transaction-details {
-	min-height: 135px;
+	// min-height: 135px;
+	min-height: 115px;
 	@include iphone-with-face-id {
 		padding-bottom: 5px;
 	}
@@ -32,10 +33,12 @@
 }
 
 .transaction-details-page {
-	height: calc(100vh - 185px);
+	// height: calc(100vh - 185px);
+	height: calc(100vh - 165px);
 	padding-right: 0;
-	
+
 	@include iphone-with-face-id {
-		height: calc(100vh - 221px);
+		// height: calc(100vh - 221px);
+		height: calc(100vh - 201px);
 	}
 }

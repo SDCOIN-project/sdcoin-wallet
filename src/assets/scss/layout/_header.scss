@@ -1,18 +1,13 @@
 .header {
 	@include CircularStd_Medium;
 	position: relative;
-	background: linear-gradient(107deg, #519bfc 0%, #3f7ed0 100%);
-	min-height: 115px;
+	background: linear-gradient(180deg, #519bfc 0%, #3f7ed0 100%);
+	//header width is 115px
+	//95px height in css plus 20px status bar in standard phone
+	min-height: 95px;
 	display: flex;
 	flex-direction: column;
-	// padding: 15px 0px 8px 0;
 	padding: 10px 0px 8px 0;
-
-	@include iphone-with-face-id  {
-		padding-top: 0;
-		padding-bottom: 0;
-	}
-
 
 	&-title {
 		@include CircularStd_Book;

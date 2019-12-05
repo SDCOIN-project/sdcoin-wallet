@@ -12,11 +12,11 @@
 		text-decoration: none;
 		outline: 0;
 		border: 0;
-	  	background: transparent;
+		background: transparent;
 
 		&:active {
 			opacity: 0.7;
-		  	-webkit-tap-highlight-color: transparent;
+			-webkit-tap-highlight-color: transparent;
 		}
 	}
 
@@ -103,5 +103,9 @@
 
 	.is-wide {
 		min-width: 278px;
+	}
+
+	.dashboard-form {
+		margin-bottom: 0;
 	}
 }

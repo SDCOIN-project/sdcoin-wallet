@@ -2,11 +2,11 @@
 	padding: 20px 17px 16px 17px;
 	display: flex;
 	flex-direction: column;
-	height: calc(100vh - 165px);
+	height: calc(100vh - 145px);
 	overflow: auto;
 
 	@include iphone-with-face-id {
-		height: calc(100vh - 200px);
+		height: calc(100vh - 180px);
 	}
 
 	&-controls {
@@ -183,7 +183,7 @@
 		padding: 16px 15px 16px 0;
 		border-bottom: 1px solid #eceef3;
 
-		&:first-child{
+		&:first-child {
 			padding-top: 0;
 		}
 
@@ -202,7 +202,6 @@
 			line-height: 20px;
 			margin-top: 4px;
 		}
-		
 	}
 }
 
@@ -217,7 +216,6 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	// background: #fff;
 	background: transparent;
 	z-index: 2;
 }
