@@ -31,6 +31,10 @@
 			margin-bottom: 8px;
 		}
 
+		&.is-small {
+			min-height: 44px;
+		}
+
 		&-container-left {
 			line-height: 18px;
 			margin-right: auto;
@@ -39,6 +43,10 @@
 
 			.text {
 				max-width: 200px;
+
+				&.text-full-width {
+					max-width: initial;
+				}
 			}
 
 			&.payment {
@@ -104,6 +112,12 @@
 		.error-white-icon {
 			width: 18px;
 			height: 18px;
+			margin-right: 6px;
+		}
+
+		.no-internet-connection-icon {
+			width: 24px;
+			height: 20px;
 			margin-right: 6px;
 		}
 	}
