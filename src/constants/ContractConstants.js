@@ -1,2 +1,6 @@
 export const CONTRACT_ESCROW_FACTORY = __APP_CONTRACT_ESCROW_FACTORY__;
 export const CONTRACT_SWAP = __APP_CONTRACT_SWAP__;
+
+export const ESCROW_ITEMS_AMOUNT = 1000;
+export const ESCROW_ITEM_ID = 0;
+

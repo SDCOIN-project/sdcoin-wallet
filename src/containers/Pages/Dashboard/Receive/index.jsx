@@ -14,6 +14,8 @@ import { CURRENCIES, DEFAULT_CURRENCY, LUV } from '../../../../constants/Currenc
 import web3Service from '../../../../services/Web3Service';
 import QRCodeService from '../../../../services/QRCodeService';
 import clipboardService from '../../../../services/ClipboardService';
+import history from '../../../../history';
+import { GENERATE_PAYMENT } from '../../../../constants/RouterConstants';
 import GlobalActions from '../../../../actions/GlobalActions';
 
 const initialValues = () => ({
@@ -54,6 +56,11 @@ const Receive = ({ balances, address, shareImage }) => {
 	useEffect(() => {
 		changeQRCode(initialValues());
 	}, []);
+
+	const onGeneratePaymentQR = (e) => {
+		e.preventDefault();
+		history.push(GENERATE_PAYMENT);
+	};
 
 	return (
 		<React.Fragment>
@@ -105,7 +112,7 @@ const Receive = ({ balances, address, shareImage }) => {
 							{values.currency && values.currency === LUV && (
 								<React.Fragment>
 									<p className="receive-page__text-prefix">or</p>
-									<a href="#" className="receive-page__text-signature">Generate payment QR code</a>
+									<a href="#" onClick={(e) => onGeneratePaymentQR(e)} className="receive-page__text-signature">Generate payment QR code</a>
 								</React.Fragment>
 							)}
 						</form>

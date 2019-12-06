@@ -3,7 +3,7 @@ import escrowFactoryService from '../services/contracts/EscrowFactoryService';
 import luvTokenService from '../services/contracts/LuvTokenService';
 import EscrowReducer from '../reducers/EscrowReducer';
 import notificationActions from './NotificationActions';
-import { CONTRACT_ESCROW_FACTORY } from '../constants/ContractConstants';
+import { CONTRACT_ESCROW_FACTORY, ESCROW_ITEM_ID, ESCROW_ITEMS_AMOUNT } from '../constants/ContractConstants';
 import cryptoApiService from '../services/CryptoApiService';
 import escrowService from '../services/contracts/EscrowService';
 
@@ -70,6 +70,28 @@ class EscrowActions extends BaseActions {
 		return async (_, getState) => {
 			const address = getState().account.get('address');
 			return escrowService.withdraw(contract, address);
+		};
+	}
+
+	createEscrowContract(price, gas, gasPrice) {
+		return async (_, getState) => {
+			const from = getState().account.get('address');
+			const result = await escrowFactoryService.createEscrowContract(price, from, gas, gasPrice);
+			// TODO: Add result TX hash to pending transactions array
+			console.log(result);
+			return result;
+		};
+	}
+
+	/**
+	 * Estimate gas for create escrow contract
+	 * @param {number} price
+	 * @returns {number}
+	 */
+	createEscrowContractEstimateGas(price) {
+		return (_, getState) => {
+			const from = getState().account.get('address');
+			return escrowFactoryService.createEscrowContractEstimateGas(ESCROW_ITEM_ID, price, ESCROW_ITEMS_AMOUNT, from);
 		};
 	}
 
