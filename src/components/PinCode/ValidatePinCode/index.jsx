@@ -29,7 +29,7 @@ const ValidatePinCode = ({
 	const validatePin = (pinCode) => {
 		if (!validate(pinCode)) {
 			setInvalidPinCode(true);
-			title = setTitle('Incorrect PIN. Try again');
+			title = setTitle('Wrong PIN. Try again');
 			setTimeout(() => {
 				setInvalidPinCode(false);
 			}, 500);
