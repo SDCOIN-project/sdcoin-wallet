@@ -7,10 +7,17 @@ import walletService from '../services/WalletService';
 
 import ethService from '../services/EthService';
 
-import { IMPOSSIBLE_TO_CREATE_WALLET_ERROR, AUTHORIZATION_FAILED, MNEMONIC_NOT_FOUND } from '../constants/ErrorConstants';
-import { CURRENCY_SERVICES, CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
 import notificationActions from './NotificationActions';
 import escrowActions from './EscrowActions';
+import { CURRENCY_SERVICES, CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
+import { ICONS } from '../constants/NotificationConstants';
+import {
+	IMPOSSIBLE_TO_CREATE_WALLET_ERROR,
+	AUTHORIZATION_FAILED,
+	MNEMONIC_NOT_FOUND,
+	INVALID_ETH_RESPONSE,
+	NO_INTERNET,
+} from '../constants/ErrorConstants';
 
 class AccountActions extends BaseActions {
 
@@ -105,7 +112,16 @@ class AccountActions extends BaseActions {
 					dispatch(this.setValue(['balances', currency], balances[index]));
 				});
 			} catch (error) {
-				dispatch(notificationActions.errorNotification({ text: error.message }));
+				if (error.message === INVALID_ETH_RESPONSE) {
+					dispatch(notificationActions.add({
+						id: NO_INTERNET,
+						icon: ICONS.noInternet,
+						text: NO_INTERNET,
+						className: 'is-small',
+					}));
+				} else {
+					dispatch(notificationActions.errorNotification({ text: error.message }));
+				}
 				throw error;
 			}
 		};

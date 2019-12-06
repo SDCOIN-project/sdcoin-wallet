@@ -5,4 +5,5 @@ export const ICONS = {
 	qrCode: 'qr-code-small-white',
 	lock: 'lock-white',
 	attention: 'attention-white',
+	noInternet: 'no-internet-connection',
 };
