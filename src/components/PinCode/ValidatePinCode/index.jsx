@@ -5,13 +5,14 @@ import touchIdService from '../../../services/TouchIdService';
 import { PASSWORD, FINGER_PRINT_TYPE } from '../../../constants/GlobalConstants';
 
 const ValidatePinCode = ({
-	validate, onSubmit, useAltId, ...props
+	validate, onSubmit, useAltId, title, ...props
 }) => {
 
 	const [invalidPinCode, setInvalidPinCode] = useState(false);
 	const [availableType, setAvailableType] = useState('');
 	const [hasPassword, setHasPassword] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [changedTitle, setTitle] = useState(title);
 
 	useEffect(() => {
 		const func = async () => {
@@ -28,6 +29,7 @@ const ValidatePinCode = ({
 	const validatePin = (pinCode) => {
 		if (!validate(pinCode)) {
 			setInvalidPinCode(true);
+			title = setTitle('Incorrect PIN. Try again');
 			setTimeout(() => {
 				setInvalidPinCode(false);
 			}, 500);
@@ -60,6 +62,7 @@ const ValidatePinCode = ({
 				invalidPinCode={invalidPinCode}
 				loading={loading}
 				onSubmit={(pinCode) => checkValidPinCode(pinCode)}
+				title={changedTitle}
 				{...props}
 			/>
 		</div>
@@ -75,6 +78,7 @@ ValidatePinCode.propTypes = {
 	validate: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 	useAltId: PropTypes.bool,
+	title: PropTypes.string.isRequired,
 };
 
 export default ValidatePinCode;
