@@ -1,0 +1,54 @@
+.confirmation {
+	background-color: #0063b6;
+	border-radius: 5px;
+	position: fixed;
+	z-index: 1;
+	bottom: 55px;
+	left: 15px;
+	right: 15px;
+	transition: all 0.2s ease-out;
+
+	@mixin iphone-with-face-id {
+		bottom: 85px;
+	}
+
+	&-container {
+		padding: 20px 15px 12px 15px;
+	}
+
+	&-title {
+		color: #fff;
+		font-size: 16px;
+		@include CircularStd_Bold;
+		margin-bottom: 10px;
+
+		.inner-text {
+			font-size: 13px;
+		}
+	}
+
+	&-text {
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 16px;
+	}
+
+	&-controls {
+		padding-top: 3px;
+		padding-bottom: 3px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-top: 1px solid rgba(236, 238, 243, 0.1);
+
+		.button:first-child {
+			min-width: auto;
+			margin-left: 43px;
+		}
+
+		.button:last-child {
+			min-width: auto;
+			margin-left: auto;
+			margin-right: 43px;
+		}
+	}
+}
