@@ -12,7 +12,6 @@ export default {
 	global: globalReducer.reducer,
 	account: accountReducer.reducer,
 	escrow: escrowReducer.reducer,
-	transactionHistory: transactionHistoryReducer.reducer,
 	notifications: notificationReducer.reducer,
 	transactionsHistory: transactionHistoryReducer.reducer,
 	scanQrCode: scanQrCodeReducer.reducer,

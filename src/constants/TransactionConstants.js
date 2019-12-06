@@ -4,3 +4,5 @@ export const ERROR_STATUS = 'error';
 export const PREPARE_STATUS = 'prepare';
 
 export const PLUS_PERCENT_FEE = 10;
+
+export const SWAP_GAS = 66000;

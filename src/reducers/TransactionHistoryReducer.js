@@ -16,6 +16,7 @@ export const DEFAULT_FIELDS = Map({
 		obj[currency] = Map({
 			// start: 0,
 			list: List([]),
+			pendingList: List([]),
 			// countItems: 0,
 			loading: false,
 			hasMore: true,
@@ -44,6 +45,15 @@ export default createModule({
 				state = state.set('start', start);
 				state = state.set('count', count);
 				state = state.set('all', all);
+
+				return state;
+			},
+		},
+
+		checkInPendingList: {
+			reducer: (state, { payload }) => {
+				const { currency, hash } = payload;
+				state = state.updateIn(['currencies', currency, 'pendingList'], (list) => list.filter((transaction) => transaction.hash !== hash));
 
 				return state;
 			},

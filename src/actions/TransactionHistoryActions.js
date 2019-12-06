@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import BaseActions from './BaseActions';
 import TransactionHistoryReducer from '../reducers/TransactionHistoryReducer';
 import { CURRENCIES, ETH, TOKEN_ADDRESS } from '../constants/CurrencyConstants';
@@ -38,6 +40,8 @@ class TransactionHistoryActions extends BaseActions {
 			await cryptoApiService.subscribeToTransactions(address, (data) => {
 				const list = getState().transactionsHistory.getIn(['currencies', ETH, 'list']).unshift(data);
 				dispatch(this.setValue(['currencies', ETH, 'list'], list));
+
+				dispatch(this.reducer.actions.checkInPendingList({ currency: ETH, hash: data.hash }));
 				dispatch(escrowActions.checkIsTxToEscrowFactory(data));
 			});
 		};
@@ -48,7 +52,24 @@ class TransactionHistoryActions extends BaseActions {
 			await cryptoApiService.subscribeToTokenTransfers(TOKEN_ADDRESS[currency], address, (data) => {
 				const list = getState().transactionsHistory.getIn(['currencies', currency, 'list']).unshift(data);
 				dispatch(this.setValue(['currencies', currency, 'list'], list));
+				dispatch(this.reducer.actions.checkInPendingList({ currency, hash: data.transaction_hash }));
 			});
+		};
+	}
+
+	addPendingTransaction({
+		currency, to, from, value, hash,
+	}) {
+		return (dispatch, getState) => {
+			const list = getState().transactionsHistory.getIn(['currencies', currency, 'pendingList']).unshift({
+				utc: moment.utc().format(),
+				to,
+				from,
+				hash,
+				value,
+			});
+
+			dispatch(this.setValue(['currencies', currency, 'pendingList'], list));
 		};
 	}
 

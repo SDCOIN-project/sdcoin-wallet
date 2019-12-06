@@ -10,7 +10,7 @@ import accountActions from '../../actions/AccountActions';
 import ethService from '../../services/EthService';
 
 const TransactionBuilder = ({
-	children, handleTransaction, onConfirmed, onDone,
+	children, handleTransaction, onSend, onDone,
 }) => {
 	const [status, setStatus] = useState(PREPARE_STATUS);
 	const [txError, setTxError] = useState(null);
@@ -34,9 +34,9 @@ const TransactionBuilder = ({
 		setRequestPinCode(false);
 
 		try {
-			const receipt = await handleTransaction(data);
+			await handleTransaction(data);
+			onSend();
 			setStatus(SUCCESS_STATUS);
-			onConfirmed(receipt);
 		} catch (error) {
 			setStatus(ERROR_STATUS);
 			setTxError(error.message);
@@ -78,13 +78,13 @@ const TransactionBuilder = ({
 TransactionBuilder.propTypes = {
 	children: PropTypes.func.isRequired,
 	handleTransaction: PropTypes.func.isRequired,
-	onConfirmed: PropTypes.func,
 	onDone: PropTypes.func,
+	onSend: PropTypes.func,
 };
 
 TransactionBuilder.defaultProps = {
-	onConfirmed: () => {},
 	onDone: () => {},
+	onSend: () => {},
 };
 
 export default TransactionBuilder;

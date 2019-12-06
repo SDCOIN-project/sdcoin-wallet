@@ -1,5 +1,6 @@
 import { CURRENCY_NOT_FOUND } from '../constants/ErrorConstants';
 import { CURRENCY_SERVICES } from '../constants/CurrencyConstants';
+import transactionHistoryActions from './TransactionHistoryActions';
 
 class SendTransactionsActions {
 
@@ -41,14 +42,21 @@ class SendTransactionsActions {
 	 * @returns {function(*, *)}
 	 */
 	transferSend(values) {
-		return async (_, getState) => {
+		return async (dispatch, getState) => {
 			const from = getState().account.get('address');
 			const {
 				address: to, amount: value, currency, gas, gasPrice,
 			} = values;
 
-			const params = { from, gas, gasPrice };
-			return this.transfer({ currency, to, value }).send({ ...params });
+			const transfer = await this.transfer({ currency, to, value }).send({ from, gas, gasPrice });
+
+			dispatch(transactionHistoryActions.addPendingTransaction({
+				currency,
+				from,
+				to: from,
+				hash: transfer,
+				value,
+			}));
 		};
 	}
 

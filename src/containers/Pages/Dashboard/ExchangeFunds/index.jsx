@@ -15,6 +15,7 @@ import web3Service from './../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
 import swapService from '../../../../services/contracts/SwapService';
 import { formatPrice } from '../../../../helpers/FunctionHelper';
+import exchangeSdcOrLuv from '../../../../helpers/ExchangeRateHelper';
 
 import swapTransactionActions from '../../../../actions/ExchangeTransactionActions';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
@@ -59,10 +60,7 @@ const ExchangeFunds = ({
 			return '';
 		}
 
-		const fromRate = from === SDC ? sdcExchangeRate : LUV_EXCHANGE_RATE;
-		const toRate = from === SDC ? LUV_EXCHANGE_RATE : sdcExchangeRate;
-
-		return new BN(amount).multipliedBy(fromRate).dividedBy(toRate).toString(10);
+		return exchangeSdcOrLuv(from, amount, sdcExchangeRate, LUV_EXCHANGE_RATE);
 	};
 
 	const onSubmit = async ({ sdc, ...values }) => {

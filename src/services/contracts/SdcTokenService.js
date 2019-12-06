@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
 import ethService from '../EthService';
-
 import abi from '../../../abi/sdcToken.json';
 
 class SdcTokenService {
@@ -38,8 +37,28 @@ class SdcTokenService {
 		return this.contract.methods.transfer(to, value);
 	}
 
-	approve(spender, count) {
-		return this.contract.methods.approve(spender, count);
+	/**
+	 * Allow swap contract to manipulate tokens for currencies ETH, SDC, LUV
+	 * @param {string} currency
+	 * @param {string} spender
+	 * @param {string} value
+	 * @returns {*|{estimateGas: (function(*): (*|Promise<number>|Promise<BigNumber>|Promise<number>|Promise<BigNumber>)), send: (function(*): (PromiEvent<TransactionReceipt> | Promise<TransactionResponse> | Promise<string>))}}
+	 */
+	approve(from, value, gas, gasPrice, nonce) {
+		return new Promise((resolve, reject) => {
+			this.contract.methods.approve(__APP_CONTRACT_SWAP__, value).send({
+				from, gas, gasPrice, nonce,
+			}, (err, res) => (res ? resolve(res) : reject(err)));
+		});
+	}
+
+	/**
+	 * Estimate gas for approve transaction
+	 * @param {string} value
+	 * @returns {number}
+	 */
+	approveEstimateGas(from, value) {
+		return this.contract.methods.approve(__APP_CONTRACT_SWAP__, value).estimateGas({ from });
 	}
 
 }

@@ -21,8 +21,12 @@ class SwapService {
 		return this.contract.methods.exchangeRate().call();
 	}
 
-	swap(receiver) {
-		return this.contract.methods.swap(receiver);
+	swap(from, gas, gasPrice, nonce) {
+		return new Promise((resolve, reject) => {
+			this.contract.methods.swap(from).send({
+				from, gas, gasPrice, nonce,
+			}, (err, res) => (res ? resolve(res) : reject(err)));
+		});
 	}
 
 }

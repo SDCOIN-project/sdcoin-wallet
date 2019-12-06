@@ -7,7 +7,7 @@ import InfiniteScroll from './InfiniteScroll';
 import Loading from '../../../../../components/Loading';
 
 const TransactionHistory = ({
-	getNextTransactions, selectedCurrency, list, hasMore, parent, loading, subLoading,
+	getNextTransactions, selectedCurrency, list, pendingList, hasMore, parent, loading, subLoading,
 }) => {
 
 	if (loading) {
@@ -17,9 +17,10 @@ const TransactionHistory = ({
 	return (
 		<div className="transaction-history">
 			<div className="transaction-history__title">Transaction History</div>
-			{list.length ? (
+			{pendingList.length || list.length ? (
 				<InfiniteScroll
 					list={list}
+					pendingList={pendingList}
 					hasMore={hasMore}
 					selectedCurrency={selectedCurrency}
 					parent={parent}
@@ -37,6 +38,7 @@ const TransactionHistory = ({
 
 TransactionHistory.propTypes = {
 	list: PropTypes.array,
+	pendingList: PropTypes.array,
 	hasMore: PropTypes.bool,
 	loading: PropTypes.bool,
 	subLoading: PropTypes.bool,
@@ -47,6 +49,7 @@ TransactionHistory.propTypes = {
 
 TransactionHistory.defaultProps = {
 	list: [],
+	pendingList: [],
 	hasMore: false,
 	loading: false,
 	subLoading: false,
@@ -55,6 +58,7 @@ TransactionHistory.defaultProps = {
 export default connect(
 	(state) => ({
 		list: state.transactionsHistory.getIn(['currencies', state.account.get('selectedCurrency'), 'list']).toJS(),
+		pendingList: state.transactionsHistory.getIn(['currencies', state.account.get('selectedCurrency'), 'pendingList']).toJS(),
 		hasMore: state.transactionsHistory.getIn(['currencies', state.account.get('selectedCurrency'), 'hasMore']),
 		subLoading: state.transactionsHistory.getIn(['currencies', state.account.get('selectedCurrency'), 'loading']),
 		loading: state.transactionsHistory.get('loading'),

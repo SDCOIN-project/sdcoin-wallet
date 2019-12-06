@@ -33,8 +33,8 @@ const ValidatePinCode = ({
 			}, 500);
 			setLoading(false);
 		} else {
-			onSubmit(pinCode);
 			setLoading(false);
+			onSubmit(pinCode);
 		}
 	};
 

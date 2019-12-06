@@ -1,38 +1,25 @@
-import { CURRENCY_NOT_FOUND } from '../constants/ErrorConstants';
-import { CURRENCY_SERVICES, SDC } from '../constants/CurrencyConstants';
+import { SWAP_GAS } from '../constants/TransactionConstants';
+import { SDC, LUV, LUV_EXCHANGE_RATE } from '../constants/CurrencyConstants';
+import transactionHistoryActions from './TransactionHistoryActions';
+
+import sdcTokenService from '../services/contracts/SdcTokenService';
 import swapService from '../services/contracts/SwapService';
+import ethService from '../services/EthService';
+import exchangeSdcOrLuv from '../helpers/ExchangeRateHelper';
 
 class ExchangeTransactionActions {
 
 	/**
-	 * Allow swap contract to manipulate tokens for currencies ETH, SDC, LUV
-	 * @param {string} currency
-	 * @param {string} spender
-	 * @param {string} value
-	 * @returns {*|{estimateGas: (function(*): (*|Promise<number>|Promise<BigNumber>|Promise<number>|Promise<BigNumber>)), send: (function(*): (PromiEvent<TransactionReceipt> | Promise<TransactionResponse> | Promise<string>))}}
-	 */
-	approve({ currency, spender, value }) {
-
-		const service = CURRENCY_SERVICES[currency];
-		if (!service) {
-			throw new Error(CURRENCY_NOT_FOUND);
-		}
-
-		return service.approve(spender, value);
-	}
-
-	/**
 	 * Estimate gas for exchange transaction
 	 * @param {string} value
-	 * @returns {number}
+	 * @returns {object}
 	 */
 	exchangeEstimateGas(value) {
 		return async (_, getState) => {
 			const from = getState().account.get('address');
-			const approve = await this.approve({ currency: SDC, spender: __APP_CONTRACT_SWAP__, value }).estimateGas({ from });
-			const swap = 66000;
+			const approve = await sdcTokenService.approveEstimateGas(from, value);
 
-			return { approve, swap };
+			return { approve, swap: SWAP_GAS };
 		};
 	}
 
@@ -47,11 +34,31 @@ class ExchangeTransactionActions {
 	sdcToLuv({
 		value, approveGas, swapGas, gasPrice,
 	}) {
-		return async (_, getState) => {
+		return async (dispatch, getState) => {
 			const from = getState().account.get('address');
-			await this.approve({ currency: SDC, spender: __APP_CONTRACT_SWAP__, value }).send({ from, gas: approveGas, gasPrice });
 
-			return swapService.swap(from).send({ from, gas: swapGas, gasPrice });
+			const nonce = await ethService.eth.getTransactionCount(from);
+			const approve = await sdcTokenService.approve(from, value, approveGas, gasPrice, nonce);
+			const swap = await swapService.swap(from, swapGas, gasPrice, nonce + 1);
+
+			const sdcExchangeRate = parseInt(await swapService.getSdcExchangeRate(), 10);
+			const luv = exchangeSdcOrLuv(SDC, value, sdcExchangeRate, LUV_EXCHANGE_RATE);
+
+			dispatch(transactionHistoryActions.addPendingTransaction({
+				currency: SDC,
+				from,
+				to: from,
+				hash: approve,
+				value,
+			}));
+
+			dispatch(transactionHistoryActions.addPendingTransaction({
+				currency: LUV,
+				from,
+				to: from,
+				hash: swap,
+				value: luv,
+			}));
 		};
 	}
 

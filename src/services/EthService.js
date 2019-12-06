@@ -39,7 +39,9 @@ class EthService {
 
 	transfer(to, value) {
 		return {
-			send: (params) => this.eth.sendTransaction({ to, value, ...params }),
+			send: (params) => new Promise((resolve, reject) => {
+				this.eth.sendTransaction({ to, value, ...params }, (err, res) => (res ? resolve(res) : reject(err)));
+			}),
 			estimateGas: (params) => this.eth.estimateGas({ to, value, ...params }),
 		};
 	}

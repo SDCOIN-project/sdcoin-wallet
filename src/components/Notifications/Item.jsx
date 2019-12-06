@@ -29,7 +29,7 @@ const InfoNotification = ({
 		<div className={`notification-list__item ${className} ${isClose && 'close'}`}>
 			<div className="notification-list__item-container-left">
 				{icon && <i className={`is-icon ${icon}-icon`} />}
-				<span className="text">
+				<span className={`${displayedButton ? 'text' : 'text-full-width'}`}>
 					{text}
 				</span>
 			</div>
