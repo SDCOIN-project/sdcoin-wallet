@@ -48,6 +48,7 @@
 		"es6-object-assign": "^1.1.0",
 		"es6-promise": "^4.2.4",
 		"es6-promise-plugin": "^4.2.2",
+		"eth-url-parser": "^1.0.3",
 		"ethereumjs-util": "6.1.0",
 		"ethereumjs-wallet": "^0.6.3",
 		"file-loader": "^1.1.11",

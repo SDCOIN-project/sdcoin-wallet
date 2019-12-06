@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import qs from 'query-string';
 import classNames from 'classnames';
+import { build } from 'eth-url-parser';
 import Input from './../../../../components/Form/Input';
 import SelectCurrency from './../../../../components/Form/SelectCurrency';
 import Header from './../../../../containers/Layout/Header';
 import Option from '../../../../components/Form/SelectCurrency/Option';
-import { CURRENCIES, DEFAULT_CURRENCY, LUV } from '../../../../constants/CurrencyConstants';
+import { CURRENCIES, DEFAULT_CURRENCY, ETH, LUV, TOKEN_ADDRESS } from '../../../../constants/CurrencyConstants';
 import web3Service from '../../../../services/Web3Service';
 import QRCodeService from '../../../../services/QRCodeService';
 import clipboardService from '../../../../services/ClipboardService';
@@ -23,10 +23,9 @@ const initialValues = () => ({
 });
 
 const Receive = ({ balances, address, shareImage }) => {
-	const [qrCode, setQrCode] = useState('data:image/png;base64,');
+	const [qrCode, setQrCode] = useState('');
 	const [active, setActive] = useState(false);
 	let timeout = null;
-
 	const getCurrencyOptions = () => CURRENCIES.map((currency) => ({
 		text: currency,
 		value: currency,
@@ -42,15 +41,24 @@ const Receive = ({ balances, address, shareImage }) => {
 	});
 
 	const changeQRCode = ({ amount, currency }) => {
-		const result = {};
-		if (currency) {
-			result.currency = currency;
+		const options = {
+			scheme: 'ethereum',
+			prefix: '',
+			target_address: address,
+			parameters: {},
+		};
+		if (currency === ETH) {
+			if (amount) {
+				options.parameters.value = web3Service.toWei(amount).toExponential().toString();
+			}
+		} else {
+			options.parameters.address = TOKEN_ADDRESS[currency];
+			if (amount) {
+				options.parameters.uint256 = web3Service.toWei(amount).toString(10);
+			}
 		}
-		if (amount) {
-			result.value = amount;
-		}
-
-		QRCodeService.encode(`ethereum:${address}?${qs.stringify(result)}`).then((data) => setQrCode(data));
+		const url = build(options);
+		QRCodeService.encode(url).then((data) => setQrCode(data));
 	};
 
 	useEffect(() => {
@@ -105,8 +113,8 @@ const Receive = ({ balances, address, shareImage }) => {
 									error={errors.amount}
 								/>
 							</div>
-							<div className={classNames('scan-qr-code-block', { 'is-small': values.currency && values.currency === LUV })}>
-								{qrCode ? <img className="img-placeholder" src={qrCode} alt="Placeholder qr code" /> : null}
+							<div className={classNames('scan-qr-code-block', { 'is-small': values.currency && values.currency === LUV, 'text-center': !qrCode })}>
+								{qrCode ? <img className="img-placeholder" src={qrCode} alt="Placeholder qr code" /> : 'QR code unavailable'}
 							</div>
 							<button type="submit" className="receive-page__text-signature" onClick={() => shareImage(qrCode)}>Share QR code</button>
 							{values.currency && values.currency === LUV && (

@@ -1,5 +1,5 @@
 import { CURRENCY_NOT_FOUND } from '../constants/ErrorConstants';
-import { CURRENCY_SERVICES } from '../constants/CurrencyConstants';
+import { CURRENCY_SERVICES } from '../services/CurrencyServices';
 import transactionHistoryActions from './TransactionHistoryActions';
 
 class SendTransactionsActions {

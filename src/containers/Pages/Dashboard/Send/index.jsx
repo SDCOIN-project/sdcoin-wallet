@@ -101,7 +101,7 @@ const Send = ({
 				(value) => {
 					if (!value || value < 0) return false;
 					const balance = balances[currency];
-					const neededAmount = web3Service.toWei(`${value}`).plus(new BN(currency === ETH ? fee : 0));
+					const neededAmount = web3Service.toWei(value).plus(new BN(currency === ETH ? fee : 0));
 					return !neededAmount.isGreaterThan(new BN(balance));
 				},
 			))

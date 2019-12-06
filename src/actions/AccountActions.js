@@ -9,7 +9,8 @@ import ethService from '../services/EthService';
 
 import notificationActions from './NotificationActions';
 import escrowActions from './EscrowActions';
-import { CURRENCY_SERVICES, CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
+import { CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
+import { CURRENCY_SERVICES } from '../services/CurrencyServices';
 import { ICONS } from '../constants/NotificationConstants';
 import {
 	IMPOSSIBLE_TO_CREATE_WALLET_ERROR,

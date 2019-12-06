@@ -53,6 +53,13 @@
 			}
 		}
 
+	  	&.text-center {
+			display: flex;
+		  	justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+
 		.img-placeholder {
 			max-width: 100%;
 			object-fit: contain;
