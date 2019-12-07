@@ -14,8 +14,6 @@ const Sidebar = () => {
 
 	const isActive = (path) => (history.location.pathname === path ? 'is-active' : '');
 
-	console.log(ReceiveIcon);
-
 	return (
 		<div className="sidebar">
 			<NavLink to={DASHBOARD_PATH} className={`sidebar-item ${isActive(DASHBOARD_PATH)}`}>

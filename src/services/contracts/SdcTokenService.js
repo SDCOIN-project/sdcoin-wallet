@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import ethService from '../EthService';
 import abi from '../../../abi/sdcToken.json';
+import { TOKEN_ADDRESS } from '../../constants/CurrencyConstants';
 
 class SdcTokenService {
 
@@ -10,10 +11,14 @@ class SdcTokenService {
 
 	get contract() {
 		if (!this._contract) {
-			this._contract = new ethService.eth.Contract(abi, __APP_CONTRACT_SDC_TOKEN__);
+			this._contract = new ethService.eth.Contract(abi, TOKEN_ADDRESS.SDC);
 		}
 
 		return this._contract;
+	}
+
+	get address() {
+		return TOKEN_ADDRESS.SDC;
 	}
 
 	/**
@@ -39,10 +44,6 @@ class SdcTokenService {
 
 	/**
 	 * Allow swap contract to manipulate tokens for currencies ETH, SDC, LUV
-	 * @param {string} currency
-	 * @param {string} spender
-	 * @param {string} value
-	 * @returns {*|{estimateGas: (function(*): (*|Promise<number>|Promise<BigNumber>|Promise<number>|Promise<BigNumber>)), send: (function(*): (PromiEvent<TransactionReceipt> | Promise<TransactionResponse> | Promise<string>))}}
 	 */
 	approve(from, value, gas, gasPrice, nonce) {
 		return new Promise((resolve, reject) => {
@@ -54,11 +55,16 @@ class SdcTokenService {
 
 	/**
 	 * Estimate gas for approve transaction
+	 * @param {string} from
 	 * @param {string} value
 	 * @returns {number}
 	 */
 	approveEstimateGas(from, value) {
 		return this.contract.methods.approve(__APP_CONTRACT_SWAP__, value).estimateGas({ from });
+	}
+
+	async getNonce(account) {
+		return parseInt(await this.contract.methods.getNonce(account).call(), 10);
 	}
 
 }

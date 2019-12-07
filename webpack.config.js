@@ -106,6 +106,8 @@ module.exports = {
 			__NODE_ENV__: JSON.stringify(process.env.NODE_ENV),
 			__CRYPTO_API_TOKEN__: JSON.stringify(config.cryptoapi.token),
 			__CRYPTO_API_URL__: JSON.stringify(config.cryptoapi.url),
+			__BACKEND_API_URL__: JSON.stringify(config.backendUrl),
+			__CRYPTO_API_WS_URL__: JSON.stringify(config.cryptoapi.urlWs),
 		}),
 		HTMLWebpackPluginConfig,
 		extractSass,

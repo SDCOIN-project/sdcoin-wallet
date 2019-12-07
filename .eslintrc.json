@@ -71,6 +71,8 @@
 		"__NODE_ENV__": false,
 		"__CRYPTO_API_TOKEN__": false,
 		"__CRYPTO_API_URL__": false,
+		"__CRYPTO_API_WS_URL__": false,
+		"__BACKEND_API_URL__": false,
 		"Camera": false,
 		"QRScanner": false
 	}

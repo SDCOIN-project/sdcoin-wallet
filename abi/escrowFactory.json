@@ -2,40 +2,9 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "luv",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "swap",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "sdc",
-		"outputs": [
-			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
@@ -47,18 +16,7 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "sdcAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "luvAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "swapAddress",
+				"name": "_swapAddress",
 				"type": "address"
 			}
 		],
@@ -71,15 +29,18 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
-				"name": "sender",
+				"name": "_owner",
 				"type": "address"
 			},
 			{
 				"indexed": true,
-				"internalType": "address",
-				"name": "escrow",
+				"name": "_escrowAddress",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_escrowIndex",
+				"type": "uint256"
 			}
 		],
 		"name": "Created",
@@ -89,72 +50,79 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint32",
 				"name": "_id",
 				"type": "uint32"
 			},
 			{
-				"internalType": "uint256",
 				"name": "_price",
 				"type": "uint256"
-			},
-			{
-				"internalType": "uint32",
-				"name": "_amount",
-				"type": "uint32"
 			}
 		],
 		"name": "create",
 		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "owner",
+				"name": "_owner",
 				"type": "address"
 			}
 		],
-		"name": "getCountEscrowContracts",
+		"name": "getEscrowListCount",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"constant": false,
+		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "owner",
+				"name": "_owner",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "index",
+				"name": "_index",
 				"type": "uint256"
 			}
 		],
-		"name": "getEscrowContract",
+		"name": "getEscrowByIndex",
 		"outputs": [
 			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
 		],
 		"payable": false,
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_owner",
+				"type": "address"
+			}
+		],
+		"name": "getEscrowList",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]

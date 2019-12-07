@@ -18,6 +18,11 @@ class EscrowService {
 		}));
 	}
 
+	async getPrice(escrow) {
+		this.contract = new ethService.eth.Contract(abi, escrow);
+		return this.contract.methods.price().call();
+	}
+
 }
 
 const escrowService = new EscrowService();

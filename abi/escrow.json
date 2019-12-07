@@ -1,13 +1,35 @@
 [
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "owner",
 		"outputs": [
 			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "isOwner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -20,24 +42,8 @@
 		"name": "price",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "amount",
-		"outputs": [
-			{
-				"internalType": "uint32",
-				"name": "",
-				"type": "uint32"
 			}
 		],
 		"payable": false,
@@ -50,7 +56,6 @@
 		"name": "id",
 		"outputs": [
 			{
-				"internalType": "uint32",
 				"name": "",
 				"type": "uint32"
 			}
@@ -60,50 +65,40 @@
 		"type": "function"
 	},
 	{
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"name": "_owner",
 				"type": "address"
 			},
 			{
-				"internalType": "uint32",
 				"name": "_id",
 				"type": "uint32"
 			},
 			{
-				"internalType": "uint256",
 				"name": "_price",
 				"type": "uint256"
 			},
 			{
-				"internalType": "uint32",
-				"name": "_amount",
-				"type": "uint32"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_paymentGas",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_sdcAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_luvAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
 				"name": "_swapAddress",
 				"type": "address"
 			}
 		],
-		"payable": false,
-		"stateMutability": "nonpayable",
+		"payable": true,
+		"stateMutability": "payable",
 		"type": "constructor"
 	},
 	{
@@ -116,37 +111,21 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "_sender",
 				"type": "address"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint32",
 				"name": "_id",
 				"type": "uint32"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
-				"name": "_unitPrice",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint32",
-				"name": "_soldAmount",
-				"type": "uint32"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
 				"name": "_priceSDC",
 				"type": "uint256"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
 				"name": "_priceLUV",
 				"type": "uint256"
 			}
@@ -155,10 +134,26 @@
 		"type": "event"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "previousOwner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
 				"name": "_newPriceLUV",
 				"type": "uint256"
 			}
@@ -170,33 +165,11 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "uint32",
-				"name": "_newAmount",
-				"type": "uint32"
-			}
-		],
-		"name": "updateAmount",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
-		"inputs": [
-			{
-				"internalType": "uint32",
-				"name": "_amount",
-				"type": "uint32"
-			}
-		],
+		"inputs": [],
 		"name": "getPriceSDC",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
@@ -209,17 +182,10 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint32",
-				"name": "_sellAmount",
-				"type": "uint32"
-			},
-			{
-				"internalType": "address",
 				"name": "_from",
 				"type": "address"
 			},
 			{
-				"internalType": "bytes",
 				"name": "_sig",
 				"type": "bytes"
 			}
@@ -244,8 +210,8 @@
 		"inputs": [],
 		"name": "withdrawEth",
 		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
+		"payable": false,
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]

@@ -2,14 +2,16 @@
 	"network": {
 		"url": "https://rinkeby.infura.io/v3/3733109dd9304d158d8def80a87fbcfe"
 	},
+	"backendUrl": "https://699-sdcoin.pixelplex-test.by/api/v1",
 	"contracts": {
-		"luvToken": "0xBF0bC37F7c8c5BA926A2E1897Ad84523d4821108",
-		"sdcToken": "0xc667a054a236F4D56C12CC447e12880Bb74faf20",
-		"swap": "0x4ba5E3c3C7DCe40A64A9FE03623e0D3FF11C48Ae",
-		"escrowFactory": "0xd75C984347a709e033aCC043C132d618eAb03C5a"
+		"luvToken": "0x30820824CADAF67d19989263bCAbE03fC85D0321",
+		"sdcToken": "0x123Af3e845D2b703D6F0B28457a9EB4b158F77bD",
+		"swap": "0x2F90331c5d99202d6cc473C81EA65C9875aFE8aE",
+		"escrowFactory": "0x6A1191Cb2468721a33339B5f9E7b72Ee17b403C4"
 	},
 	"cryptoapi": {
 		"token": "f25dad2aacc926604190852e94e5e9a705a72a8439281716",
-		"url": "https://697-crypto-api.pixelplex-test.by/api/v1"
+		"url": "https://697-crypto-api.pixelplex-test.by/api/v1",
+		"urlWs": "wss://697-crypto-api.pixelplex-test.by/ws/eth"
 	}
 }

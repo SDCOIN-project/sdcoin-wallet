@@ -56,7 +56,7 @@ class Web3Service {
 		return this.web3.utils.toHex(amount);
 	}
 
-	parseUrl(string) {
+	parseUrl(string, allowPrefix = null) {
 		const result = {
 			address: null,
 			value: null,
@@ -64,6 +64,14 @@ class Web3Service {
 		};
 
 		const parsedUrl = parse(string);
+
+		if (allowPrefix) {
+			if (!parsedUrl.prefix || parsedUrl.prefix !== allowPrefix) {
+				throw new Error('Invalid QR code prefix');
+			}
+		} else if (parsedUrl.prefix) {
+			throw new Error('Invalid QR code prefix');
+		}
 		result.address = parsedUrl.target_address;
 		if (parsedUrl.parameters && parsedUrl.parameters.address) {
 			result.token = TOKEN_NAME[parsedUrl.parameters.address.toLowerCase()];
@@ -78,6 +86,18 @@ class Web3Service {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Sign data for sending to proxy payment
+	 * @param account
+	 * @param types
+	 * @param data
+	 * @returns {Promise<string>}
+	 */
+	async signData(account, types, data) {
+		const hash = this.web3.utils.sha3(this.web3.eth.abi.encodeParameters(types, data));
+		return this.web3.eth.sign(hash, account);
 	}
 
 }

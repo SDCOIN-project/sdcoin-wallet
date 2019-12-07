@@ -6,6 +6,9 @@ import notificationActions from './NotificationActions';
 import { CONTRACT_ESCROW_FACTORY, ESCROW_ITEM_ID, ESCROW_ITEMS_AMOUNT } from '../constants/ContractConstants';
 import cryptoApiService from '../services/CryptoApiService';
 import escrowService from '../services/contracts/EscrowService';
+import sdcTokenService from '../services/contracts/SdcTokenService';
+import web3Service from '../services/Web3Service';
+import backendService from '../services/BackendService';
 
 class EscrowActions extends BaseActions {
 
@@ -92,6 +95,26 @@ class EscrowActions extends BaseActions {
 		return (_, getState) => {
 			const from = getState().account.get('address');
 			return escrowFactoryService.createEscrowContractEstimateGas(ESCROW_ITEM_ID, price, ESCROW_ITEMS_AMOUNT, from);
+		};
+	}
+
+	getEscrowPrice(address) {
+		return async () => escrowService.getPrice(address);
+	}
+
+	getEscrowAddressFromCreateTx(hash) {
+		return async () => {
+			const tx = await cryptoApiService.getFullTx(hash);
+			return escrowFactoryService.getEscrowAddressFromTx(tx);
+		};
+	}
+
+	proxyPayment(escrowAddress) {
+		return async (dispatch, getState) => {
+			const address = getState().account.get('address');
+			const nonce = await sdcTokenService.getNonce(address);
+			const hash = await web3Service.signData(address, ['bytes20', 'bytes20', 'uint256'], [address, escrowAddress, nonce]);
+			await backendService.proxyPayment(address, escrowAddress, hash);
 		};
 	}
 

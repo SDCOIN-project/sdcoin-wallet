@@ -18,7 +18,7 @@ class SwapService {
 	}
 
 	getSdcExchangeRate() {
-		return this.contract.methods.exchangeRate().call();
+		return this.contract.methods.sdcExchangeRate().call();
 	}
 
 	swap(from, gas, gasPrice, nonce) {

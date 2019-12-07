@@ -23,7 +23,7 @@ import TransactionBuilder from '../../../../components/TransactionBuilder';
 import sendTransactionActions from '../../../../actions/SendTransactionActions';
 import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
 import notificationActions from '../../../../actions/NotificationActions';
-import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
+import { DASHBOARD_PATH, PAY_TO_ESCROW } from '../../../../constants/RouterConstants';
 
 const initialValues = () => ({
 	currency: DEFAULT_CURRENCY,
@@ -198,7 +198,16 @@ const Send = ({
 										</p>
 									</div>
 									<div className="dashboard-controls flex-columns">
-										<a href="#" className="text">Pay with Payment QR</a>
+										<a
+											href="#"
+											className="text"
+											onClick={(e) => {
+												e.preventDefault();
+												history.push(PAY_TO_ESCROW);
+											}}
+										>
+											Pay with Payment QR
+										</a>
 										<Button type="submit" className="is-large">Send</Button>
 									</div>
 								</form>

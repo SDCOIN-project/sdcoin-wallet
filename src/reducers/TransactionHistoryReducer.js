@@ -12,6 +12,11 @@ export const DEFAULT_FIELDS = Map({
 	loading: true,
 	hasMore: false,
 	selectedTransaction: new Map({}),
+	selectedEscrow: new Map({
+		address: '',
+		SDCPrice: 0,
+		LUVPrice: 0,
+	}),
 	currencies: Map(Object.values(CURRENCIES).reduce((obj, currency) => {
 		obj[currency] = Map({
 			// start: 0,

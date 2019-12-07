@@ -1,9 +1,11 @@
 import moment from 'moment';
 import BaseActions from './BaseActions';
 import TransactionHistoryReducer from '../reducers/TransactionHistoryReducer';
-import { CURRENCIES, ETH, TOKEN_ADDRESS } from '../constants/CurrencyConstants';
+import { CURRENCIES, ETH, LUV, LUV_EXCHANGE_RATE, TOKEN_ADDRESS } from '../constants/CurrencyConstants';
 import escrowActions from './EscrowActions';
 import cryptoApiService from '../services/CryptoApiService';
+import swapService from '../services/contracts/SwapService';
+import exchangeSdcOrLuv from '../helpers/ExchangeRateHelper';
 
 class TransactionHistoryActions extends BaseActions {
 
@@ -116,6 +118,22 @@ class TransactionHistoryActions extends BaseActions {
 		return (dispatch) => {
 			if (!transaction) return;
 			dispatch(this.setValue('selectedTransaction', transaction, true));
+		};
+	}
+
+	setSelectedEscrow(createEscrowTx, address = null) {
+		return async (dispatch) => {
+			if (!createEscrowTx && !address) {
+				dispatch(this.setValue('selectedEscrow', { address: '', LUVPrice: 0, SDCPrice: 0 }));
+				return;
+			}
+			if (!address) {
+				address = await dispatch(escrowActions.getEscrowAddressFromCreateTx(createEscrowTx.hash));
+			}
+			const sdcExchangeRate = await swapService.getSdcExchangeRate();
+			const LUVPrice = await dispatch(escrowActions.getEscrowPrice(address));
+			const SDCPrice = exchangeSdcOrLuv(LUV, LUVPrice, sdcExchangeRate, LUV_EXCHANGE_RATE);
+			dispatch(this.setValue('selectedEscrow', { address, LUVPrice, SDCPrice }));
 		};
 	}
 

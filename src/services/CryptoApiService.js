@@ -1,6 +1,7 @@
 import { Client } from 'cryptoapi-lib';
 import { CRYPTO_API_TOKEN, CRYPTO_API_URL } from '../constants/ConfigConstants';
 import { ETH, TOKEN_ADDRESS } from '../constants/CurrencyConstants';
+import { get } from '../utils/Api';
 
 class CryptoApiService {
 
@@ -31,6 +32,12 @@ class CryptoApiService {
 
 	async getTokenTransfers(token, address, skip, limit) {
 		return this.client.api.eth.getTokenTransfers(token, [address], { skip, limit });
+	}
+
+	async getFullTx(hash) {
+		return get(`${CRYPTO_API_URL}/coins/eth/transactions/${hash}`, {
+			token: CRYPTO_API_TOKEN,
+		}, {});
 	}
 
 	/**

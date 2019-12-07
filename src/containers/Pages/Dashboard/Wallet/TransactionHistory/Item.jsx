@@ -17,14 +17,14 @@ const onItemClick = (e, item, setSelectedTransaction) => {
 	history.push(TRANSACTION_DETAILS);
 };
 
-const onGetQRClick = (item, setSelectedTransaction) => {
+const onGetQRClick = async (item, setSelectedTransaction) => {
 	setSelectedTransaction(item);
 	history.push(GET_ESCROW_QRCODE);
 };
 
 
 const Item = ({
-	item, address, selectedCurrency, setSelectedTransaction, isPending,
+	item, address, selectedCurrency, setSelectedEscrow, isPending, setSelectedTransaction,
 }) => {
 
 	const isSend = item.from.toLowerCase() === address.toLowerCase();
@@ -42,7 +42,7 @@ const Item = ({
 				<i className="is-icon bell-icon" />
 				<div className="information-details">QR code is ready</div>
 			</div>
-			<Button onClick={() => onGetQRClick(item, setSelectedTransaction)} className="qr-code-button">
+			<Button onClick={() => onGetQRClick(item, setSelectedEscrow)} className="qr-code-button">
 				<span>Get QR</span>
 			</Button>
 		</a>
@@ -67,6 +67,7 @@ Item.propTypes = {
 	address: PropTypes.string.isRequired,
 	item: PropTypes.object.isRequired,
 	isPending: PropTypes.bool.isRequired,
+	setSelectedEscrow: PropTypes.func.isRequired,
 	setSelectedTransaction: PropTypes.func.isRequired,
 };
 
@@ -75,6 +76,7 @@ export default connect(
 		address: state.account.get('address'),
 	}),
 	(dispatch) => ({
+		setSelectedEscrow: (item) => dispatch(transactionHistoryActions.setSelectedEscrow(item)),
 		setSelectedTransaction: (item) => dispatch(transactionHistoryActions.setSelectedTransaction(item)),
 	}),
 )(Item);

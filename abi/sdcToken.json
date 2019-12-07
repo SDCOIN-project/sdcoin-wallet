@@ -5,7 +5,6 @@
 		"name": "name",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
@@ -18,12 +17,10 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "spender",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
 			}
@@ -31,7 +28,6 @@
 		"name": "approve",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -44,12 +40,11 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
 		],
-		"name": "removeAdmin",
+		"name": "addWhitelisted",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -61,7 +56,6 @@
 		"name": "totalSupply",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
@@ -74,17 +68,14 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "from",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
 			}
@@ -92,7 +83,6 @@
 		"name": "transferFrom",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -102,24 +92,17 @@
 		"type": "function"
 	},
 	{
-		"constant": true,
+		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
 		],
-		"name": "isAdmin",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
+		"name": "removeWhitelisted",
+		"outputs": [],
 		"payable": false,
-		"stateMutability": "view",
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -128,7 +111,6 @@
 		"name": "decimals",
 		"outputs": [
 			{
-				"internalType": "uint8",
 				"name": "",
 				"type": "uint8"
 			}
@@ -141,12 +123,10 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "spender",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
 				"name": "addedValue",
 				"type": "uint256"
 			}
@@ -154,13 +134,31 @@
 		"name": "increaseAllowance",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
 		],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "isWhitelisted",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -176,7 +174,6 @@
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -184,7 +181,6 @@
 		"name": "isPauser",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -194,12 +190,20 @@
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [],
+		"name": "renounceWhitelistAdmin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "paused",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -218,25 +222,9 @@
 		"type": "function"
 	},
 	{
-		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "account",
-				"type": "address"
-			}
-		],
-		"name": "addAdmin",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -244,7 +232,6 @@
 		"name": "balanceOf",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
@@ -257,7 +244,20 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "addWhitelistAdmin",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
 				"name": "account",
 				"type": "address"
 			}
@@ -280,25 +280,9 @@
 	{
 		"constant": true,
 		"inputs": [],
-		"name": "owner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
 		"name": "symbol",
 		"outputs": [
 			{
-				"internalType": "string",
 				"name": "",
 				"type": "string"
 			}
@@ -311,12 +295,10 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "spender",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
 				"name": "subtractedValue",
 				"type": "uint256"
 			}
@@ -324,7 +306,6 @@
 		"name": "decreaseAllowance",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -337,12 +318,10 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
 			}
@@ -350,7 +329,6 @@
 		"name": "transfer",
 		"outputs": [
 			{
-				"internalType": "bool",
 				"name": "",
 				"type": "bool"
 			}
@@ -363,22 +341,15 @@
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "spender",
+				"name": "account",
 				"type": "address"
 			}
 		],
-		"name": "allowance",
+		"name": "isWhitelistAdmin",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
-				"type": "uint256"
+				"type": "bool"
 			}
 		],
 		"payable": false,
@@ -387,17 +358,34 @@
 	},
 	{
 		"constant": false,
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
+		"inputs": [],
+		"name": "renounceWhitelisted",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"name": "spender",
+				"type": "address"
+			}
+		],
+		"name": "allowance",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -411,18 +399,11 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
-				"name": "previousOwner",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "newOwner",
+				"name": "account",
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferred",
+		"name": "WhitelistedAdded",
 		"type": "event"
 	},
 	{
@@ -430,7 +411,18 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
+				"name": "account",
+				"type": "address"
+			}
+		],
+		"name": "WhitelistedRemoved",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
 				"name": "account",
 				"type": "address"
 			}
@@ -443,7 +435,6 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -456,7 +447,6 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -469,7 +459,6 @@
 		"inputs": [
 			{
 				"indexed": false,
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -482,7 +471,6 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -495,7 +483,6 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "account",
 				"type": "address"
 			}
@@ -508,19 +495,16 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "from",
 				"type": "address"
 			},
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "to",
 				"type": "address"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
 			}
@@ -533,19 +517,16 @@
 		"inputs": [
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "owner",
 				"type": "address"
 			},
 			{
 				"indexed": true,
-				"internalType": "address",
 				"name": "spender",
 				"type": "address"
 			},
 			{
 				"indexed": false,
-				"internalType": "uint256",
 				"name": "value",
 				"type": "uint256"
 			}
@@ -557,7 +538,6 @@
 		"constant": true,
 		"inputs": [
 			{
-				"internalType": "address",
 				"name": "_account",
 				"type": "address"
 			}
@@ -565,7 +545,6 @@
 		"name": "getNonce",
 		"outputs": [
 			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
 			}
@@ -578,22 +557,18 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
 				"name": "_value",
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
 				"name": "_from",
 				"type": "address"
 			},
 			{
-				"internalType": "address",
 				"name": "_spender",
 				"type": "address"
 			},
 			{
-				"internalType": "bytes",
 				"name": "_sig",
 				"type": "bytes"
 			}
@@ -608,13 +583,11 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "account",
+				"name": "_account",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "amount",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
@@ -628,17 +601,15 @@
 		"constant": false,
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "account",
+				"name": "_account",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "amount",
+				"name": "_amount",
 				"type": "uint256"
 			}
 		],
-		"name": "burn",
+		"name": "burnFrom",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",

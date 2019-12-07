@@ -27,9 +27,10 @@ import {
 	PAYMENT_INFO2,
 	TRANSACTION_DETAILS,
 	PAYMENT_DETAILS,
-	GET_PAYMENT_PATH,
+	GET_PAYMENT_PATH, PAY_TO_ESCROW,
 } from '../../../constants/RouterConstants';
 import GetPayment from './GetPayment';
+import PayToEscrow from './Send/PayToEscrow';
 
 const Dashboard = () => (
 	<React.Fragment>
@@ -45,6 +46,7 @@ const Dashboard = () => (
 			<Route exact path={EXCHANGE_FUNDS_PATH} component={ExchangeFunds} />
 			<Route exact path={TRANSACTION_DETAILS} component={TransactionDetails} />
 			<Route exact path={GET_PAYMENT_PATH} component={GetPayment} />
+			<Route exact path={PAY_TO_ESCROW} component={PayToEscrow} />
 
 			<Route path="*" component={PageNotFound} />
 		</Switch>
