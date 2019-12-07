@@ -5,6 +5,8 @@ import * as ethUtil from 'ethereumjs-util';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import BN from 'bignumber.js';
+// import { Modal } from 'semantic-ui-react';
+
 import history from '../../../../history';
 
 import Button from './../../../../components/Form/Button';
@@ -120,17 +122,21 @@ const Send = ({
 			{({ submitTransaction }) => (
 				<React.Fragment>
 					<Header title="Send" />
+					{/* <Modal
+						open
+						closeOnDimmerClick={false}
+						className="confirmation"
+					>
+						<div className="confirmation-container">
+							<div className="confirmation-title">Are you sure to swap 28.35 <span className="inner-text">SDC</span>?</div>
+							<div className="confirmation-text">You will remain 501.6525 SDC after the transaction</div>
+						</div>
+						<div className="confirmation-controls">
+							<Button className="is-transparent is-white">Cancel</Button>
+							<Button className="is-transparent is-white">Confirm</Button>
+						</div>
+					</Modal> */}
 					<div className="dashboard send-page">
-						{/* <div className="confirmation">
-							<div className="confirmation-container">
-								<div className="confirmation-title">Are you sure to swap 28.35 <span className="inner-text">SDC</span>?</div>
-								<div className="confirmation-text">You will remain 501.6525 SDC after the transaction</div>
-							</div>
-							<div className="confirmation-controls">
-								<Button className="is-transparent is-white">Cancel</Button>
-								<Button className="is-transparent is-white">Confirm</Button>
-							</div>
-						</div> */}
 						<Formik
 							initialValues={initialValues()}
 							onSubmit={(values) => submitTransaction(values)}
