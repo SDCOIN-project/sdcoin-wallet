@@ -27,21 +27,8 @@
 
 		&.is-active {
 			color: #519bfc;
-
-			.wallet-icon {
-				background-image: url(../images/icons/wallet-blue-icon.svg);
-			}
-
-			.send-icon {
-				background-image: url(../images/icons/send-blue-icon.svg);
-			}
-
-			.receive-icon {
-				background-image: url(../images/icons/receive-blue-icon.svg);
-			}
-
-			.settings-icon {
-				background-image: url(../images/icons/settings-blue-icon.svg);
+			svg path {
+				fill: #519bfc;
 			}
 		}
 
