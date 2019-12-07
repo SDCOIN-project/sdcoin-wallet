@@ -6,14 +6,22 @@ import classNames from 'classnames';
 import history from '../../../../../history';
 
 import web3Service from '../../../../../services/Web3Service';
-import { TRANSACTION_DETAILS } from '../../../../../constants/RouterConstants';
+import { GET_ESCROW_QRCODE, TRANSACTION_DETAILS } from '../../../../../constants/RouterConstants';
+import Button from '../../../../../components/Form/Button';
 import transactionHistoryActions from '../../../../../actions/TransactionHistoryActions';
+import { CONTRACT_ESCROW_FACTORY } from '../../../../../constants/ContractConstants';
 
 const onItemClick = (e, item, setSelectedTransaction) => {
 	e.preventDefault();
 	setSelectedTransaction(item);
 	history.push(TRANSACTION_DETAILS);
 };
+
+const onGetQRClick = (item, setSelectedTransaction) => {
+	setSelectedTransaction(item);
+	history.push(GET_ESCROW_QRCODE);
+};
+
 
 const Item = ({
 	item, address, selectedCurrency, setSelectedTransaction, isPending,
@@ -28,8 +36,18 @@ const Item = ({
 		title = isSend ? 'Send' : 'Received';
 	}
 
-	return (
-		<a href="" onClick={(e) => onItemClick(e, item, setSelectedTransaction)} className="transaction-history__row">
+	return item.to && CONTRACT_ESCROW_FACTORY === item.to.toLowerCase() ? (
+		<a href="#" onClick={(e) => e.preventDefault()} className="transaction-history__row transaction-history__notification">
+			<div className="transaction-history__row-information flex-center">
+				<i className="is-icon bell-icon" />
+				<div className="information-details">QR code is ready</div>
+			</div>
+			<Button onClick={() => onGetQRClick(item, setSelectedTransaction)} className="qr-code-button">
+				<span>Get QR</span>
+			</Button>
+		</a>
+	) : (
+		<a href="#" onClick={(e) => onItemClick(e, item, setSelectedTransaction)} className="transaction-history__row">
 			<div className="transaction-history__row-information">
 				<i className={classNames('is-icon', { 'received-arrow-icon': !isSend && !isPending, 'send-arrow-icon': isSend && !isPending, 'confirmation-icon': isPending })} />
 				<div className="information-details">

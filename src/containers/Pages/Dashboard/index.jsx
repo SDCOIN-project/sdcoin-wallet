@@ -5,7 +5,7 @@ import Wallet from './Wallet';
 import Send from './Send';
 import Receive from './Receive';
 import GeneratePayment from './Receive/GeneratePayment';
-import PaymentInfo1 from './Receive/PaymentInfo1';
+import PaymentInfo1 from './EscrowQrCode';
 import PaymentInfo2 from './Receive/PaymentInfo2';
 import Settings from './Settings';
 import ExchangeFunds from './ExchangeFunds';
@@ -23,7 +23,7 @@ import {
 	SETTINGS_PATH,
 	EXCHANGE_FUNDS_PATH,
 	GENERATE_PAYMENT,
-	PAYMENT_INFO1,
+	GET_ESCROW_QRCODE,
 	PAYMENT_INFO2,
 	TRANSACTION_DETAILS,
 	PAYMENT_DETAILS,
@@ -39,7 +39,7 @@ const Dashboard = () => (
 			<Route exact path={PAYMENT_DETAILS} component={PaymentDetails} />
 			<Route exact path={RECEIVE_PATH} component={Receive} />
 			<Route exact path={GENERATE_PAYMENT} component={GeneratePayment} />
-			<Route exact path={PAYMENT_INFO1} component={PaymentInfo1} />
+			<Route exact path={GET_ESCROW_QRCODE} component={PaymentInfo1} />
 			<Route exact path={PAYMENT_INFO2} component={PaymentInfo2} />
 			<Route path={SETTINGS_PATH} component={Settings} />
 			<Route exact path={EXCHANGE_FUNDS_PATH} component={ExchangeFunds} />

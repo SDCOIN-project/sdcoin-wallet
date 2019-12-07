@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import transactionHistoryActions from '../../../../../actions/TransactionHistoryActions';
 import InfiniteScroll from './InfiniteScroll';
 import Loading from '../../../../../components/Loading';
+import { ETH } from '../../../../../constants/CurrencyConstants';
+import { CONTRACT_ESCROW_FACTORY } from '../../../../../constants/ContractConstants';
 
 const TransactionHistory = ({
 	getNextTransactions, selectedCurrency, list, pendingList, hasMore, parent, loading, subLoading,
@@ -12,6 +14,21 @@ const TransactionHistory = ({
 
 	if (loading) {
 		return <Loading className="loading-container-balances" />;
+	}
+
+	if (selectedCurrency === ETH) {
+		list = list.filter((row) => {
+			if (!row.utc) {
+				return false;
+			}
+			if (row.to && row.to.toLowerCase() === CONTRACT_ESCROW_FACTORY) {
+				return true;
+			}
+			if (row.value === '0') {
+				return false;
+			}
+			return true;
+		});
 	}
 
 	return (

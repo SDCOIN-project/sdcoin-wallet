@@ -1,5 +1,4 @@
 import moment from 'moment';
-
 import BaseActions from './BaseActions';
 import TransactionHistoryReducer from '../reducers/TransactionHistoryReducer';
 import { CURRENCIES, ETH, TOKEN_ADDRESS } from '../constants/CurrencyConstants';
@@ -116,7 +115,7 @@ class TransactionHistoryActions extends BaseActions {
 	setSelectedTransaction(transaction) {
 		return (dispatch) => {
 			if (!transaction) return;
-			dispatch(this.setValue('selectedTransaction', transaction));
+			dispatch(this.setValue('selectedTransaction', transaction, true));
 		};
 	}
 

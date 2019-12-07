@@ -26,7 +26,7 @@ class CryptoApiService {
 	}
 
 	async getEthTransactions(address, skip, limit) {
-		return this.client.api.eth.getTransactionsByAddresses([address], true, { skip, limit });
+		return this.client.api.eth.getTransactionsByAddresses([address], false, { skip, limit });
 	}
 
 	async getTokenTransfers(token, address, skip, limit) {
