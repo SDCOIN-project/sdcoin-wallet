@@ -25,7 +25,10 @@ class Web3Service {
 	 * @returns {BigNumber}
 	 */
 	toWei(amount, rate) {
-		return new BN(this.web3.utils.toWei(new BN(amount).toFormat(), rate));
+		return new BN(this.web3.utils.toWei(new BN(amount).toFormat({
+			decimalSeparator: '.',
+			groupSeparator: '',
+		}), rate));
 	}
 
 	/**
