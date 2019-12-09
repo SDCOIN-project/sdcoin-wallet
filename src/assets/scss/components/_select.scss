@@ -2,7 +2,7 @@
 	position: relative;
 	width: 100%;
 	text-align: right;
-	height: 50px;
+	min-height: 50px;
 
 	&.is-select {
 		.input-field__input {
