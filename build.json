@@ -1,0 +1,10 @@
+{
+    "ios": {
+        "debug": {
+            "codeSignIdentity": "iPhone Developer"
+        },
+        "release": {
+            "codeSignIdentity": "iPhone Developer"
+        }
+    }
+}

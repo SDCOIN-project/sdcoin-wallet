@@ -2,6 +2,10 @@ stages:
   - test
   - deploy
 
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
 eslint:
   image: node:10.15
   stage: test
@@ -37,3 +41,25 @@ deploy.develop:
     - develop
   tags:
     - pp-develop
+
+
+firebase_deploy:
+  stage: deploy
+  artifacts:
+      paths:
+      - fastlane/logs
+  script:
+      - unlock_ci_keychain.sh
+      - npm i cordova -g
+      - npm i
+      - npm run build
+      - gem install bundler
+      - bundle install --path vendor/bundle
+      - echo $ANDROID_KEYSTORE_FILE | base64 --decode > keystore.jks
+      - bundle exec fastlane ios firebase_deploy
+      - bundle exec fastlane android firebase_deploy
+  tags:
+      - xcode
+  only:
+    - tags
+  when: manual

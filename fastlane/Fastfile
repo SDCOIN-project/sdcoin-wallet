@@ -1,0 +1,106 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+
+platform :ios do 
+
+  desc "Build&Deploy iOS app"
+
+  lane :firebase_deploy do
+
+    match(
+      git_url: ENV['MATCH_GIT_URL'],
+      type: "development",
+      app_identifier: "com.sdcoin.wallet",
+      readonly: true)
+
+    cordova_build(platform: "ios")
+    firebase_distribution(platform: "ios")
+   
+    slack(
+      message: "SDCoinWallet iOS uploaded!"
+    )
+
+  end
+end
+
+platform :android do
+  
+  desc "Build&Deploy android app"
+  
+  lane :firebase_deploy do
+
+    cordova_build(platform: "android")
+    firebase_distribution(platform: "android")
+  
+    slack(
+      message: "SDCoinWallet Android uploaded!"
+    )
+
+  end
+end
+
+lane :clean do
+	sh "cd .. && rm -rf node_modules && rm -rf platforms/ios && rm -rf platforms/android && rm -rf plugins"
+end
+
+private_lane :cordova_build do |options|
+
+  options[:release] = true
+  options[:type] = 'development'
+
+  if options[:platform] == "ios"
+    options[:team_id] = ENV['APPLE_TEAM_ID']
+    options[:provisioning_profile] = ENV['PROVISIONING_PROFILE_DEVELOPMENT_UDID']
+  else
+    options[:keystore_path] = ENV['ANDROID_KEYSTORE_PATH']
+    options[:keystore_alias] = ENV['ANDROID_KEYSTORE_ALIAS']
+    options[:keystore_password] = ENV['ANDROID_KEYSTORE_PASSWORD']
+  end 
+
+  if ENV['CI_JOB_ID'] != nil || ENV['CI_JOB_ID'] 
+    options[:build_number] = ENV['CI_JOB_ID']
+  end
+
+  cordova(options)
+
+end
+
+private_lane :firebase_distribution do |args|
+
+  options = {}
+
+  options[:groups] = ENV['FIREBASE_TESTERS_GROUP']
+  options[:firebase_cli_token] = ENV['FIREBASE_CLI_TOKEN']
+  options[:release_notes] = changelog_from_git_commits(commits_count:"1")
+
+  if args[:platform] == "ios" 
+    options[:app] = ENV['FIREBASE_IOS_APP_ID']
+    options[:ipa_path] =  ENV['CORDOVA_IOS_RELEASE_BUILD_PATH']
+  else
+    options[:app] = ENV['FIREBASE_ANDROID_APP_ID']
+    options[:apk_path] =  ENV['CORDOVA_ANDROID_RELEASE_BUILD_PATH']
+  end
+
+  firebase_app_distribution(options)
+
+end
+
+error do |lane, exception|
+  slack(
+    message: exception.message,
+    success: false
+  )
+end
