@@ -17,8 +17,10 @@
     <allow-intent href="sms:*"/>
     <allow-intent href="mailto:*"/>
     <allow-intent href="geo:*"/>
+    <preference name="ShowSplashScreenSpinner" value="false"/>
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#519bfc" />
+
 
     <feature name="TouchID">
         <param name="ios-package" value="TouchID"/>
@@ -36,6 +38,25 @@
         <allow-intent href="market:*"/>
         <preference name="android-minSdkVersion" value="23"/>
         <preference name="android-targetSdkVersioin" value="23"/>
+        <icon src="src/assets/images/icons/android/ic_launcher_mipmap-mdpi.png" density="mdpi" />
+        <icon src="src/assets/images/icons/android/ic_launcher_mipmap-hdpi.png" density="hdpi" />
+        <icon src="src/assets/images/icons/android/ic_launcher-mipmap_xhdpi.png" density="xhdpi" />
+        <icon src="src/assets/images/icons/android/ic_launcher_mipmap-xxhdpi.png" density="xxhdpi" />
+        <icon src="src/assets/images/icons/android/ic_launcher_mipmap-xxxhdpi.png" density="xxxhdpi" />
+
+        <splash src="src/assets/images/splash-screen-android.png" density="land-ldpi"/>
+        <splash src="src/assets/images/splash-screen-android.png" density="land-mdpi"/>
+        <splash src="src/assets/images/splash-screen-android-1.5x.png" density="land-hdpi"/>
+        <splash src="src/assets/images/splash-screen-android-2x.png" density="land-xhdpi"/>
+
+        <splash src="src/assets/images/splash-screen-android.png" density="port-ldpi"/>
+        <splash src="src/assets/images/splash-screen-android.png" density="port-mdpi"/>
+        <splash src="src/assets/images/splash-screen-android-1.5x.png" density="port-hdpi"/>
+        <splash src="src/assets/images/splash-screen-android-2x.png" density="port-xhdpi"/>
+        
+        <preference name="SplashMaintainAspectRatio" value="true" />
+        <!-- <preference name="ShowSplashScreenSpinner" value="false"/> -->
+        
     </platform>
     <platform name="ios">
         <preference name="DisallowOverscroll" value="true" />
@@ -44,6 +65,40 @@
         <edit-config target="NSFaceIDUsageDescription" file="*-Info.plist" mode="merge" overwrite="true">
             <string>Required FaceId for authorization</string>
         </edit-config>
+        <!-- iOS 8.0+ -->
+        <!-- iPhone 6 Plus  -->
+        <icon src="src/assets/images/icons/ios/Icon-App-60x60@3x.png" width="180" height="180" />
+        <!-- iOS 7.0+ -->
+        <!-- iPhone / iPod Touch  -->
+        <icon src="src/assets/images/icons/ios/Icon-App-60x60@1x.png" width="60" height="60" />
+        <icon src="src/assets/images/icons/ios/Icon-App-60x60@2x.png" width="120" height="120" />
+        <!-- iPad -->
+        <icon src="src/assets/images/icons/ios/Icon-App-76x76@1x.png" width="76" height="76" />
+        <icon src="src/assets/images/icons/ios/Icon-App-76x76@2x.png" width="152" height="152" />
+        <!-- Spotlight Icon -->
+        <icon src="src/assets/images/icons/ios/Icon-App-40x40@1x.png" width="40" height="40" />
+        <icon src="src/assets/images/icons/ios/Icon-App-40x40@2x.png" width="80" height="80" />
+        <!-- iOS 6.1 -->
+        <!-- iPhone / iPod Touch -->
+        <icon src="src/assets/images/icons/ios/Icon-App-60x60@1x.png" width="57" height="57" />
+        <icon src="src/assets/images/icons/ios/Icon-App-40x40@3x.png" width="114" height="114" />
+        <!-- iPad -->
+        <icon src="src/assets/images/icons/ios/Icon-App-76x76@1x.png" width="72" height="72" />
+        <icon src="src/assets/images/icons/ios/Icon-App-60x60@2x.png" width="144" height="144" />
+        <!-- iPad Pro -->
+        <icon src="src/assets/images/icons/ios/Icon-App-83.5x83.5@2x.png" width="167" height="167" />
+        <!-- iPhone Spotlight and Settings Icon -->
+        <icon src="src/assets/images/icons/ios/Icon-App-29x29@1x.png" width="29" height="29" />
+        <icon src="src/assets/images/icons/ios/Icon-App-29x29@2x.png" width="58" height="58" />
+        <icon src="src/assets/images/icons/ios/Icon-App-29x29@3x.png" width="87" height="87" />
+        <!-- iPad Spotlight and Settings Icon -->
+        <icon src="src/assets/images/icons/ios/Icon-App-29x29@2x.png" width="50" height="50" />
+        <icon src="src/assets/images/icons/ios/Icon-App-60x60@2x.png" width="100" height="100" />
+        <!-- iPad Pro -->
+        <icon src="src/assets/images/icons/ios/Icon-App-83.5x83.5@2x.png" width="167" height="167" />
+
+        <!-- image name must contain - "@1x~iphone~anyany" or "@2x~iphone~anyany" ! -->
+        <splash src="src/assets/images/splash-screen-ios@2x~iphone~anyany.png"/>
     </platform>
 
     <preference name="UseSwiftLanguageVersion" value="5"/>

@@ -41,6 +41,7 @@
 		"cordova-plugin-keychain-touch-id": "git+https://github.com/sjhoeksma/cordova-plugin-keychain-touch-id.git",
 		"cordova-plugin-qrcodejs": "git+https://github.com/MenelicSoftware/cordova-plugin-qrcodejs.git",
 		"cordova-plugin-qrscanner": "^3.0.1",
+		"cordova-plugin-splashscreen": "^5.0.3",
 		"cordova-plugin-statusbar": "^2.4.3",
 		"cordova-plugin-x-socialsharing": "^5.6.2",
 		"core-js": "^2.5.7",
@@ -117,6 +118,7 @@
 			"cordova-plugin-qrcodejs": {},
 			"cordova-plugin-statusbar": {},
 			"cordova-clipboard": {},
+			"cordova-plugin-splashscreen": {},
 			"cordova-plugin-x-socialsharing": {}
 		},
 		"platforms": [

@@ -2,10 +2,22 @@
 	min-height: 100vh;
 	width: 100vw;
 	background: linear-gradient(180deg, #51cdfc 0%, #3f7ed0 100%);
-	padding: 105px 10px 0 10px;
+	padding: 220px 10px 0 10px;
 	position: relative;
 	display: flex;
 	flex-direction: column;
+
+	&.with-logo {
+		padding: 105px 10px 0 10px;
+
+		.authorization-page__title {
+			font-size: 20px;
+			padding-top: 30px;
+			line-height: 28px;
+			margin: initial;
+			width: auto;
+		}
+	}
 
 	.logo {
 		background-image: url(../images/icons/logo.svg);
@@ -17,12 +29,14 @@
 	}
 
 	&__title {
-		line-height: 28px;
-		font-size: 20px;
 		color: #ffffff;
 		text-align: center;
-		padding-top: 30px;
+		// padding-top: 30px;
 		padding-bottom: 30px;
+		font-size: 30px;
+		width: 190px;
+		margin: 0 auto;
+		line-height: 36px;
 	}
 
 	&__bottom-container {
