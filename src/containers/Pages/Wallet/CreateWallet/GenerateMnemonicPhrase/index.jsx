@@ -29,8 +29,8 @@ const CreateWallet = ({ onNext }) => {
 				</div>
 				<div className="brain-key__item">{phrase}</div>
 				<div className="dashboard-controls">
-					<Button onClick={() => onCopy()} className="is-transparent">{btnCopyTitle}</Button>
-					<Button onClick={() => onNext({ phrase })}>Continue</Button>
+					<Button onClick={() => onNext({ phrase })} className="is-transparent">Continue</Button>
+					<Button onClick={() => onCopy()} >{btnCopyTitle}</Button>
 				</div>
 			</div>
 		</div>

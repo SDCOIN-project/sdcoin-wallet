@@ -12,7 +12,7 @@ import { EXCHANGE_FUNDS_PATH } from '../../../../../constants/RouterConstants';
 import accountActions from '../../../../../actions/AccountActions';
 
 const BalanceCard = ({
-	balances, selectedCurrency, setSelectedCurrency, name, cardClassName,
+	balances, selectedCurrency, setSelectedCurrency, name, cardClassName, icon,
 }) => (
 	<a
 		href="#"
@@ -23,7 +23,7 @@ const BalanceCard = ({
 		className={classNames('balances-list__item', cardClassName, { 'is-active': selectedCurrency === name })}
 	>
 		<div className="balances-list__item-title">
-			<i className="is-icon sdc-coin-icon" />
+			<i className={`is-icon ${icon}`} />
 			<span className="postfix-top">{name}</span>
 			{name === SDC ? <Button onClick={() => history.push(EXCHANGE_FUNDS_PATH)} className="is-small">Swap to {LUV}</Button> : null}
 		</div>
@@ -37,10 +37,12 @@ BalanceCard.propTypes = {
 	balances: PropTypes.object.isRequired,
 	selectedCurrency: PropTypes.string.isRequired,
 	setSelectedCurrency: PropTypes.func.isRequired,
+	icon: PropTypes.string,
 };
 
 BalanceCard.defaultProps = {
 	cardClassName: '',
+	icon: '',
 };
 
 export default connect(

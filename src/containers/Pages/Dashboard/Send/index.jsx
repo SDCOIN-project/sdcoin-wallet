@@ -60,7 +60,7 @@ const Send = ({
 	const onScanQrCode = (e, setFieldValue) => {
 		e.preventDefault();
 		scanQrCode({
-			description: 'Scan QRcode to get recipient address',
+			description: 'Scan QR code to get recipient address',
 			onScan: (qrCodeData) => {
 				const data = web3Service.parseUrl(qrCodeData);
 				if (!data.address) {

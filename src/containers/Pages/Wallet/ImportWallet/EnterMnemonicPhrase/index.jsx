@@ -17,7 +17,7 @@ const ImportWallet = ({ onNext }) => {
 	const validationSchema = Yup.object().shape({
 		mnemonic: Yup.string()
 			.test(
-				'isValidMnemonic', 'Incorrect Brain Key',
+				'isValidMnemonic', 'Incorrect BrainKey',
 				(mnemonic) => {
 					if (!mnemonic) {
 						return false;
@@ -72,7 +72,7 @@ const ImportWallet = ({ onNext }) => {
 								)}
 							</div>
 							<div className="dashboard-controls">
-								<Button type="submit">Continue</Button>
+								<Button type="submit" className="is-large">Continue</Button>
 							</div>
 						</form>
 					)}

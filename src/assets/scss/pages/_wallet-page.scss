@@ -59,19 +59,32 @@
 
 		&.is-textarea {
 			margin-bottom: 0;
+			caret-color: #519bfc;
+			//for ios
+			-webkit-appearance: none;
+			-webkit-tap-highlight-color: transparent;
 
-			&:active,
-			&:focus {
+			 &:focus {
+				//for ios
+				-webkit-tap-highlight-color: transparent;
+				-webkit-box-shadow: 0 0 0 2px #519bfc;
 				box-shadow: 0 0 0 2px #519bfc;
 			}
 
 			&::placeholder {
 				color: rgba(28, 28, 28, 0.5);
 			}
+			
+			&.is-active {
+				box-shadow: 0 0 0 2px #519bfc;
+			}
 
 			&.is-error {
+				-webkit-box-shadow: 0 0 0 2px #f08597;
 				box-shadow: 0 0 0 2px #f08597;
 			}
 		}
+
+
 	}
 }

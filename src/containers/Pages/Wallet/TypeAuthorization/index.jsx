@@ -11,7 +11,7 @@ import {
 import SplashScreen from '../../../../components/SplashScreen';
 
 const TypeAuthorization = ({ history }) => (
-	<SplashScreen title="Do you have an account">
+	<SplashScreen title="Do you have an account?">
 		<Button className="is-light-bg" onClick={() => history.push(IMPORT_WALLET_PATH)}>Yes, import wallet</Button>
 		<Button className="is-light-bg" onClick={() => history.push(CREATE_WALLET_PATH)}>No, create wallet</Button>
 	</SplashScreen>

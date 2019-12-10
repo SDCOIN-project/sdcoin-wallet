@@ -43,7 +43,7 @@ const Backup = ({
 						</div>
 						<div className="brain-key__item">{mnemonic}</div>
 						<div className="dashboard-controls">
-							<Button onClick={() => onCopy()} className="button__content">
+							<Button onClick={() => onCopy()} className="button__content is-large">
 								{btnCopyTitle}
 							</Button>
 						</div>

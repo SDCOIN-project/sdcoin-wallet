@@ -46,7 +46,7 @@ const TransactionHistory = ({
 				/>
 			) : (
 				<div className="transaction-history__empty">
-						No Transaction History yet.
+						No transaction history yet.
 				</div>
 			)}
 		</div>

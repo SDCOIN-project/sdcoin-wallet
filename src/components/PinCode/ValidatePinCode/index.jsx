@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import EnterPinCode from '../EnterPinCode';
 import touchIdService from '../../../services/TouchIdService';
 import { PASSWORD, FINGER_PRINT_TYPE } from '../../../constants/GlobalConstants';
+import { SETTINGS_PATH } from '../../../constants/RouterConstants';
+import history from '../../../history';
+
 
 const ValidatePinCode = ({
 	validate, onSubmit, useAltId, title, ...props
@@ -63,6 +66,7 @@ const ValidatePinCode = ({
 				loading={loading}
 				onSubmit={(pinCode) => checkValidPinCode(pinCode)}
 				title={changedTitle}
+				onBack={() => history.push(SETTINGS_PATH)}
 				{...props}
 			/>
 		</div>

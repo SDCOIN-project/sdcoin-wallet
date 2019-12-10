@@ -67,12 +67,6 @@ const EnterPinCode = ({
 				</div>
 
 				<div className="dashboard-controls flex-column">
-
-					{pinCode.length ? (
-						<Button className="is-transparent is-white pin-page__button clear-button" onPointerUp={() => onDeleteNumber()}>
-							Clear
-						</Button>
-					) : <span className="is-transparent is-white pin-page__button" />}
 					<MediaQuery maxWidth={374}>
 						{(matches) => {
 							if (matches) {
@@ -109,6 +103,9 @@ const EnterPinCode = ({
 							);
 						}}
 					</MediaQuery>
+					<Button className={`is-transparent is-white pin-page__button clear-button ${pinCode.length ? '' : 'button-hidden'}`}		onPointerUp={() => onDeleteNumber()}>
+						Delete
+					</Button>
 				</div>
 			</div>
 		</div>

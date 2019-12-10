@@ -7,7 +7,7 @@ import scanQrCodeActions from './../../actions/ScanQrCodeActions';
 import qrScannerService from '../../services/QRScannerService';
 
 const ScanQrCode = ({
-	show, title = 'Scan QR code', description, setValue, onScan, onClose,
+	show, title, description, setValue, onScan, onClose,
 }) => {
 	const [error, setError] = useState(null);
 
@@ -59,9 +59,7 @@ const ScanQrCode = ({
 				<div className="scan-qr-code-page__wrapper">
 					<div className="left-wrapper" />
 					<div className="scan-qr-code-page__container">
-						<div className="white-border">
-							<div className="border-icon" />
-						</div>
+						<div className="white-border" />
 					</div>
 					<div className="right-wrapper" />
 				</div>
@@ -84,7 +82,7 @@ ScanQrCode.propTypes = {
 };
 
 ScanQrCode.defaultProps = {
-	title: '',
+	title: 'Scan QR code',
 	description: '',
 	onScan: () => {},
 	onClose: () => {},

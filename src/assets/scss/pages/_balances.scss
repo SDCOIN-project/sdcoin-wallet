@@ -1,6 +1,9 @@
 .balances {
+	padding: 20px 16px 16px;
 	z-index: 2;
 	background: linear-gradient(180deg, #519bfc 0%, #3f7ed0 100%);
+	display: flex;
+	flex-direction: column;
 
 	//dont work on Iphone X
 	// position: -webkit-sticky;
@@ -19,16 +22,15 @@
 }
 
 .balances-body {
-	padding: 20px 16px 16px;
-	overflow-x: auto;
+	margin-top: auto;
+	display: flex;
+	flex-direction: column;
 }
 
 .header-title-balances {
-	margin-top: 25px;
 	padding-left: 0;
 	@include res-375 {
 		font-size: 25px;
-		margin-top: 17px;
 	}
 }
 
