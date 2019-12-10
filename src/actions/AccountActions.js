@@ -1,14 +1,13 @@
 import AccountReducer from '../reducers/AccountReducer';
 import BaseActions from './BaseActions';
 import globalActions from './GlobalActions';
-import transactionHistoryActions from './TransactionHistoryActions';
-
-import walletService from '../services/WalletService';
-
-import ethService from '../services/EthService';
-
 import notificationActions from './NotificationActions';
+import transactionHistoryActions from './TransactionHistoryActions';
+import scanQrCodeActions from './ScanQrCodeActions';
+import touchIdActions from './TouchIdActions';
 import escrowActions from './EscrowActions';
+import walletService from '../services/WalletService';
+import ethService from '../services/EthService';
 import { CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
 import { CURRENCY_SERVICES } from '../services/CurrencyServices';
 import { ICONS } from '../constants/NotificationConstants';
@@ -141,6 +140,12 @@ class AccountActions extends BaseActions {
 
 			clearInterval(this.updateBalanceInterval);
 			dispatch(this.clear());
+			dispatch(globalActions.clear());
+			dispatch(notificationActions.clear());
+			dispatch(transactionHistoryActions.clear());
+			dispatch(scanQrCodeActions.clear());
+			dispatch(touchIdActions.clear());
+			dispatch(escrowActions.clear());
 		};
 	}
 
