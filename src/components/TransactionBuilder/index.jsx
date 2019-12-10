@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { PREPARE_STATUS, SENDING_STATUS, ERROR_STATUS, SUCCESS_STATUS } from '../../constants/TransactionConstants';
 import ValidatePinCode from '../PinCode/ValidatePinCode';
-
 import TransactionStatus from './TransactionStatus';
 
 import accountActions from '../../actions/AccountActions';
 import ethService from '../../services/EthService';
+import modalActions from '../../actions/ModalActions';
+import {
+	PREPARE_STATUS,
+	SENDING_STATUS,
+	ERROR_STATUS,
+	SUCCESS_STATUS,
+} from '../../constants/TransactionConstants';
 
 const TransactionBuilder = ({
-	children, handleTransaction, onSend, onDone,
+	children, handleTransaction, onSend, onDone, showConfirmModal,
 }) => {
 	const [status, setStatus] = useState(PREPARE_STATUS);
 	const [txError, setTxError] = useState(null);
@@ -24,9 +30,26 @@ const TransactionBuilder = ({
 		setRequestPinCode(false);
 	};
 
-	const submitTransaction = (sendingValues) => {
-		setValues(sendingValues);
-		setRequestPinCode(true);
+	/**
+	 * Display confirmation notification before entering the PIN
+	 * @param {Object} sendingValues
+	 * @param {Object} confirmationInfo
+	 * @param {string} confirmationInfo.title
+	 * @param {string} confirmationInfo.description
+	 * @param {string} confirmationInfo.cancelButtonText
+	 * @param {string} confirmationInfo.confirmButtonText
+	 * @param {function} confirmationInfo.onConfirm
+	 * @param {function} confirmationInfo.onCancel
+	 * @param {function} confirmationInfo.onClose
+	 */
+	const submitTransaction = (sendingValues, confirmationInfo = {}) => {
+		showConfirmModal({
+			...confirmationInfo,
+			onConfirm: () => {
+				setValues(sendingValues);
+				setRequestPinCode(true);
+			},
+		});
 	};
 
 	const sendingTransaction = async (data) => {
@@ -78,6 +101,7 @@ const TransactionBuilder = ({
 TransactionBuilder.propTypes = {
 	children: PropTypes.func.isRequired,
 	handleTransaction: PropTypes.func.isRequired,
+	showConfirmModal: PropTypes.func.isRequired,
 	onDone: PropTypes.func,
 	onSend: PropTypes.func,
 };
@@ -87,4 +111,9 @@ TransactionBuilder.defaultProps = {
 	onSend: () => {},
 };
 
-export default TransactionBuilder;
+export default connect(
+	() => ({}),
+	(dispatch) => ({
+		showConfirmModal: (params) => dispatch(modalActions.confirmModal(params)),
+	}),
+)(TransactionBuilder);

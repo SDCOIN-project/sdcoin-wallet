@@ -7,22 +7,23 @@ import * as Yup from 'yup';
 import BN from 'bignumber.js';
 
 import history from '../../../../history';
-
 import Button from './../../../../components/Form/Button';
 import Input from './../../../../components/Form/Input';
 import SelectCurrency from './../../../../components/Form/SelectCurrency';
 import Option from './../../../../components/Form/SelectCurrency/Option';
 import Header from './../../../../containers/Layout/Header';
+import TransactionBuilder from '../../../../components/TransactionBuilder';
+
 import web3Service from '../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
-
+import { calculateRemainMoney } from '../../../../helpers/TransactionHelper';
 import { CURRENCIES, ETH, DEFAULT_CURRENCY } from '../../../../constants/CurrencyConstants';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
-import TransactionBuilder from '../../../../components/TransactionBuilder';
+import { DASHBOARD_PATH, PAY_TO_ESCROW } from '../../../../constants/RouterConstants';
+
 import sendTransactionActions from '../../../../actions/SendTransactionActions';
 import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
 import notificationActions from '../../../../actions/NotificationActions';
-import { DASHBOARD_PATH, PAY_TO_ESCROW } from '../../../../constants/RouterConstants';
 
 const initialValues = () => ({
 	currency: DEFAULT_CURRENCY,
@@ -84,6 +85,14 @@ const Send = ({
 		content: <Option currency={currency} balance={balances[currency]} />,
 	}));
 
+	const getConfirmationOptions = (values) => {
+		const { amount, currency } = values;
+		return {
+			title: `Are you sure to send ${amount} ${currency}?`,
+			description: `You will remain ${calculateRemainMoney(balances[currency], amount, currency === ETH ? fee : 0)} ${currency} after transaction`,
+		};
+	};
+
 	const validationSchema = () => Yup.object().shape({
 		currency: Yup.mixed(CURRENCIES)
 			.required('Currency is required'),
@@ -112,7 +121,6 @@ const Send = ({
 			)),
 	});
 
-
 	return (
 		<TransactionBuilder
 			handleTransaction={(values) => onSubmit(values)}
@@ -124,7 +132,7 @@ const Send = ({
 					<div className="dashboard send-page">
 						<Formik
 							initialValues={initialValues()}
-							onSubmit={(values) => submitTransaction(values)}
+							onSubmit={(values) => submitTransaction(values, getConfirmationOptions(values))}
 							validationSchema={() => validationSchema()}
 							validateOnChange={false}
 						>

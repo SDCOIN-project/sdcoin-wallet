@@ -15,7 +15,7 @@ import web3Service from './../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
 import swapService from '../../../../services/contracts/SwapService';
 import { formatPrice } from '../../../../helpers/FunctionHelper';
-import exchangeSdcOrLuv from '../../../../helpers/ExchangeRateHelper';
+import { calculateRemainMoney, exchangeSdcOrLuv } from '../../../../helpers/TransactionHelper';
 
 import swapTransactionActions from '../../../../actions/ExchangeTransactionActions';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
@@ -28,7 +28,7 @@ const initialValues = () => ({
 });
 
 const ExchangeFunds = ({
-	sdcBalance, swapSdcToLuv, exchangeEstimateGas,
+	sdcBalance, ethBalance, swapSdcToLuv, exchangeEstimateGas,
 }) => {
 
 	const [sdcExchangeRate, setSdcExchangeRate] = useState(0);
@@ -61,6 +61,14 @@ const ExchangeFunds = ({
 		}
 
 		return exchangeSdcOrLuv(from, amount, sdcExchangeRate, LUV_EXCHANGE_RATE);
+	};
+
+	const getConfirmationOptions = (values) => {
+		const { sdc } = values;
+		return {
+			title: `Are you sure to swap ${sdc} ${SDC}?`,
+			description: `You will remain ${calculateRemainMoney(sdcBalance, sdc)} ${SDC} and ${calculateRemainMoney(ethBalance, 0, fee)} ${ETH} after transaction`,
+		};
 	};
 
 	const onSubmit = async ({ sdc, ...values }) => {
@@ -99,7 +107,7 @@ const ExchangeFunds = ({
 					<div className="dashboard exchange-funds-page">
 						<Formik
 							initialValues={initialValues()}
-							onSubmit={(values) => submitTransaction(values)}
+							onSubmit={(values) => submitTransaction(values, getConfirmationOptions(values))}
 							validationSchema={() => validationSchema()}
 							validateOnChange={false}
 						>
@@ -169,6 +177,7 @@ const ExchangeFunds = ({
 
 ExchangeFunds.propTypes = {
 	sdcBalance: PropTypes.string.isRequired,
+	ethBalance: PropTypes.string.isRequired,
 	swapSdcToLuv: PropTypes.func.isRequired,
 	exchangeEstimateGas: PropTypes.func.isRequired,
 };
@@ -176,6 +185,7 @@ ExchangeFunds.propTypes = {
 export default connect(
 	(state) => ({
 		sdcBalance: state.account.getIn(['balances', 'SDC']),
+		ethBalance: state.account.getIn(['balances', 'ETH']),
 	}),
 	(dispatch) => ({
 		swapSdcToLuv: (currency) => dispatch(swapTransactionActions.sdcToLuv(currency)),

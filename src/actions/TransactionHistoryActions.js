@@ -5,7 +5,7 @@ import { CURRENCIES, ETH, LUV, LUV_EXCHANGE_RATE, TOKEN_ADDRESS } from '../const
 import escrowActions from './EscrowActions';
 import cryptoApiService from '../services/CryptoApiService';
 import swapService from '../services/contracts/SwapService';
-import exchangeSdcOrLuv from '../helpers/ExchangeRateHelper';
+import { exchangeSdcOrLuv } from '../helpers/TransactionHelper';
 
 class TransactionHistoryActions extends BaseActions {
 

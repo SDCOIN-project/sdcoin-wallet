@@ -50,10 +50,10 @@ const ConfirmModal = ({
 
 ConfirmModal.propTypes = {
 	show: PropTypes.bool.isRequired,
-	title: PropTypes.string.isRequired,
-	description: PropTypes.string.isRequired,
-	cancelButtonText: PropTypes.string.isRequired,
-	confirmButtonText: PropTypes.string.isRequired,
+	title: PropTypes.string,
+	description: PropTypes.string,
+	cancelButtonText: PropTypes.string,
+	confirmButtonText: PropTypes.string,
 	handleHide: PropTypes.func.isRequired,
 	onConfirm: PropTypes.func.isRequired,
 	onCancel: PropTypes.func,
@@ -61,6 +61,10 @@ ConfirmModal.propTypes = {
 };
 
 ConfirmModal.defaultProps = {
+	cancelButtonText: 'Cancel',
+	confirmButtonText: 'Confirm',
+	title: 'Are you sure?',
+	description: 'The action cannot be revoked',
 	onClose: () => {},
 	onCancel: () => {},
 };

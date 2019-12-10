@@ -17,6 +17,7 @@ import { DASHBOARD_PATH, RECEIVE_PATH } from '../../../../../constants/RouterCon
 import TransactionBuilder from '../../../../../components/TransactionBuilder';
 import history from '../../../../../history';
 import { ETH_AMOUNT_TO_ESCROW_CREATE } from '../../../../../constants/GlobalConstants';
+import { calculateRemainMoney } from '../../../../../helpers/TransactionHelper';
 
 const initialValues = () => ({
 	price: '',
@@ -80,7 +81,10 @@ const GeneratePayment = ({ balances, createEscrowEstimateGas, createEscrowContra
 					<div className="dashboard generate-payment-page">
 						<Formik
 							initialValues={initialValues()}
-							onSubmit={(values) => submitTransaction(values)}
+							onSubmit={(values) => submitTransaction(values, {
+								title: 'Are you sure you want to generate payment QR?',
+								description: `You will remain ${calculateRemainMoney(balances[ETH], 0.1, fee)} ${ETH} after generation`,
+							})}
 							validationSchema={() => validationSchema()}
 						>
 							{({

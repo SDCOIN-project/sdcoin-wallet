@@ -5,7 +5,7 @@ import transactionHistoryActions from './TransactionHistoryActions';
 import sdcTokenService from '../services/contracts/SdcTokenService';
 import swapService from '../services/contracts/SwapService';
 import ethService from '../services/EthService';
-import exchangeSdcOrLuv from '../helpers/ExchangeRateHelper';
+import { exchangeSdcOrLuv } from '../helpers/TransactionHelper';
 
 class ExchangeTransactionActions {
 
