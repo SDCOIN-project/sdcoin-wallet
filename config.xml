@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.sdcoin.wallet" version="0.2.0-rc.1" android-versionCode="200001" ios-CFBundleVersion="200001"
-        xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+        xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>SDCoinWallet</name>
     <description>
 
@@ -35,6 +35,11 @@
 
     <preference name="UseSwiftLanguageVersion" value="4.0"/>
     <platform name="android">
+        <!-- solution to the problem of displaying the height of the screen when opening the virtual keyboard -->
+        <!-- also be sure to add to widget xmlns:android="http://schemas.android.com/apk/res/android" -->
+        <edit-config file="AndroidManifest.xml" target="/manifest/application/activity[@android:name='MainActivity']" mode="merge">
+            <activity android:windowSoftInputMode="adjustPan" />
+        </edit-config>
         <allow-intent href="market:*"/>
         <preference name="android-minSdkVersion" value="23"/>
         <preference name="android-targetSdkVersioin" value="23"/>
@@ -55,7 +60,6 @@
         <splash src="src/assets/images/splash-screen-android-2x.png" density="port-xhdpi"/>
         
         <preference name="SplashMaintainAspectRatio" value="true" />
-        <!-- <preference name="ShowSplashScreenSpinner" value="false"/> -->
         
     </platform>
     <platform name="ios">
