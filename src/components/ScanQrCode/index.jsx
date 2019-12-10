@@ -25,6 +25,7 @@ const ScanQrCode = ({
 
 	const initialCamera = async () => {
 		try {
+			setError(null);
 			await qrScannerService.prepare();
 			await qrScannerService.show();
 			const data = await qrScannerService.scan();
