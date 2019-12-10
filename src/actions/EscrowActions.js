@@ -81,7 +81,6 @@ class EscrowActions extends BaseActions {
 			const from = getState().account.get('address');
 			const result = await escrowFactoryService.createEscrowContract(price, from, gas, gasPrice);
 			// TODO: Add result TX hash to pending transactions array
-			console.log(result);
 			return result;
 		};
 	}

@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+import history from '../../../../../history';
 import Header from './../../../../Layout/Header';
 import Switcher from './../../../../../components/Form/Switcher';
 
 import AccountActions from '../../../../../actions/AccountActions';
-import { BACKUP_PATH, CHANGE_PASSWORD_PATH, CREATE_TOUCH_ID_PATH } from '../../../../../constants/RouterConstants';
-import history from '../../../../../history';
 import GlobalActions from '../../../../../actions/GlobalActions';
-import { ICONS } from '../../../../../constants/NotificationConstants';
 import notificationActions from '../../../../../actions/NotificationActions';
+import modalActions from '../../../../../actions/ModalActions';
+
+import { ICONS } from '../../../../../constants/NotificationConstants';
+import { BACKUP_PATH, CHANGE_PASSWORD_PATH, CREATE_TOUCH_ID_PATH } from '../../../../../constants/RouterConstants';
 
 const Index = ({
-	logout, hasTouchId, hasFaceId, alternativeIdEnabled, disableAltId, showNotification,
+	logout, hasTouchId, hasFaceId, alternativeIdEnabled, disableAltId, showNotification, showConfirmModal,
 }) => {
 
 	const disableAltIdAndNotify = () => {
@@ -75,7 +78,13 @@ const Index = ({
 					href=""
 					onClick={(e) => {
 						e.preventDefault();
-						logout();
+						showConfirmModal({
+							title: 'Are you sure to logout?',
+							description: 'Make sure that you have the BrainKey backup',
+							cancelButtonText: 'Cancel',
+							confirmButtonText: 'Confirm',
+							onConfirm: () => logout(),
+						});
 					}}
 					className="dashboard-arrow-line bottom-container"
 				>
@@ -96,6 +105,7 @@ Index.propTypes = {
 	logout: PropTypes.func.isRequired,
 	disableAltId: PropTypes.func.isRequired,
 	showNotification: PropTypes.func.isRequired,
+	showConfirmModal: PropTypes.func.isRequired,
 };
 
 export default connect(
@@ -108,5 +118,6 @@ export default connect(
 		logout: () => dispatch(AccountActions.logout()),
 		showNotification: (currency) => dispatch(notificationActions.add(currency)),
 		disableAltId: () => dispatch(GlobalActions.disableAltId()),
+		showConfirmModal: (params) => dispatch(modalActions.confirmModal(params)),
 	}),
 )(Index);

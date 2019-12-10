@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Toast from '../components/Toast';
-import { InfoModal } from '../components/Modals';
+import { InfoModal, ConfirmModal } from '../components/Modals';
 import Notifications from '../components/Notifications';
 import ScanQrCode from '../components/ScanQrCode';
 import ValidatePinCode from '../components/PinCode/ValidatePinCode';
+
 import accountActions from '../actions/AccountActions';
 import GlobalActions from '../actions/GlobalActions';
 
@@ -17,6 +18,7 @@ const App = ({
 	const renderModals = () => (
 		<React.Fragment>
 			<InfoModal />
+			<ConfirmModal />
 		</React.Fragment>
 	);
 

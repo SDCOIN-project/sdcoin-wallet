@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
 import InfoModal from './InfoModal';
+import ConfirmModal from './ConfirmModal';
 
-export { InfoModal };
+export { InfoModal, ConfirmModal };
