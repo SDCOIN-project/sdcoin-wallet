@@ -15,7 +15,7 @@ const TransactionDetails = ({ selectedCurrency, address, selectedTransaction }) 
 	<React.Fragment>
 		<Header backButton={() => history.push(DASHBOARD_PATH)} className="header-transaction-details">
 			<div className="header-transaction-details__title">
-				{web3Service.fromWei(selectedTransaction.value, 'ether').toNumber()}<div className="postfix">{selectedCurrency}</div>
+				{web3Service.fromWei(selectedTransaction.value, 'ether').toString(10)}<div className="postfix">{selectedCurrency}</div>
 			</div>
 			<div className="header-transaction-details__text">
 				<p>{selectedTransaction.from === address ? 'Send' : 'Received'}</p>

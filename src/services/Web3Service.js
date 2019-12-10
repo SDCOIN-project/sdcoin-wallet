@@ -38,7 +38,10 @@ class Web3Service {
 	 * @returns {BigNumber}
 	 */
 	fromWei(amount, rate) {
-		return new BN(this.web3.utils.fromWei(amount, rate));
+		return new BN(this.web3.utils.fromWei(new BN(amount).toFormat({
+			decimalSeparator: '.',
+			groupSeparator: '',
+		}), rate));
 	}
 
 	/**
