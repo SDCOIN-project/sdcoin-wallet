@@ -1,18 +1,8 @@
-import ethService from '../services/EthService';
-import sdcTokenService from '../services/contracts/SdcTokenService';
-import luvTokenService from '../services/contracts/LuvTokenService';
-
 export const SDC = 'SDC';
 export const ETH = 'ETH';
 export const LUV = 'LUV';
 
 export const CURRENCIES = [SDC, ETH, LUV];
-
-export const CURRENCY_SERVICES = {
-	[SDC]: sdcTokenService,
-	[ETH]: ethService,
-	[LUV]: luvTokenService,
-};
 
 export const LUV_EXCHANGE_RATE = 1000;
 

@@ -6,7 +6,6 @@ import ValidatePinCode from '../PinCode/ValidatePinCode';
 import TransactionStatus from './TransactionStatus';
 
 import accountActions from '../../actions/AccountActions';
-import ethService from '../../services/EthService';
 import modalActions from '../../actions/ModalActions';
 import {
 	PREPARE_STATUS,
@@ -14,6 +13,7 @@ import {
 	ERROR_STATUS,
 	SUCCESS_STATUS,
 } from '../../constants/TransactionConstants';
+import walletService from '../../services/WalletService';
 
 const TransactionBuilder = ({
 	children, handleTransaction, onSend, onDone, showConfirmModal,
@@ -71,8 +71,8 @@ const TransactionBuilder = ({
 			return (
 				<ValidatePinCode
 					title="Enter PIN"
-					validate={(pinCode) => accountActions.decryptAndWalletAdd(pinCode)}
-					onSubmit={() => sendingTransaction(values).finally(() => ethService.clearWallet())}
+					validate={(pinCode) => accountActions.unlockWallet(pinCode)}
+					onSubmit={() => sendingTransaction(values).finally(() => walletService.lock())}
 					onBack={() => setRequestPinCode(false)}
 				/>
 			);

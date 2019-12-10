@@ -5,6 +5,7 @@ import touchIdService from '../services/TouchIdService';
 import { PASSWORD } from '../constants/GlobalConstants';
 import notificationActions from './NotificationActions';
 import shareService from '../services/ShareService';
+import walletService from '../services/WalletService';
 
 class GlobalActions extends BaseActions {
 
@@ -37,9 +38,9 @@ class GlobalActions extends BaseActions {
 				// Load data after start page
 			]).then((data) => {
 				dispatch(this.afterInit()).then(() => {});
-				const account = JSON.parse(localStorage.getItem('account'));
-				if (account) {
-					dispatch(accountActions.authorisation({ address: account.address }));
+				const address = walletService.isAuthorized();
+				if (address) {
+					dispatch(accountActions.authorisation({ address }));
 				}
 				if (data[0]) {
 					const biometryVarName = (data[0] === 'face') ? 'hasFaceId' : 'hasTouchId';
@@ -54,31 +55,6 @@ class GlobalActions extends BaseActions {
 			});
 
 		});
-	}
-
-	disableAltId() {
-		return (dispatch) => {
-			dispatch(this.setValue('alternativeIdEnabled', false));
-			try {
-				touchIdService.delete(PASSWORD, (result) => result, (error) => {
-					throw error;
-				});
-			} catch (error) {
-				dispatch(notificationActions.errorNotification({ text: error.message }));
-			}
-		};
-	}
-
-	deactivateSocket() {
-		return (dispatch, getState) => {
-			const socket = getState().global.get('socket');
-
-			if (socket) {
-				socket.disconnect();
-			}
-
-			dispatch(this.setValue('socket', null));
-		};
 	}
 
 	unlock() {

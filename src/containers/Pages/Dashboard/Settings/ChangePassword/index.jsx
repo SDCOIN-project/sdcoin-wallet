@@ -24,7 +24,7 @@ const ChangePassword = ({
 
 	const createNewPinCode = async (pinCode) => {
 		try {
-			createWallet(pinCode, accountActions.getDecryptedMnemonic(oldPassword));
+			await createWallet(pinCode, accountActions.getDecryptedMnemonic(oldPassword));
 			if (alternativeIdEnabled) {
 				await savePassword(pinCode);
 			}

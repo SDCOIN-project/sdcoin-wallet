@@ -29,30 +29,31 @@ const ValidatePinCode = ({
 		func();
 	}, []);
 
-	const validatePin = (pinCode) => {
-		if (!validate(pinCode)) {
-			setInvalidPinCode(true);
-			title = setTitle('Wrong PIN. Try again');
-			setTimeout(() => {
-				setInvalidPinCode(false);
-			}, 500);
-			setLoading(false);
-		} else {
-			setLoading(false);
-			onSubmit(pinCode);
-		}
-	};
-
 	const checkValidPinCode = async (pinCode) => {
 		setLoading(true);
-		// use timeout to prevent process blocking
-		setTimeout(() => validatePin(pinCode), 300);
+		return new Promise((resolve, reject) => {
+			setTimeout(async () => {
+				if (!validate(pinCode)) {
+					setInvalidPinCode(true);
+					title = setTitle('Wrong PIN. Try again');
+					setTimeout(() => {
+						setInvalidPinCode(false);
+					}, 500);
+					setLoading(false);
+					reject(new Error('Wrong PIN. Try again'));
+				} else {
+					await onSubmit(pinCode);
+					setLoading(false);
+					resolve();
+				}
+			}, 100);
+		});
 	};
 
 	useEffect(() => {
 		const func = async () => {
 			const password = await touchIdService.verify(PASSWORD, availableType === FINGER_PRINT_TYPE.FACE ? 'Enter your FaceId' : 'Enter your TouchId');
-			checkValidPinCode(password);
+			await checkValidPinCode(password);
 		};
 		if (availableType && hasPassword && useAltId) {
 			func();

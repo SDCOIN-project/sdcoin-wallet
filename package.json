@@ -25,6 +25,7 @@
 		"babel-loader": "^8.0.0",
 		"babel-plugin-static-fs": "^1.1.0",
 		"babel-plugin-webpack-alias": "^2.1.2",
+		"bcryptjs": "^2.4.3",
 		"bignumber.js": "^9.0.0",
 		"bip39": "^2.5.0",
 		"buffer-xor": "^2.0.2",
@@ -41,6 +42,7 @@
 		"cordova-plugin-keychain-touch-id": "git+https://github.com/sjhoeksma/cordova-plugin-keychain-touch-id.git",
 		"cordova-plugin-qrcodejs": "git+https://github.com/MenelicSoftware/cordova-plugin-qrcodejs.git",
 		"cordova-plugin-qrscanner": "^3.0.1",
+		"cordova-plugin-secure-storage": "^3.0.2",
 		"cordova-plugin-splashscreen": "^5.0.3",
 		"cordova-plugin-statusbar": "^2.4.3",
 		"cordova-plugin-x-socialsharing": "^5.6.2",
@@ -119,7 +121,8 @@
 			"cordova-plugin-statusbar": {},
 			"cordova-clipboard": {},
 			"cordova-plugin-splashscreen": {},
-			"cordova-plugin-x-socialsharing": {}
+			"cordova-plugin-x-socialsharing": {},
+			"cordova-plugin-secure-storage": {}
 		},
 		"platforms": [
 			"ios",

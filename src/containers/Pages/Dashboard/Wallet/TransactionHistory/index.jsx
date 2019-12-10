@@ -21,10 +21,10 @@ const TransactionHistory = ({
 			if (!row.utc) {
 				return false;
 			}
-			if (row.to && row.to.toLowerCase() === CONTRACT_ESCROW_FACTORY) {
+			if (row.to && row.to.toLowerCase() === CONTRACT_ESCROW_FACTORY && !row.internal) {
 				return true;
 			}
-			if (row.value === '0') {
+			if (row.value.toString() === '0') {
 				return false;
 			}
 			return true;

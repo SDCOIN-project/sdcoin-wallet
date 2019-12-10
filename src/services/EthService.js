@@ -46,50 +46,6 @@ class EthService {
 		};
 	}
 
-	/**
-	 * Create account from privateKey and encrypt account to keystore Json V3
-	 * @param {string} privateKey
-	 * @param {string} password
-	 * @returns {EncryptedKeystoreV3Json}
-	 */
-	accountEncrypt(privateKey, password) {
-		return this.eth.accounts.encrypt(privateKey, password);
-	}
-
-	/**
-	 * Decrypt account for keystore Json V3
-	 * @param {Object} keystoreJsonV3
-	 * @param {string} password
-	 * @returns {Account|boolean}
-	 */
-	accountDecrypt(keystoreJsonV3, password) {
-		try {
-			return this.eth.accounts.decrypt(keystoreJsonV3, password);
-		} catch (error) {
-			return false;
-		}
-	}
-
-	/**
-	 * Decrypt keystore Json V3 and add to wallet
-	 * @param {Object|[Object]} keystoreJsonV3
-	 * @param {string} password
-	 * @returns {boolean}
-	 */
-	decryptAndWalletAdd(keystoreJsonV3, password) {
-		try {
-			this.eth.accounts.wallet.decrypt(keystoreJsonV3 instanceof Array ? keystoreJsonV3 : [keystoreJsonV3], password);
-			return true;
-		} catch (error) {
-			return false;
-		}
-
-	}
-
-	clearWallet() {
-		return this.eth.accounts.wallet.clear();
-	}
-
 }
 
 const ethService = new EthService();

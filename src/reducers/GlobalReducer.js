@@ -8,7 +8,6 @@ const DEFAULT_FIELDS = Map({
 	hasFaceId: false,
 	isLocked: true,
 	alternativeIdEnabled: false, // true if touch or false id was enabled
-	socket: null,
 });
 
 export default createModule({

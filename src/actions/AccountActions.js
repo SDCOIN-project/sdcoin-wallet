@@ -7,7 +7,6 @@ import scanQrCodeActions from './ScanQrCodeActions';
 import touchIdActions from './TouchIdActions';
 import escrowActions from './EscrowActions';
 import walletService from '../services/WalletService';
-import ethService from '../services/EthService';
 import { CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
 import { CURRENCY_SERVICES } from '../services/CurrencyServices';
 import { ICONS } from '../constants/NotificationConstants';
@@ -29,19 +28,15 @@ class AccountActions extends BaseActions {
 	 * @returns {Function}
 	 */
 	createAndEncryptAccount(pinCode, mnemonic) {
-		return (dispatch) => {
+		return async (dispatch) => {
 			try {
 				if (!pinCode || !walletService.isValidMnemonic(mnemonic)) {
 					throw new Error(IMPOSSIBLE_TO_CREATE_WALLET_ERROR);
 				}
 
-				const encryptedAccount = walletService.getEncryptedAccount(pinCode, mnemonic);
-				const encryptedMnemonic = walletService.encryptOrDecryptData(mnemonic, pinCode, 'utf8').toString('hex');
+				const address = await walletService.createWallet(pinCode, mnemonic);
 
-				localStorage.setItem('encryptedMnemonic', encryptedMnemonic);
-				localStorage.setItem('account', JSON.stringify(encryptedAccount));
-
-				dispatch(this.authorisation({ address: encryptedAccount.address }));
+				dispatch(this.authorisation({ address }));
 			} catch (error) {
 				dispatch(notificationActions.errorNotification({ text: error.message }));
 				throw error;
@@ -57,8 +52,8 @@ class AccountActions extends BaseActions {
 	 * @returns {Function}
 	 */
 	createWallet(pinCode, mnemonic) {
-		return (dispatch) => {
-			dispatch(this.createAndEncryptAccount(pinCode, mnemonic));
+		return async (dispatch) => {
+			await dispatch(this.createAndEncryptAccount(pinCode, mnemonic));
 
 			dispatch(globalActions.unlock());
 		};
@@ -133,10 +128,7 @@ class AccountActions extends BaseActions {
 	 */
 	logout() {
 		return (dispatch) => {
-			localStorage.removeItem('encryptedMnemonic');
-			localStorage.removeItem('account');
-
-			dispatch(globalActions.deactivateSocket());
+			walletService.clearFull();
 
 			clearInterval(this.updateBalanceInterval);
 			dispatch(this.clear());
@@ -145,6 +137,7 @@ class AccountActions extends BaseActions {
 			dispatch(transactionHistoryActions.clear());
 			dispatch(scanQrCodeActions.clear());
 			dispatch(touchIdActions.clear());
+			dispatch(touchIdActions.disableAltId());
 			dispatch(escrowActions.clear());
 		};
 	}
@@ -167,8 +160,7 @@ class AccountActions extends BaseActions {
 	 * @returns {boolean}
 	 */
 	validatePinCode(pinCode) {
-		const account = JSON.parse(localStorage.getItem('account'));
-		return !!ethService.accountDecrypt(account, pinCode);
+		return walletService.validatePin(pinCode);
 	}
 
 	/**
@@ -190,8 +182,8 @@ class AccountActions extends BaseActions {
 		return this.decryptMnemonic(mnemonic, pinCode);
 	}
 
-	decryptAndWalletAdd(pinCode) {
-		return ethService.decryptAndWalletAdd(JSON.parse(localStorage.getItem('account')), pinCode);
+	unlockWallet(pinCode) {
+		return walletService.unlock(pinCode);
 	}
 
 

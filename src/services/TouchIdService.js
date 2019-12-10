@@ -61,13 +61,11 @@ class TouchIdService {
 		});
 	}
 
-	getAvailableType() {
-		return async () => {
-			const isAvailable = await this.isAvailable();
-			if (isAvailable !== 'OK') return FINGER_PRINT_TYPE.TOUCH;
-			if (isAvailable !== 'face') return FINGER_PRINT_TYPE.FACE;
-			throw new Error(isAvailable);
-		};
+	async getAvailableType() {
+		const isAvailable = await this.isAvailable();
+		if (isAvailable !== 'OK') return FINGER_PRINT_TYPE.TOUCH;
+		if (isAvailable !== 'face') return FINGER_PRINT_TYPE.FACE;
+		throw new Error(isAvailable);
 	}
 
 }

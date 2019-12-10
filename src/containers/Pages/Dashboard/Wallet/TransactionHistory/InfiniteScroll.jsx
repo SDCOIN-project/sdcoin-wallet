@@ -30,7 +30,7 @@ const InfiniteScroll = ({
 		{
 			list.map((item, index) => (
 				<HistoryItem
-					key={item.transaction_hash ? `transaction_hash-${item.transaction_hash}-${item.log_index}` : item.hash}
+					key={item.transaction_hash ? `transaction_hash-${item.transaction_hash}-${item.log_index}` : `${item.hash}-${item.internal ? 'int' : ''}`}
 					isPending={false}
 					item={item}
 					selectedCurrency={selectedCurrency}

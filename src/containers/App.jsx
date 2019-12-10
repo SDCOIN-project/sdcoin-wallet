@@ -27,7 +27,7 @@ const App = ({
 			{address && isLocked && __NODE_ENV__ !== 'development' ? (
 				<ValidatePinCode
 					title="Unlock your wallet"
-					validate={(pinCode) => accountActions.decryptAndWalletAdd(pinCode)}
+					validate={(pinCode) => accountActions.validatePinCode(pinCode)}
 					onSubmit={() => unlock()}
 				/>
 			) : (

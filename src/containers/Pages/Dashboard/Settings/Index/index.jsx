@@ -8,7 +8,7 @@ import Header from './../../../../Layout/Header';
 import Switcher from './../../../../../components/Form/Switcher';
 
 import AccountActions from '../../../../../actions/AccountActions';
-import GlobalActions from '../../../../../actions/GlobalActions';
+import touchIdActions from '../../../../../actions/TouchIdActions';
 import notificationActions from '../../../../../actions/NotificationActions';
 import modalActions from '../../../../../actions/ModalActions';
 
@@ -117,7 +117,7 @@ export default connect(
 	(dispatch) => ({
 		logout: () => dispatch(AccountActions.logout()),
 		showNotification: (currency) => dispatch(notificationActions.add(currency)),
-		disableAltId: () => dispatch(GlobalActions.disableAltId()),
+		disableAltId: () => dispatch(touchIdActions.disableAltId()),
 		showConfirmModal: (params) => dispatch(modalActions.confirmModal(params)),
 	}),
 )(Index);

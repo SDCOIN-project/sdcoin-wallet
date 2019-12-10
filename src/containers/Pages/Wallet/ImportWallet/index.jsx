@@ -14,7 +14,7 @@ const ImportWallet = ({ createWallet }) => {
 		case 2:
 			return (
 				<CreatePinCode
-					onSubmit={(pinCode) => createWallet(pinCode, phrase)}
+					onSubmit={async (pinCode) => { await createWallet(pinCode, phrase); }}
 					onBack={() => setStep(1)}
 				/>
 			);
