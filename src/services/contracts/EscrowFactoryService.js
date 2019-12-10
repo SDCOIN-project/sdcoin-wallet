@@ -1,7 +1,7 @@
 import ethService from '../EthService';
 import abi from '../../../abi/escrowFactory.json';
 import EscrowReducer from '../../reducers/EscrowReducer';
-import { CONTRACT_ESCROW_FACTORY, ESCROW_ITEM_ID, ESCROW_ITEMS_AMOUNT } from '../../constants/ContractConstants';
+import { CONTRACT_ESCROW_FACTORY, ESCROW_ITEM_ID } from '../../constants/ContractConstants';
 import web3Service from '../Web3Service';
 import { ETH_AMOUNT_TO_ESCROW_CREATE } from '../../constants/GlobalConstants';
 import { ESCROW_CREATE_CONTRACT_TOPIC } from '../../constants/TransactionConstants';
@@ -32,8 +32,8 @@ class EscrowFactoryService {
 	 */
 	createEscrowContract(price, from, gas, gasPrice) {
 		return new Promise((resolve, reject) => {
-			this.contract.methods.create(ESCROW_ITEM_ID, price).send({
-				ESCROW_ITEM_ID, price, ESCROW_ITEMS_AMOUNT, from, gas, gasPrice, value: web3Service.toWei(ETH_AMOUNT_TO_ESCROW_CREATE),
+			this.contract.methods.create(ESCROW_ITEM_ID, web3Service.toWei(price).toString(10)).send({
+				from, gas, gasPrice, value: web3Service.toWei(ETH_AMOUNT_TO_ESCROW_CREATE),
 			}, (err, res) => (err ? reject(err) : resolve(res)));
 		});
 	}
@@ -49,7 +49,7 @@ class EscrowFactoryService {
 	createEscrowContractEstimateGas(id, price, amount, from) {
 		return new Promise((resolve) => {
 			try {
-				this.contract.methods.create(id, price).estimateGas({ from }, (err, res) => {
+				this.contract.methods.create(id, web3Service.toWei(price).toString(10)).estimateGas({ from }, (err, res) => {
 					if (err) { resolve(0); } else { resolve(res); }
 				});
 			} catch (error) {

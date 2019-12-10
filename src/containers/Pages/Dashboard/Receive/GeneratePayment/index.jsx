@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import BN from 'bignumber.js';
 import * as Yup from 'yup';
@@ -7,11 +7,10 @@ import { connect } from 'react-redux';
 import Header from './../../../../Layout/Header';
 import Button from './../../../../../components/Form/Button';
 import Input from './../../../../../components/Form/Input';
-import { ETH, LUV_EXCHANGE_RATE, SDC } from '../../../../../constants/CurrencyConstants';
+import { ETH } from '../../../../../constants/CurrencyConstants';
 import web3Service from '../../../../../services/Web3Service';
 import { PLUS_PERCENT_FEE } from '../../../../../constants/TransactionConstants';
 import ethService from '../../../../../services/EthService';
-import swapService from '../../../../../services/contracts/SwapService';
 import escrowActions from '../../../../../actions/EscrowActions';
 import { DASHBOARD_PATH, RECEIVE_PATH } from '../../../../../constants/RouterConstants';
 import TransactionBuilder from '../../../../../components/TransactionBuilder';
@@ -27,11 +26,6 @@ const GeneratePayment = ({ balances, createEscrowEstimateGas, createEscrowContra
 
 	const [gas, setGas] = useState(0);
 	const [gasPrice, setGasPrice] = useState(0);
-	const [sdcExchangeRate, setSdcExchangeRate] = useState(0);
-
-	useEffect(() => {
-		swapService.getSdcExchangeRate().then((data) => setSdcExchangeRate(parseInt(data, 10)));
-	}, []);
 
 	const fee = new BN(gas).times(gasPrice).toString(10);
 
@@ -53,18 +47,6 @@ const GeneratePayment = ({ balances, createEscrowEstimateGas, createEscrowContra
 					if (!value || value < 0) return false;
 					const balance = balances[ETH];
 					const neededAmount = web3Service.toWei(ETH_AMOUNT_TO_ESCROW_CREATE).plus(new BN(fee));
-					return !neededAmount.isGreaterThan(new BN(balance));
-				},
-			)
-			.test(
-				`check ${SDC} balance`, `Amount exceeds ${SDC} balance`,
-				(value) => {
-					if (!value || value < 0) return false;
-					const balance = balances[SDC];
-					const neededAmount = web3Service.toWei(
-						`${new BN(value).multipliedBy(LUV_EXCHANGE_RATE).dividedBy(sdcExchangeRate).toString(10)}`,
-						'ether',
-					).plus(new BN(fee));
 					return !neededAmount.isGreaterThan(new BN(balance));
 				},
 			),
