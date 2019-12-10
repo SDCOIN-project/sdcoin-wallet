@@ -29,25 +29,23 @@ const ValidatePinCode = ({
 		func();
 	}, []);
 
+	const asyncTimeout = async (t) => new Promise((r) => setTimeout(() => r(), t));
+
 	const checkValidPinCode = async (pinCode) => {
 		setLoading(true);
-		return new Promise((resolve, reject) => {
-			setTimeout(async () => {
-				if (!validate(pinCode)) {
-					setInvalidPinCode(true);
-					title = setTitle('Wrong PIN. Try again');
-					setTimeout(() => {
-						setInvalidPinCode(false);
-					}, 500);
-					setLoading(false);
-					reject(new Error('Wrong PIN. Try again'));
-				} else {
-					await onSubmit(pinCode);
-					setLoading(false);
-					resolve();
-				}
-			}, 100);
-		});
+		await asyncTimeout(100);
+
+		if (!validate(pinCode)) {
+			setInvalidPinCode(true);
+			title = setTitle('Wrong PIN. Try again');
+			setLoading(false);
+			await asyncTimeout(500);
+			setInvalidPinCode(false);
+			return;
+		}
+		await asyncTimeout(300);
+		await onSubmit(pinCode);
+		setLoading(false);
 	};
 
 	useEffect(() => {

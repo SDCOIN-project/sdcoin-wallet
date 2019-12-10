@@ -15,14 +15,19 @@ const EnterPinCode = ({
 	const onClickNumber = (number) => {
 		const updatedPinCode = [...pinCode];
 
-		updatedPinCode.push(number);
-		if (updatedPinCode.length >= MAX_SYMBOL) {
-			onSubmit(updatedPinCode.join(''));
-			setPinCode([]);
+		if (loading || updatedPinCode.length >= MAX_SYMBOL) {
 			return;
 		}
 
+		updatedPinCode.push(number);
 		setPinCode(updatedPinCode);
+
+		if (updatedPinCode.length >= MAX_SYMBOL) {
+			setTimeout(() => {
+				onSubmit(updatedPinCode.join(''));
+				setPinCode([]);
+			}, 300);
+		}
 	};
 
 	const onDeleteNumber = () => {
@@ -103,7 +108,7 @@ const EnterPinCode = ({
 							);
 						}}
 					</MediaQuery>
-					<Button className={`is-transparent is-white pin-page__button clear-button ${pinCode.length ? '' : 'button-hidden'}`}		onPointerUp={() => onDeleteNumber()}>
+					<Button className={`is-transparent is-white pin-page__button clear-button ${pinCode.length ? '' : 'button-hidden'}`} onClick={() => onDeleteNumber()}>
 						Delete
 					</Button>
 				</div>
