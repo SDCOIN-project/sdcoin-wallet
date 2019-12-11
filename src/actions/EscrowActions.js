@@ -98,7 +98,10 @@ class EscrowActions extends BaseActions {
 	}
 
 	getEscrowPrice(address) {
-		return async () => escrowService.getPrice(address);
+		return async () => {
+			const price = await escrowService.getPrice(address);
+			return web3Service.fromWei(price, 'ether').toString(10);
+		};
 	}
 
 	getEscrowAddressFromCreateTx(hash) {

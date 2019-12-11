@@ -15,8 +15,14 @@ const ScanQrCode = ({
 		setValue('show', false);
 	};
 
+	const closeScanQRWindow = () => {
+		hide();
+		onClose();
+	};
+
 	const destroyCamera = async () => {
 		try {
+			document.removeEventListener('backbutton', closeScanQRWindow, false);
 			await qrScannerService.destroy();
 		} catch (err) {
 			setError(err.message);
@@ -25,6 +31,7 @@ const ScanQrCode = ({
 
 	const initialCamera = async () => {
 		try {
+			document.addEventListener('backbutton', closeScanQRWindow, false);
 			setError(null);
 			await qrScannerService.prepare();
 			await qrScannerService.show();
@@ -53,7 +60,7 @@ const ScanQrCode = ({
 
 	return (
 		<div className={`scan-wrapper ${show ? 'show-top' : ''}`} style={style}>
-			<Header backButton={() => { hide(); onClose(); }} title={title} />
+			<Header backButton={() => { closeScanQRWindow(); }} title={title} />
 			<div className="dashboard scan-qr-code-page">
 				<div className="scan-qr-code-page__text">{description}</div>
 				<div className="scan-qr-code-page__wrapper">
