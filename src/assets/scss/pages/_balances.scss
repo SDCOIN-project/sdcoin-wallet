@@ -216,6 +216,7 @@
 		&-information {
 			margin-right: auto;
 			display: flex;
+			flex-shrink: 0;
 
 			&.flex-center {
 				align-items: center;
@@ -259,6 +260,13 @@
 			@include CircularStd_Bold;
 			color: #1c1c1c;
 			font-size: 20px;
+			display: flex;
+			flex-direction: column;
+			text-align: right;
+
+			@include res-375 {
+				font-size: 16px;
+			}
 		}
 	}
 
