@@ -6,6 +6,9 @@
 	}
 
 	&__title {
+		@include res-375 {
+			font-size: 24px;
+		}
 		display: flex;
 		align-items: flex-end;
 		font-size: 32px;
