@@ -38,12 +38,13 @@ const GetPayment = ({
 			description: 'Scan QRcode to receive new payment',
 			title: 'Get payment',
 			onScan: (qrCodeData) => {
-				const data = web3Service.parseUrl(qrCodeData);
-				if (!data.address) {
-					showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
-				} else {
+				try {
+					const data = web3Service.parseUrl(qrCodeData, 'escrow');
 					setAddress(data.address);
 					updateGas(data.address);
+				} catch (e) {
+					showErrorNotification({ text: e.message, button: 'OK' });
+					history.push(DASHBOARD_PATH);
 				}
 			},
 			onClose: () => {

@@ -39,6 +39,8 @@ class TransactionHistoryActions extends BaseActions {
 	subscribeToTransactions(address) {
 		return async (dispatch, getState) => {
 			await cryptoApiService.subscribeToTransactions(address, (data) => {
+				// make pure object from class object
+				data = { ...data };
 				const list = getState().transactionsHistory.getIn(['currencies', ETH, 'list']).unshift(data);
 				dispatch(this.setValue(['currencies', ETH, 'list'], list));
 
@@ -51,6 +53,8 @@ class TransactionHistoryActions extends BaseActions {
 	subscribeToTokenTransactions(address, currency) {
 		return async (dispatch, getState) => {
 			await cryptoApiService.subscribeToTokenTransfers(TOKEN_ADDRESS[currency], address, (data) => {
+				// make pure object from class object
+				data = { ...data };
 				const list = getState().transactionsHistory.getIn(['currencies', currency, 'list']).unshift(data);
 				dispatch(this.setValue(['currencies', currency, 'list'], list));
 				dispatch(this.reducer.actions.checkInPendingList({ currency, hash: data.transaction_hash }));
