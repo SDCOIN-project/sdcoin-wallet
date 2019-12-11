@@ -26,7 +26,7 @@ const EnterPinCode = ({
 			setTimeout(() => {
 				onSubmit(updatedPinCode.join(''));
 				setPinCode([]);
-			}, 300);
+			}, 30);
 		}
 	};
 

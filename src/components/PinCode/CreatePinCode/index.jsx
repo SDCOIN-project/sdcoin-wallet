@@ -17,7 +17,7 @@ const CreatePinCode = ({ onSubmit, onBack }) => {
 					useAltId={false}
 					validate={(pinCode) => newPinCode === pinCode}
 					onSubmit={async () => onSubmit(newPinCode)}
-					onBack={() => setStep(1)}
+					onBack={() => onBack()}
 				/>
 			);
 		default:

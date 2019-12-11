@@ -9,3 +9,4 @@ export const CURRENCY_NOT_FOUND = 'Currency not found';
 export const MNEMONIC_NOT_FOUND = 'Mnemonic not found';
 export const INVALID_ETH_RESPONSE = 'Invalid JSON RPC response: ""';
 export const NO_INTERNET = 'There is no Internet connection';
+export const TOUCH_ID_CANCELED = 'Cancelled';

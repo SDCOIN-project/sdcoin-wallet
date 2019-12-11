@@ -15,8 +15,9 @@ import {
 	AUTHORIZATION_FAILED,
 	MNEMONIC_NOT_FOUND,
 	INVALID_ETH_RESPONSE,
-	NO_INTERNET,
+	NO_INTERNET, TOUCH_ID_CANCELED,
 } from '../constants/ErrorConstants';
+import modalActions from './ModalActions';
 
 class AccountActions extends BaseActions {
 
@@ -186,6 +187,34 @@ class AccountActions extends BaseActions {
 		return walletService.unlock(pinCode);
 	}
 
+	changePin(oldPin, newPinCode) {
+		return async (dispatch) => {
+			await dispatch(this.createWallet(newPinCode, this.getDecryptedMnemonic(oldPin)));
+
+			try {
+				await dispatch(touchIdActions.updatePassword(newPinCode));
+			} catch (e) {
+				if (e.message === TOUCH_ID_CANCELED) {
+					const answer = await dispatch(modalActions.confirmAsync({
+						title: 'Are you sure?',
+						description: 'Alternative authorization method will be disabled',
+						cancelButtonText: 'Disable',
+						confirmButtonText: 'Retry',
+					}));
+					if (answer) {
+						await dispatch(this.changePin(oldPin, newPinCode));
+						return;
+					}
+					await dispatch(touchIdActions.disableAltId());
+				} else {
+					notificationActions.errorNotification({ text: e.message });
+					return;
+				}
+			}
+
+			dispatch(notificationActions.add({ text: 'PIN has been changed successfully', button: 'OK', icon: ICONS.lock }));
+		};
+	}
 
 }
 

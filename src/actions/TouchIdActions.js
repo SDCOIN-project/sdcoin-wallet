@@ -3,7 +3,6 @@ import touchIdservice from '../services/TouchIdService';
 import touchIdReducer from '../reducers/TouchIdReducer';
 import { PASSWORD } from '../constants/GlobalConstants';
 import GlobalActions from './GlobalActions';
-import notificationActions from './NotificationActions';
 
 class TouchIdActions extends BaseActions {
 
@@ -23,15 +22,19 @@ class TouchIdActions extends BaseActions {
 	}
 
 	disableAltId() {
-		return (dispatch) => {
-			dispatch(this.setValue('alternativeIdEnabled', false));
-			try {
-				touchIdservice.delete(PASSWORD, (result) => result, (error) => {
-					throw error;
-				});
-			} catch (error) {
-				dispatch(notificationActions.errorNotification({ text: error.message }));
+		return async (dispatch) => {
+			dispatch(GlobalActions.setValue('alternativeIdEnabled', false));
+			return touchIdservice.delete(PASSWORD);
+		};
+	}
+
+	updatePassword(newPassword) {
+		return async (dispatch, getState) => {
+			const isEnabled = getState().global.get('alternativeIdEnabled');
+			if (!isEnabled) {
+				return;
 			}
+			await dispatch(this.save(newPassword));
 		};
 	}
 

@@ -43,21 +43,15 @@ class TouchIdService {
 
 	save(key, value, userAuthenticationRequired = true) {
 		return new Promise((resolve, reject) => {
-			this.touchid.save(key, value, userAuthenticationRequired, (result) => {
-				resolve(result);
-			}, (error) => {
-				reject(error);
+			this.touchid.save(key, value, userAuthenticationRequired, (result) => resolve(result), (error) => {
+				reject(new Error(error));
 			});
 		});
 	}
 
 	delete(key) {
 		return new Promise((resolve, reject) => {
-			this.touchid.delete(key, (result) => {
-				resolve(result);
-			}, (error) => {
-				reject(error);
-			});
+			this.touchid.delete(key, (result) => resolve(result), (error) => reject(error));
 		});
 	}
 

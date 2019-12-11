@@ -25,6 +25,24 @@ class ModalActions {
 		};
 	}
 
+	/**
+	 * @param {string} params.cancelButtonText
+	 * @param {string} params.confirmButtonText
+	 * @param {string} params.title
+	 * @param {string} params.description
+	 * @return {function(*)}
+	 */
+	confirmAsync(params) {
+		return async (dispatch) => new Promise((resolve) => {
+			dispatch(show(CONFIRM_MODAL, {
+				...params,
+				onClose: () => resolve(false),
+				onCancel: () => resolve(false),
+				onConfirm: () => resolve(true),
+			}));
+		});
+	}
+
 }
 
 export default new ModalActions();
