@@ -128,7 +128,7 @@ const ExchangeFunds = ({
 											<div className="postfix">SDC</div>
 										</div>
 										<Input
-											placeholder="0"
+											placeholder="0.00"
 											name="sdc"
 											onChange={(e) => {
 												handleChange(e);
@@ -145,7 +145,7 @@ const ExchangeFunds = ({
 											<div className="postfix">LUV</div>
 										</div>
 										<Input
-											placeholder="0"
+											placeholder="0.00"
 											name="luv"
 											onChange={(e) => {
 												handleChange(e);
@@ -163,7 +163,7 @@ const ExchangeFunds = ({
 										</p>
 									</div>
 									<div className="dashboard-controls flex-columns">
-										<Button type="submit" className="is-large">Send</Button>
+										<Button type="submit" className="is-large">Swap</Button>
 									</div>
 								</form>
 							)}

@@ -18,8 +18,8 @@ const PayToEscrow = ({
 }) => {
 	useEffect(() => {
 		scanQrCode({
-			description: 'Scan Payment QR code',
-			title: 'Scan QR code to pay',
+			description: 'Scan Payment QR code to pay',
+			title: 'Scan',
 			onScan: async (qrCodeData) => {
 				try {
 					const data = web3Service.parseUrl(qrCodeData, 'escrow');
