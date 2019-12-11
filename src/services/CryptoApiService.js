@@ -56,7 +56,7 @@ class CryptoApiService {
 					confirmations: 0,
 				}, (msg) => cb(msg));
 				resolve(id);
-			}, 1000);
+			}, 3000);
 		});
 	}
 
@@ -78,7 +78,7 @@ class CryptoApiService {
 					confirmations: 0,
 				}, (msg) => cb(msg));
 				resolve(id);
-			}, 1000);
+			}, 3000);
 		});
 	}
 
