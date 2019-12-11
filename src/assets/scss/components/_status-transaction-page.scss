@@ -1,7 +1,7 @@
 .status-transaction-page {
 	color: #fff;
 	text-align: center;
-	background: linear-gradient(151deg, #51cdfc 0%, #3f7ed0 100%);
+	background: linear-gradient(180deg, #519bfc 0%, #51cdfc 100%);
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
@@ -23,7 +23,7 @@
 	}
 
 	&.is-violet {
-		background: linear-gradient(151deg, #dc80e2 0%, #3f7ed0 100%);
+		background: linear-gradient(180deg, #519bfc 0%, #dc80e2 100%);
 	}
 
 	&__title {

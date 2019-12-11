@@ -1,7 +1,7 @@
 .header {
 	@include CircularStd_Medium;
 	position: relative;
-	background: linear-gradient(180deg, #519bfc 0%, #3f7ed0 100%);
+	background: #519bfc;
 	//header width is 115px
 	//95px height in css plus 20px status bar in standard phone
 	min-height: 95px;
