@@ -6,18 +6,20 @@ import transactionHistoryActions from './TransactionHistoryActions';
 import scanQrCodeActions from './ScanQrCodeActions';
 import touchIdActions from './TouchIdActions';
 import escrowActions from './EscrowActions';
+import modalActions from './ModalActions';
+
 import walletService from '../services/WalletService';
-import { CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
 import { CURRENCY_SERVICES } from '../services/CurrencyServices';
-import { ICONS } from '../constants/NotificationConstants';
+
+import { CURRENCIES, LUV, SDC } from '../constants/CurrencyConstants';
 import {
 	IMPOSSIBLE_TO_CREATE_WALLET_ERROR,
 	AUTHORIZATION_FAILED,
 	MNEMONIC_NOT_FOUND,
 	INVALID_ETH_RESPONSE,
-	NO_INTERNET, TOUCH_ID_CANCELED,
+	TOUCH_ID_CANCELED,
 } from '../constants/ErrorConstants';
-import modalActions from './ModalActions';
+import { ICONS } from '../constants/NotificationConstants';
 
 class AccountActions extends BaseActions {
 
@@ -109,12 +111,7 @@ class AccountActions extends BaseActions {
 				});
 			} catch (error) {
 				if (error.message === INVALID_ETH_RESPONSE) {
-					dispatch(notificationActions.add({
-						id: NO_INTERNET,
-						icon: ICONS.noInternet,
-						text: NO_INTERNET,
-						className: 'is-small',
-					}));
+					dispatch(modalActions.showNoInternetModal());
 				} else {
 					dispatch(notificationActions.errorNotification({ text: error.message }));
 				}

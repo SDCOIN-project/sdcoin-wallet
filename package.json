@@ -40,6 +40,7 @@
 		"cordova-plugin-file": "^6.0.2",
 		"cordova-plugin-ios-longpress-fix": "^1.1.0",
 		"cordova-plugin-keychain-touch-id": "git+https://github.com/sjhoeksma/cordova-plugin-keychain-touch-id.git",
+		"cordova-plugin-network-information": "^2.0.2",
 		"cordova-plugin-qrcodejs": "git+https://github.com/MenelicSoftware/cordova-plugin-qrcodejs.git",
 		"cordova-plugin-qrscanner": "^3.0.1",
 		"cordova-plugin-secure-storage": "^3.0.2",
@@ -122,7 +123,8 @@
 			"cordova-clipboard": {},
 			"cordova-plugin-splashscreen": {},
 			"cordova-plugin-x-socialsharing": {},
-			"cordova-plugin-secure-storage": {}
+			"cordova-plugin-secure-storage": {},
+			"cordova-plugin-network-information": {}
 		},
 		"platforms": [
 			"ios",

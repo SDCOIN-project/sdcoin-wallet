@@ -43,6 +43,12 @@
 }
 
 .no-internet-page {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
 	background: linear-gradient(180deg, #519bfc 0%, #3f7ed0 100%);
 	.status-transaction-page__title {
 		width: 300px;

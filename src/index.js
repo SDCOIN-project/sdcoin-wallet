@@ -7,6 +7,7 @@ import touchIdActions from './actions/TouchIdActions';
 import Routes from './routes'; // Or wherever you keep your reducers
 import './assets/loader';
 import globalActions from './actions/GlobalActions';
+import modalActions from './actions/ModalActions';
 
 // Create a history of your choosing (we're using a browser history in this case)
 import history from './history';
@@ -46,6 +47,8 @@ if (window.cordova) {
 		() => {
 			document.addEventListener('resume', onResume, false);
 			startApp();
+			document.addEventListener('online', () => store.dispatch(modalActions.hideNoInternetModal()), false);
+			document.addEventListener('offline', () => store.dispatch(modalActions.showNoInternetModal()), false);
 		},
 		false,
 	);

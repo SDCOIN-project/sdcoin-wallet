@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Toast from '../components/Toast';
-import { InfoModal, ConfirmModal } from '../components/Modals';
+import { InfoModal, ConfirmModal, NoInternetModal } from '../components/Modals';
 import Notifications from '../components/Notifications';
 import ScanQrCode from '../components/ScanQrCode';
 import ValidatePinCode from '../components/PinCode/ValidatePinCode';
@@ -19,6 +19,7 @@ const App = ({
 		<React.Fragment>
 			<InfoModal />
 			<ConfirmModal />
+			<NoInternetModal />
 		</React.Fragment>
 	);
 

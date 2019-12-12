@@ -1,5 +1,5 @@
-import { show } from 'redux-modal';
-import { INFO_MODAL, CONFIRM_MODAL } from '../constants/ModalConstants';
+import { show, hide } from 'redux-modal';
+import { INFO_MODAL, CONFIRM_MODAL, NO_INTERNET_MODAL } from '../constants/ModalConstants';
 
 class ModalActions {
 
@@ -22,6 +22,28 @@ class ModalActions {
 	confirmModal(params = {}) {
 		return (dispatch) => {
 			dispatch(show(CONFIRM_MODAL, params));
+		};
+	}
+
+	/**
+	 * Show NoInternet modal
+	 * @param {Object} params
+	 * @returns {Function}
+	 */
+	showNoInternetModal(params = {}) {
+		return (dispatch) => {
+			dispatch(show(NO_INTERNET_MODAL, params));
+		};
+	}
+
+	/**
+	 * Hide NoInternet modal
+	 * @param {Object} params
+	 * @returns {Function}
+	 */
+	hideNoInternetModal(params = {}) {
+		return (dispatch) => {
+			dispatch(hide(NO_INTERNET_MODAL, params));
 		};
 	}
 
