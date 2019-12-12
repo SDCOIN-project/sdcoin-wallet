@@ -25,6 +25,7 @@ import { DASHBOARD_PATH, PAY_TO_ESCROW } from '../../../../constants/RouterConst
 import sendTransactionActions from '../../../../actions/SendTransactionActions';
 import scanQrCodeActions from '../../../../actions/ScanQrCodeActions';
 import notificationActions from '../../../../actions/NotificationActions';
+import { INVALID_QR_CODE_FOR_SEND_ERROR } from '../../../../constants/ErrorConstants';
 
 const initialValues = () => ({
 	currency: DEFAULT_CURRENCY,
@@ -63,7 +64,7 @@ const Send = ({
 		scanQrCode({
 			description: 'Scan QR code to get recipient address',
 			onScan: (qrCodeData) => {
-				const data = web3Service.parseUrl(qrCodeData);
+				const data = web3Service.parseUrl(qrCodeData, null, INVALID_QR_CODE_FOR_SEND_ERROR);
 				if (!data.address) {
 					showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
 				} else {

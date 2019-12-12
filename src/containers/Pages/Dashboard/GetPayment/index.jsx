@@ -15,7 +15,7 @@ import TransactionBuilder from '../../../../components/TransactionBuilder';
 import history from '../../../../history';
 import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
 import escrowService from '../../../../services/contracts/EscrowService';
-import { NOT_OWNER_ERROR } from '../../../../constants/ErrorConstants';
+import { INVALID_QR_CODE_FOR_PAYMENT_ERROR, NOT_OWNER_ERROR } from '../../../../constants/ErrorConstants';
 
 const GetPayment = ({
 	scanQrCode, showErrorNotification, withdrawEstimateGas, withdraw, account,
@@ -41,7 +41,7 @@ const GetPayment = ({
 			title: 'Get payment',
 			onScan: async (qrCodeData) => {
 				try {
-					const data = web3Service.parseUrl(qrCodeData, 'escrow');
+					const data = web3Service.parseUrl(qrCodeData, 'escrow', INVALID_QR_CODE_FOR_PAYMENT_ERROR);
 					if (!(await escrowService.checkIsOwner(account, data.address))) {
 						throw new Error(NOT_OWNER_ERROR);
 					}

@@ -13,3 +13,5 @@ export const TOUCH_ID_CANCELED = 'Cancelled';
 export const KEY_PERMANENTLY_INVALIDATED_EXCEPTION = 'KeyPermanentlyInvalidatedException';
 
 export const NOT_OWNER_ERROR = 'You are not the owner of this Payment QR';
+export const INVALID_QR_CODE_FOR_SEND_ERROR = 'You are scanning Payment QR, please scan standard address QR code';
+export const INVALID_QR_CODE_FOR_PAYMENT_ERROR = 'You are scanning standard address QR, please scan Payment QR code';

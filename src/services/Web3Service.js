@@ -62,7 +62,7 @@ class Web3Service {
 		return this.web3.utils.toHex(amount);
 	}
 
-	parseUrl(string, allowPrefix = null) {
+	parseUrl(string, allowPrefix = null, invalidPrefixError = 'Invalid QR code prefix') {
 		const result = {
 			address: null,
 			value: null,
@@ -73,10 +73,10 @@ class Web3Service {
 
 		if (allowPrefix) {
 			if (!parsedUrl.prefix || parsedUrl.prefix !== allowPrefix) {
-				throw new Error('Invalid QR code prefix');
+				throw new Error(invalidPrefixError);
 			}
 		} else if (parsedUrl.prefix) {
-			throw new Error('Invalid QR code prefix');
+			throw new Error(invalidPrefixError);
 		}
 		result.address = parsedUrl.target_address;
 		if (parsedUrl.parameters && parsedUrl.parameters.address) {

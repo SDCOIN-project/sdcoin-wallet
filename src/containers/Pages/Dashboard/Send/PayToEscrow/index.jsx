@@ -12,6 +12,7 @@ import history from '../../../../../history';
 import { DASHBOARD_PATH, SEND_TRANSACTION_PATH } from '../../../../../constants/RouterConstants';
 import transactionHistoryActions from '../../../../../actions/TransactionHistoryActions';
 import escrowActions from '../../../../../actions/EscrowActions';
+import { INVALID_QR_CODE_FOR_PAYMENT_ERROR } from '../../../../../constants/ErrorConstants';
 
 const PayToEscrow = ({
 	scanQrCode, showErrorNotification, setSelectedEscrow, selectedEscrow, proxyPayment,
@@ -22,7 +23,7 @@ const PayToEscrow = ({
 			title: 'Scan',
 			onScan: async (qrCodeData) => {
 				try {
-					const data = web3Service.parseUrl(qrCodeData, 'escrow');
+					const data = web3Service.parseUrl(qrCodeData, 'escrow', INVALID_QR_CODE_FOR_PAYMENT_ERROR);
 					setSelectedEscrow(null, data.address);
 
 				} catch (e) {
