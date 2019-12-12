@@ -118,7 +118,12 @@ const Send = ({
 			.when('currency', (currency, schema) => schema.test(
 				'checkFee', `${ETH} does not have enough funds to pay fee`,
 				() => !(currency !== ETH && new BN(fee).isGreaterThan(balances[ETH])),
-			)),
+			))
+			.test(
+				'checkPrecision',
+				'Max precision exceeded',
+				(value) => !(new BN(value).decimalPlaces() > 12),
+			),
 	});
 
 	return (

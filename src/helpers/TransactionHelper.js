@@ -18,5 +18,5 @@ export const calculateRemainMoney = (balance, amount = 0, fee = 0) => {
 		fee = web3Service.fromWeiToEther(fee);
 	}
 
-	return web3Service.fromWei(balance, 'ether').minus(amount).minus(fee).toString(10);
+	return web3Service.fromWei(balance, 'ether').minus(amount).minus(fee).toFixed(10);
 };

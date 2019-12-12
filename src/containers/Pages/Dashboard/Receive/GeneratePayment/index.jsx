@@ -49,6 +49,11 @@ const GeneratePayment = ({ balances, createEscrowEstimateGas, createEscrowContra
 					const neededAmount = web3Service.toWei(ETH_AMOUNT_TO_ESCROW_CREATE).plus(new BN(fee));
 					return !neededAmount.isGreaterThan(new BN(balance));
 				},
+			)
+			.test(
+				'checkPrecision',
+				'Max precision exceeded',
+				(value) => !(new BN(value).decimalPlaces() > 12),
 			),
 	});
 

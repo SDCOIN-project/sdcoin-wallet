@@ -89,11 +89,21 @@ const ExchangeFunds = ({
 				'checkFee',
 				`Does not have enough ${SDC} to pay fee`,
 				() => !new BN(fee).isGreaterThan(sdcBalance),
+			)
+			.test(
+				'checkPrecision',
+				'Max precision exceeded',
+				(value) => !(new BN(value).decimalPlaces() > 12),
 			),
 		luv: Yup.number()
 			.typeError('Invalid amount')
 			.positive('Must be a positive number')
-			.required('LUV is required'),
+			.required('LUV is required')
+			.test(
+				'checkPrecision',
+				'Max precision exceeded',
+				(value) => !(new BN(value).decimalPlaces() > 12),
+			),
 	});
 	const availableSdcFraction = availableSdc.toString().split('.')[1];
 
