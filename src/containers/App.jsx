@@ -39,7 +39,7 @@ const App = ({
 					</div>
 					{renderModals()}
 					<Toast />
-					<Notifications />
+					{isActiveCamera ? null : <Notifications />}
 					<ScanQrCode />
 				</div>
 			)}
