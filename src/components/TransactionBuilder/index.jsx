@@ -70,7 +70,7 @@ const TransactionBuilder = ({
 		if (requestPinCode) {
 			return (
 				<ValidatePinCode
-					title="Enter PIN"
+					title="Confirm with PIN"
 					validate={(pinCode) => accountActions.unlockWallet(pinCode)}
 					onSubmit={() => sendingTransaction(values).finally(() => walletService.lock())}
 					onBack={() => setRequestPinCode(false)}

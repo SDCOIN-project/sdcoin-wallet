@@ -33,7 +33,10 @@ const TransactionHistory = ({
 
 	return (
 		<div className="transaction-history">
-			<div className="transaction-history__title">Transaction History</div>
+			<div className="transaction-history__title">
+				Transaction History
+				<span className="title-inner"><span className="title-inner-dot">·</span>{selectedCurrency}</span>
+			</div>
 			{pendingList.length || list.length ? (
 				<InfiniteScroll
 					list={list}

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import copy from 'copy-to-clipboard';
 
+import Button from '../../../../../components/Form/Button';
 import Header from './../../../../Layout/Header';
 import ValidatePinCode from '../../../../../components/PinCode/ValidatePinCode';
 
 import accountActions from '../../../../../actions/AccountActions';
 import notificationActions from '../../../../../actions/NotificationActions';
 import { SETTINGS_PATH } from '../../../../../constants/RouterConstants';
-import Button from '../../../../../components/Form/Button';
 
 const Backup = ({
 	history, showErrorNotification,
@@ -35,7 +35,7 @@ const Backup = ({
 	switch (step) {
 		case 2:
 			return (
-				<React.Fragment>
+				<div className="show-top-all">
 					<Header backButton={() => history.push(SETTINGS_PATH)} title="Backup" />
 					<div className="dashboard backup-page">
 						<div className="backup-page__text">
@@ -48,12 +48,12 @@ const Backup = ({
 							</Button>
 						</div>
 					</div>
-				</React.Fragment>
+				</div>
 			);
 		default:
 			return (
 				<ValidatePinCode
-					title="Enter PIN"
+					title="Confirm with PIN"
 					validate={(pinCode) => accountActions.validatePinCode(pinCode)}
 					onSubmit={(pinCode) => onSubmit(pinCode)}
 					onBack={() => history.push(SETTINGS_PATH)}

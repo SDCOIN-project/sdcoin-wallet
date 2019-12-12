@@ -33,7 +33,7 @@ class Input extends React.Component {
 			<React.Fragment>
 				<div className={`input-field ${className || ''}`}>
 					{ title && <div className="input-field__title">{title}</div>}
-					<div className={`input-field__input ${label ? 'with-label' : ''} ${value || isFocused ? 'is-filled' : ''} ${readOnly ? 'read-only' : ''} ${isError || error ? ' is-error' : ''}`}>
+					<div className={`input-field__input ${label ? 'with-label' : ''} ${value || isFocused ? 'is-filled' : ''} ${isFocused ? 'is-active' : ''} ${readOnly ? 'read-only' : ''} ${isError || error ? ' is-error' : ''}`}>
 						{<input
 							autoComplete="off"
 							value={value}

@@ -23,7 +23,7 @@ const CreatePinCode = ({ onSubmit, onBack }) => {
 		default:
 			return (
 				<EnterPinCode
-					title="Create PIN"
+					title="Create new PIN"
 					onSubmit={(pinCode) => {
 						setNewPinCode(pinCode);
 						setStep(2);

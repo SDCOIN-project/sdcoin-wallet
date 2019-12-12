@@ -38,7 +38,7 @@ class ExchangeTransactionActions {
 			const from = getState().account.get('address');
 
 			const nonce = await ethService.eth.getTransactionCount(from);
-			const approve = await sdcTokenService.approve(from, value, approveGas, gasPrice, nonce);
+			await sdcTokenService.approve(from, value, approveGas, gasPrice, nonce);
 			const swap = await swapService.swap(from, swapGas, gasPrice, nonce + 1);
 
 			const sdcExchangeRate = parseInt(await swapService.getSdcExchangeRate(), 10);
@@ -48,7 +48,7 @@ class ExchangeTransactionActions {
 				currency: SDC,
 				from,
 				to: from,
-				hash: approve,
+				hash: swap,
 				value,
 			}));
 
