@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+import touchIdActions from './actions/TouchIdActions';
 
 import Routes from './routes'; // Or wherever you keep your reducers
 import './assets/loader';
@@ -34,11 +35,16 @@ const startApp = () => {
 
 };
 
+const onResume = async () => {
+	await store.dispatch(touchIdActions.checkAltIdStatus());
+};
+
 if (window.cordova) {
 	// Cordova application
 	document.addEventListener(
 		'deviceready',
 		() => {
+			document.addEventListener('resume', onResume, false);
 			startApp();
 		},
 		false,

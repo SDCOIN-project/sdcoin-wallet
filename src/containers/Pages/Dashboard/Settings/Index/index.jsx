@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -26,6 +26,10 @@ const Index = ({
 
 	const [altIdEnabled, setAltIdEnabled] = useState(alternativeIdEnabled);
 
+	useEffect(() => {
+		setAltIdEnabled(alternativeIdEnabled);
+	}, [alternativeIdEnabled]);
+
 	return (
 		<React.Fragment>
 			<Header title="Settings" />
@@ -39,32 +43,32 @@ const Index = ({
 						<i className="is-icon arrow-gray-icon" />
 					</div>
 				</NavLink>
-				<a
-					href="#"
-					className="dashboard-arrow-line no-active-effect"
-					onClick={(e) => {
-						e.preventDefault();
-						setAltIdEnabled(e.target.checked);
-						if (!altIdEnabled) {
-							if (hasFaceId || hasTouchId) {
+				{hasFaceId || hasTouchId ? (
+					<a
+						href="#"
+						className="dashboard-arrow-line no-active-effect"
+						onClick={(e) => {
+							e.preventDefault();
+							setAltIdEnabled(e.target.checked);
+							if (!altIdEnabled) {
 								history.push(CREATE_TOUCH_ID_PATH);
+							} else {
+								disableAltIdAndNotify();
 							}
-						} else {
-							disableAltIdAndNotify();
-						}
-					}}
-				>
-					<div className="icon-container">
-						<i className="is-icon face-id-icon" />
-					</div>
-					<div className="dashboard-arrow-line__container">
-						<span className="dashboard-arrow-line__text">Enable {hasFaceId ? 'Face ID' : 'Touch ID'}</span>
-						<Switcher
-							disabled={!hasFaceId && !hasTouchId}
-							checked={altIdEnabled}
-						/>
-					</div>
-				</a>
+						}}
+					>
+						<div className="icon-container">
+							<i className="is-icon face-id-icon" />
+						</div>
+						<div className="dashboard-arrow-line__container">
+							<span className="dashboard-arrow-line__text">Enable {hasFaceId ? 'Face ID' : 'Touch ID'}</span>
+							<Switcher
+								disabled={!hasFaceId && !hasTouchId}
+								checked={altIdEnabled}
+							/>
+						</div>
+					</a>
+				) : null}
 				<NavLink to={BACKUP_PATH} className="dashboard-arrow-line">
 					<div className="icon-container">
 						<i className="is-icon backup-icon" />
