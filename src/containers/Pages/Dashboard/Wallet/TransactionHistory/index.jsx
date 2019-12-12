@@ -7,9 +7,10 @@ import InfiniteScroll from './InfiniteScroll';
 import Loading from '../../../../../components/Loading';
 import { ETH } from '../../../../../constants/CurrencyConstants';
 import { CONTRACT_ESCROW_FACTORY } from '../../../../../constants/ContractConstants';
+import GetPaymentButton from '../../../../../components/Notifications/Buttons/GetPayment';
 
 const TransactionHistory = ({
-	getNextTransactions, selectedCurrency, list, pendingList, hasMore, parent, loading, subLoading,
+	getNextTransactions, selectedCurrency, list, pendingList, hasMore, parent, loading, subLoading, unclaimedBalance, unclaimedBalanceNotifyId,
 }) => {
 
 	if (loading) {
@@ -37,6 +38,15 @@ const TransactionHistory = ({
 				Transaction History
 				<span className="title-inner"><span className="title-inner-dot">·</span>{selectedCurrency}</span>
 			</div>
+			{(unclaimedBalance) ? (
+				<a href="#" onClick={(e) => e.preventDefault()} className="transaction-history__row transaction-history__notification">
+					<div className="transaction-history__row-information flex-center">
+						<i className="is-icon bell-icon" />
+						<div className="information-details">You have new incoming payment</div>
+					</div>
+					<GetPaymentButton id={unclaimedBalanceNotifyId} />
+				</a>
+			) : null}
 			{pendingList.length || list.length ? (
 				<InfiniteScroll
 					list={list}
@@ -65,6 +75,8 @@ TransactionHistory.propTypes = {
 	selectedCurrency: PropTypes.string.isRequired,
 	getNextTransactions: PropTypes.func.isRequired,
 	parent: PropTypes.func.isRequired,
+	unclaimedBalance: PropTypes.number.isRequired,
+	unclaimedBalanceNotifyId: PropTypes.string.isRequired,
 };
 
 TransactionHistory.defaultProps = {
@@ -83,6 +95,8 @@ export default connect(
 		subLoading: state.transactionsHistory.getIn(['currencies', state.account.get('selectedCurrency'), 'loading']),
 		loading: state.transactionsHistory.get('loading'),
 		selectedCurrency: state.account.get('selectedCurrency'),
+		unclaimedBalance: state.escrow.get('unclaimedBalance'),
+		unclaimedBalanceNotifyId: state.escrow.get('unclaimedBalanceNotifyId'),
 	}),
 	(dispatch) => ({
 		getNextTransactions: () => dispatch(transactionHistoryActions.getNextTransactions()),

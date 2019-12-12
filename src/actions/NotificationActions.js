@@ -68,6 +68,7 @@ class NotificationActions extends BaseActions {
 				icon: ICONS.bell,
 				button: <GetPaymentButton id={id} />,
 			}));
+			return id;
 		};
 	}
 

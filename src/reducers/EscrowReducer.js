@@ -6,6 +6,7 @@ import TransformModules from '../utils/TransformModules';
 const DEFAULT_FIELDS = Map({
 	contracts: Map({}),
 	unclaimedBalance: 0,
+	unclaimedBalanceNotifyId: '',
 });
 
 export default createModule({

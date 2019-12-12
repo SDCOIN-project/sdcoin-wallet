@@ -43,7 +43,8 @@ class EscrowActions extends BaseActions {
 			const sum = result.reduce((a, b) => a + b, 0);
 			dispatch(this.setValue('unclaimedBalance', sum));
 			if (sum) {
-				dispatch(notificationActions.getPaymentNotification());
+				const notificationId = dispatch(notificationActions.getPaymentNotification());
+				dispatch(this.setValue('unclaimedBalanceNotifyId', notificationId));
 			}
 		};
 	}

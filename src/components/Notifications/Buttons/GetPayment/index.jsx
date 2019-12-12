@@ -14,7 +14,9 @@ const GetPaymentButton = ({
 		onClick={(e) => {
 			e.preventDefault();
 			history.push(GET_PAYMENT_PATH);
-			deleteNotification(id);
+			if (id) {
+				deleteNotification(id);
+			}
 		}}
 		className="qr-code-button"
 	>
@@ -24,13 +26,14 @@ const GetPaymentButton = ({
 );
 
 GetPaymentButton.propTypes = {
-	id: PropTypes.string.isRequired,
+	id: PropTypes.string,
 	deleteNotification: PropTypes.func.isRequired,
 	history: PropTypes.object,
 };
 
 GetPaymentButton.defaultProps = {
 	history: {},
+	id: null,
 };
 
 export default connect(

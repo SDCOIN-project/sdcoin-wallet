@@ -25,7 +25,7 @@ const App = ({
 
 	return (
 		<div className="wrapper" style={{ backgroundColor: isActiveCamera ? 'transparent' : 'white' }}>
-			{address && isLocked && __NODE_ENV__ !== 'devedlopment' ? (
+			{address && isLocked && __NODE_ENV__ !== 'development' ? (
 				<ValidatePinCode
 					title="Unlock your wallet"
 					validate={(pinCode) => accountActions.validatePinCode(pinCode)}
