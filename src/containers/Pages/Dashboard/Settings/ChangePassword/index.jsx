@@ -28,7 +28,7 @@ const ChangePassword = ({
 		case 2:
 			return (
 				<CreatePinCode
-					onSubmit={(pinCode) => createNewPinCode(pinCode)}
+					onSubmit={async (pinCode) => { await createNewPinCode(pinCode); }}
 					onBack={() => history.push(SETTINGS_PATH)}
 					isCreateWallet={false}
 				/>

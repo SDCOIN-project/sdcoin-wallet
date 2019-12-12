@@ -26,7 +26,7 @@ const CreatePinCode = ({
 				await savePassword(pinCode);
 			}
 		}
-		onSubmit(pinCode);
+		await onSubmit(pinCode);
 	};
 
 	switch (step) {
