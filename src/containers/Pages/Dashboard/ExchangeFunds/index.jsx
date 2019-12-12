@@ -82,7 +82,7 @@ const ExchangeFunds = ({
 		sdc: Yup.number()
 			.typeError('Invalid amount')
 			.positive('Must be a positive number')
-			.lessThan(availableSdc, 'More than available')
+			.max(availableSdc, 'More than available')
 			.required('SDC is required')
 			.test(
 				'checkFee',
