@@ -35,6 +35,9 @@ const PayToEscrow = ({
 		});
 	}, []);
 
+	if (!selectedEscrow.address) {
+		return (<div><Header title="Scan" backButton={() => history.push(SEND_TRANSACTION_PATH)} /></div>);
+	}
 	return (
 		<TransactionBuilder
 			handleTransaction={() => proxyPayment(selectedEscrow.address)}
@@ -42,7 +45,7 @@ const PayToEscrow = ({
 		>
 			{({ submitTransaction }) => (
 				<React.Fragment>
-					<Header title="Payment details" backButton={() => history.push(SEND_TRANSACTION_PATH)} />
+					<Header title={selectedEscrow.address ? 'Payment details' : ''} backButton={() => history.push(SEND_TRANSACTION_PATH)} />
 					<div className="dashboard payment-details-page">
 						<div className="dashboard-stripe">
 							<div className="dashboard-stripe__title">Currency</div>
