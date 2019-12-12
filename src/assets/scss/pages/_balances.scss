@@ -56,6 +56,7 @@
 		background-position: right;
 		background-size: cover;
 		text-decoration: none;
+		position: relative;
 
 		&:active {
 			-webkit-tap-highlight-color: transparent;
@@ -63,7 +64,27 @@
 
 		&.is-active {
 			box-shadow: 0 0 0 1px #fff;
-			background-color: rgba(255, 255, 255, 0.3);
+			overflow: hidden;
+
+			&:after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				border-radius: 1000px;
+				opacity: 1;
+				background: rgba(255, 255, 255, 0.18);
+				animation: animation-balances-list-bg ease;
+				animation-duration: 0.6s;
+				animation-fill-mode: both;
+			}
+
+			&.is-small {
+				&:after {
+					animation-duration: 0.3s;
+				}
+			}
 		}
 
 		&.is-small {
@@ -123,6 +144,7 @@
 
 			.button.is-small {
 				margin-left: auto;
+				z-index: 1;
 			}
 		}
 	}
@@ -346,5 +368,17 @@
 	.loading {
 		bottom: 0;
 		transform: translateX(-50%);
+	}
+}
+
+@keyframes animation-balances-list-bg {
+	0% {
+		width: 50px;
+		height: 50px;
+	}
+
+	100% {
+		width: 150%;
+		height: 150%;
 	}
 }
