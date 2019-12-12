@@ -7,18 +7,6 @@
 	display: flex;
 	flex-direction: column;
 
-	&.with-logo {
-		padding: 105px 10px 0 10px;
-
-		.authorization-page__title {
-			font-size: 20px;
-			padding-top: 30px;
-			line-height: 28px;
-			margin: initial;
-			width: auto;
-		}
-	}
-
 	.logo {
 		background-image: url(../images/icons/logo.svg);
 		background-repeat: no-repeat;
@@ -26,17 +14,17 @@
 		width: 203px;
 		height: 220px;
 		margin: 0 auto;
+		transition: all 10s ease-out;
 	}
 
 	&__title {
 		color: #ffffff;
 		text-align: center;
-		// padding-top: 30px;
-		padding-bottom: 30px;
-		font-size: 30px;
-		width: 190px;
-		margin: 0 auto;
-		line-height: 36px;
+		padding-top: 30px;
+		font-size: 20px;
+		line-height: 28px;
+		margin: initial;
+		width: auto;
 	}
 
 	&__bottom-container {
@@ -44,5 +32,48 @@
 		//fix bug for Samsung Galaxy s10
 		display: flex;
 		flex-direction: column;
+	}
+
+	&__loading {
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+
+.fade-splash-screen-appear {
+	opacity: 0;
+}
+
+.fade-splash-screen-appear.fade-splash-screen-appear-active {
+	opacity: 1;
+	transition: opacity 1200ms linear;
+}
+
+.fade-splash-screen-enter {
+	opacity: 0;
+}
+
+.fade-splash-screen-enter.fade-splash-screen-enter-active {
+	opacity: 1;
+	transition: opacity 300ms linear;
+}
+
+.with-animation {
+	min-height: 100vh;
+	width: 100vw;
+	background: linear-gradient(180deg, #519bfc 0%, #51cdfc 100%);
+	padding: 0;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+
+	.flex-100 {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+
+		&.with-padding {
+			padding: 105px 10px 0 10px;
+		}
 	}
 }

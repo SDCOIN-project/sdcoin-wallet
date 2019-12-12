@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connectModal } from 'redux-modal';
 import { Modal } from 'semantic-ui-react';
-
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Button from './../../../components/Form/Button';
 import { CONFIRM_MODAL } from '../../../constants/ModalConstants';
 
@@ -26,25 +26,34 @@ const ConfirmModal = ({
 	};
 
 	return (
-		<Modal
-			open={show}
-			closeOnDimmerClick={false}
-			className="confirmation"
-			onClose={() => onCancelModal()}
-		>
-			<div className="confirmation-container">
-				<div className="confirmation-title">{title}</div>
-				<div className="confirmation-text">{description}</div>
-			</div>
-			<div className="confirmation-controls">
-				<Button className="is-transparent is-white" onClick={() => onCancelModal()}>
-					{cancelButtonText}
-				</Button>
-				<Button className="is-transparent is-white" onClick={() => onSubmitModal()}>
-					{confirmButtonText}
-				</Button>
-			</div>
-		</Modal>
+		<TransitionGroup>
+			<CSSTransition
+				in
+				appear
+				timeout={300}
+				classNames="fade-modal"
+			>
+				<Modal
+					open={show}
+					closeOnDimmerClick={false}
+					className="confirmation"
+					onClose={() => onCancelModal()}
+				>
+					<div className="confirmation-container">
+						<div className="confirmation-title">{title}</div>
+						<div className="confirmation-text">{description}</div>
+					</div>
+					<div className="confirmation-controls">
+						<Button className="is-transparent is-white" onClick={() => onCancelModal()}>
+							{cancelButtonText}
+						</Button>
+						<Button className="is-transparent is-white" onClick={() => onSubmitModal()}>
+							{confirmButtonText}
+						</Button>
+					</div>
+				</Modal>
+			</CSSTransition>
+		</TransitionGroup>
 	);
 };
 
