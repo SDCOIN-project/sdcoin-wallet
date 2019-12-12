@@ -85,10 +85,10 @@ class Web3Service {
 				throw new Error('Unsupported token address');
 			}
 			if (parsedUrl.parameters.uint256) {
-				result.value = this.fromWei(parsedUrl.parameters.uint256, 'ether').toFormat();
+				result.value = this.fromWei(parsedUrl.parameters.uint256, 'ether').toFormat({ decimalSeparator: '.' });
 			}
 		} else if (parsedUrl.parameters && parsedUrl.parameters.value) {
-			result.value = this.fromWei(parsedUrl.parameters.value, 'ether').toFormat();
+			result.value = this.fromWei(parsedUrl.parameters.value, 'ether').toFormat({ decimalSeparator: '.' });
 		}
 
 		return result;
