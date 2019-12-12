@@ -17,6 +17,7 @@ const CreateWallet = ({ createWallet }) => {
 				<CreatePinCode
 					onSubmit={async (pinCode) => { await createWallet(pinCode, phrase); }}
 					onBack={() => setStep(1)}
+					isCreateWallet
 				/>
 			);
 		default:

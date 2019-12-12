@@ -33,11 +33,7 @@ class TouchIdService {
 
 	verify(key, message) {
 		return new Promise((resolve, reject) => {
-			this.touchid.verify(key, message, (result) => {
-				resolve(result);
-			}, (error) => {
-				reject(error);
-			});
+			this.touchid.verify(key, message, (result) => resolve(result), (error) => reject(error));
 		});
 	}
 

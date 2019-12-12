@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import Button from './../../Form/Button';
@@ -8,7 +9,7 @@ const MAX_SYMBOL = 6;
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
 const EnterPinCode = ({
-	onBack, title, invalidPinCode, onSubmit, loading,
+	onBack, title, invalidPinCode, onSubmit, loading, showAltIdButtons, alternativeIdEnabled, hasFaceId, retryAltId,
 }) => {
 	const [pinCode, setPinCode] = useState([]);
 
@@ -72,42 +73,49 @@ const EnterPinCode = ({
 				</div>
 
 				<div className="dashboard-controls flex-column">
-					<MediaQuery maxWidth={374}>
-						{(matches) => {
-							if (matches) {
+					{showAltIdButtons && alternativeIdEnabled ? (
+						<MediaQuery maxWidth={374}>
+							{(matches) => {
+								if (matches) {
+									return (
+										<div className="pin-page-list large-block">
+											<div className="pin-page-list__container">
+												<span>You can use</span>
+												{hasFaceId ? (
+													<button onClick={() => retryAltId()} className="pin-page-list__item">
+														<i className="is-icon face-id-white-icon" />
+													</button>
+												) : (
+													<button onClick={() => retryAltId()} className="pin-page-list__item ">
+														<i className="is-icon fingerprint-white-icon" />
+													</button>
+												)}
+											</div>
+										</div>
+									);
+								}
 								return (
 									<div className="pin-page-list large-block">
+										<p>Also you can use</p>
 										<div className="pin-page-list__container">
-											<span>You can use</span>
-											<button className="pin-page-list__item ">
-												<i className="is-icon fingerprint-white-icon" />
-											</button>
-											<span>or</span>
-											<button className="pin-page-list__item">
-												<i className="is-icon face-id-white-icon" />
-											</button>
+											{hasFaceId ? (
+												<button onClick={() => retryAltId()} className="pin-page-list__item">
+													<i className="is-icon face-id-white-icon" />
+													<span>Face ID</span>
+												</button>
+											) : (
+												<button onClick={() => retryAltId()} className="pin-page-list__item">
+													<i className="is-icon fingerprint-white-icon" />
+													<span>Touch ID</span>
+												</button>
+											)}
+
 										</div>
 									</div>
 								);
-							}
-							return (
-								<div className="pin-page-list large-block">
-									<p>Also you can use</p>
-									<div className="pin-page-list__container">
-										<button className="pin-page-list__item">
-											<i className="is-icon fingerprint-white-icon" />
-											<span>Touch ID</span>
-										</button>
-										<span>or</span>
-										<button className="pin-page-list__item">
-											<i className="is-icon face-id-white-icon" />
-											<span>Face ID</span>
-										</button>
-									</div>
-								</div>
-							);
-						}}
-					</MediaQuery>
+							}}
+						</MediaQuery>
+					) : null}
 					<Button className={`is-transparent is-white pin-page__button clear-button ${pinCode.length ? '' : 'button-hidden'}`} onClick={() => onDeleteNumber()}>
 						Delete
 					</Button>
@@ -124,6 +132,10 @@ EnterPinCode.propTypes = {
 	invalidPinCode: PropTypes.bool,
 	loading: PropTypes.bool,
 	onSubmit: PropTypes.func.isRequired,
+	retryAltId: PropTypes.func,
+	showAltIdButtons: PropTypes.bool,
+	hasFaceId: PropTypes.bool.isRequired,
+	alternativeIdEnabled: PropTypes.bool.isRequired,
 };
 
 EnterPinCode.defaultProps = {
@@ -131,7 +143,15 @@ EnterPinCode.defaultProps = {
 	invalidPinCode: false,
 	loading: false,
 	onBack: null,
+	showAltIdButtons: false,
+	retryAltId: () => {},
 };
 
 
-export default EnterPinCode;
+export default connect(
+	(state) => ({
+		alternativeIdEnabled: state.global.get('alternativeIdEnabled'),
+		hasFaceId: state.global.get('hasFaceId'),
+	}),
+	() => ({}),
+)(EnterPinCode);

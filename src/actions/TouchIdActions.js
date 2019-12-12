@@ -5,6 +5,8 @@ import { PASSWORD } from '../constants/GlobalConstants';
 import GlobalActions from './GlobalActions';
 import { KEY_PERMANENTLY_INVALIDATED_EXCEPTION } from '../constants/ErrorConstants';
 
+const ERROR_PASS_DONT_EXISTS_CODE = '-5';
+
 class TouchIdActions extends BaseActions {
 
 	/**
@@ -43,6 +45,22 @@ class TouchIdActions extends BaseActions {
 				return;
 			}
 			await dispatch(this.save(newPassword));
+		};
+	}
+
+	verify(key, message) {
+		return async (dispatch) => {
+			try {
+				return await touchIdservice.verify(key, message);
+			} catch (e) {
+				if (typeof e === 'string' && e.match(/ErrorMessage/)) {
+					const error = JSON.parse(e);
+					if (error.ErrorCode && error.ErrorCode === ERROR_PASS_DONT_EXISTS_CODE) {
+						dispatch(GlobalActions.setValue('alternativeIdEnabled', false));
+					}
+				}
+				throw new Error(e);
+			}
 		};
 	}
 

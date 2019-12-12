@@ -10,7 +10,8 @@
 		"lint": "$(npm bin)/eslint 'src/**/*.jsx' 'src/**/*.js'",
 		"lint-win": "cross-env eslint 'src/**/*.jsx' 'src/**/*.js' --fix",
 		"stylelint": "stylelint '**/*.scss'; --config src/assets/.stylelintrc.json",
-		"audit": "node_modules/audit-ci/bin/audit-ci --config audit-ci.json"
+		"audit": "node_modules/audit-ci/bin/audit-ci --config audit-ci.json",
+		"run:ios": "npm run build:dev && cordova prepare && cordova run ios"
 	},
 	"author": "Pixelplex inc",
 	"dependencies": {

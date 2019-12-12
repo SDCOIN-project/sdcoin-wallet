@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import EnterPinCode from '../EnterPinCode';
 import touchIdService from '../../../services/TouchIdService';
 import { PASSWORD, FINGER_PRINT_TYPE } from '../../../constants/GlobalConstants';
 import { SETTINGS_PATH } from '../../../constants/RouterConstants';
 import history from '../../../history';
-
+import touchIdActions from '../../../actions/TouchIdActions';
 
 const ValidatePinCode = ({
-	validate, onSubmit, useAltId, title, ...props
+	validate, onSubmit, useAltId, title, onBack, verifyAltId, ...props
 }) => {
 
 	const [invalidPinCode, setInvalidPinCode] = useState(false);
@@ -48,13 +49,14 @@ const ValidatePinCode = ({
 		setLoading(false);
 	};
 
+	const tryTouchId = async () => {
+		const password = await verifyAltId(PASSWORD, availableType === FINGER_PRINT_TYPE.FACE ? 'Enter your FaceId' : 'Enter your TouchId');
+		await checkValidPinCode(password);
+	};
+
 	useEffect(() => {
-		const func = async () => {
-			const password = await touchIdService.verify(PASSWORD, availableType === FINGER_PRINT_TYPE.FACE ? 'Enter your FaceId' : 'Enter your TouchId');
-			await checkValidPinCode(password);
-		};
 		if (availableType && hasPassword && useAltId) {
-			func();
+			tryTouchId();
 		}
 	}, [availableType, hasPassword]);
 
@@ -65,7 +67,9 @@ const ValidatePinCode = ({
 				loading={loading}
 				onSubmit={(pinCode) => checkValidPinCode(pinCode)}
 				title={changedTitle}
-				onBack={() => history.push(SETTINGS_PATH)}
+				onBack={onBack}
+				showAltIdButtons
+				retryAltId={() => tryTouchId()}
 				{...props}
 			/>
 		</div>
@@ -75,13 +79,21 @@ const ValidatePinCode = ({
 
 ValidatePinCode.defaultProps = {
 	useAltId: true,
+	onBack: () => history.push(SETTINGS_PATH),
 };
 
 ValidatePinCode.propTypes = {
 	validate: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
+	onBack: PropTypes.func,
+	verifyAltId: PropTypes.func.isRequired,
 	useAltId: PropTypes.bool,
 	title: PropTypes.string.isRequired,
 };
 
-export default ValidatePinCode;
+export default connect(
+	() => ({}),
+	(dispatch) => ({
+		verifyAltId: (key, message) => dispatch(touchIdActions.verify(key, message)),
+	}),
+)(ValidatePinCode);

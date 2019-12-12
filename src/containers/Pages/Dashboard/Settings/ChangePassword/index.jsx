@@ -30,6 +30,7 @@ const ChangePassword = ({
 				<CreatePinCode
 					onSubmit={(pinCode) => createNewPinCode(pinCode)}
 					onBack={() => history.push(SETTINGS_PATH)}
+					isCreateWallet={false}
 				/>
 			);
 		default:

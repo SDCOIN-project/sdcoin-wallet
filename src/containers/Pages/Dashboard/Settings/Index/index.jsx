@@ -58,7 +58,7 @@ const Index = ({
 						}}
 					>
 						<div className="icon-container">
-							<i className="is-icon face-id-icon" />
+							<i className={`is-icon ${hasFaceId ? 'face-id-icon' : 'fingerprint-icon'}`} />
 						</div>
 						<div className="dashboard-arrow-line__container">
 							<span className="dashboard-arrow-line__text">Enable {hasFaceId ? 'Face ID' : 'Touch ID'}</span>
