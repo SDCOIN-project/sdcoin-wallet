@@ -24,7 +24,7 @@ const TransactionDetails = ({ selectedCurrency, address, selectedTransaction }) 
 		<div className="dashboard transaction-details-page">
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">Date</div>
-				<div className="dashboard-stripe__text">{moment(selectedTransaction.utc).format('MMM DD, HH:mm')}</div>
+				<div className="dashboard-stripe__text">{moment(selectedTransaction.utc || selectedTransaction.timestamp).format('MMM DD, HH:mm')}</div>
 			</div>
 			<div className="dashboard-stripe">
 				<div className="dashboard-stripe__title">From</div>
