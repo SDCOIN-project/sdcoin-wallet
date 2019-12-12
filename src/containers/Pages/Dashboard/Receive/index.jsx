@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import classNames from 'classnames';
 import { build } from 'eth-url-parser';
+
 import Input from './../../../../components/Form/Input';
 import SelectCurrency from './../../../../components/Form/SelectCurrency';
 import Header from './../../../../containers/Layout/Header';
@@ -17,6 +18,7 @@ import clipboardService from '../../../../services/ClipboardService';
 import history from '../../../../history';
 import { GENERATE_PAYMENT } from '../../../../constants/RouterConstants';
 import GlobalActions from '../../../../actions/GlobalActions';
+import { formatPrecision } from '../../../../helpers/FunctionHelper';
 
 const initialValues = () => ({
 	currency: DEFAULT_CURRENCY,
@@ -88,7 +90,7 @@ const Receive = ({ balances, address, shareImage }) => {
 								<SelectCurrency
 									selection
 									value={values.currency}
-									amount={web3Service.fromWeiToEther(balances[values.currency])}
+									amount={formatPrecision(web3Service.fromWeiToEther(balances[values.currency]))}
 									name="currency"
 									options={getCurrencyOptions()}
 									onChange={(event, data) => {

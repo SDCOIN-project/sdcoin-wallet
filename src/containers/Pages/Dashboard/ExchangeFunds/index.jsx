@@ -14,7 +14,7 @@ import TransactionBuilder from '../../../../components/TransactionBuilder';
 import web3Service from './../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
 import swapService from '../../../../services/contracts/SwapService';
-import { formatPrice } from '../../../../helpers/FunctionHelper';
+import { formatPrecision } from '../../../../helpers/FunctionHelper';
 import { calculateRemainMoney, exchangeSdcOrLuv } from '../../../../helpers/TransactionHelper';
 
 import swapTransactionActions from '../../../../actions/ExchangeTransactionActions';
@@ -52,7 +52,7 @@ const ExchangeFunds = ({
 		swapService.getSdcExchangeRate().then((data) => setSdcExchangeRate(parseInt(data, 10)));
 	}, []);
 
-	const availableSdc = web3Service.fromWei(sdcBalance, 'ether').toNumber();
+	const availableSdc = formatPrecision(web3Service.fromWei(sdcBalance, 'ether').toString(10));
 	const fee = new BN(approveGas + swapGas).times(gasPrice).toString(10);
 
 	const exchangeCurrency = (from, amount) => {
@@ -105,7 +105,6 @@ const ExchangeFunds = ({
 				(value) => !(new BN(value).decimalPlaces() > 12),
 			),
 	});
-	const availableSdcFraction = availableSdc.toString().split('.')[1];
 
 	return (
 		<TransactionBuilder
@@ -129,7 +128,7 @@ const ExchangeFunds = ({
 									<div className="dashboard-form__row">
 										<p className="dashboard-form__row-text">Available balance:</p>
 										<p className="dashboard-form__row-value">
-											{formatPrice(availableSdc, availableSdcFraction ? availableSdcFraction.length : 0)}
+											{availableSdc}
 											<span className="dashboard-form__row-postfix">SDC</span>
 										</p>
 									</div>

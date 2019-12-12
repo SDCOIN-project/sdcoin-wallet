@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-escape */
+import BN from 'bignumber.js';
 
 export const validateEmail = (email) => {
 	const emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,15})?$/;
@@ -26,6 +27,17 @@ export const formatPrice = (n, _c = 2, _d = '.', _t = ' ') => {
 	const jt = i.length;
 	const j = jt > 3 ? jt % 3 : 0;
 	return s + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, `$1${t}`) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '');
+};
+
+export const formatPrecision = (num = 0) => {
+	num = parseFloat(num, 10);
+
+	if (!num || Number.isInteger(num) || Number.isNaN(num)) {
+		return num;
+	}
+
+	const precision = num.toString().split('.')[1].length;
+	return precision > 6 ? new BN(num).toFixed(6, BN.ROUND_DOWN) : new BN(num).toFixed(precision, BN.ROUND_DOWN);
 };
 
 /**

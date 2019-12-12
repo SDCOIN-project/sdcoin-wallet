@@ -1,6 +1,7 @@
 import BN from 'bignumber.js';
 import web3Service from '../services/Web3Service';
 import { SDC } from '../constants/CurrencyConstants';
+import { formatPrecision } from './FunctionHelper';
 
 export const exchangeSdcOrLuv = (from, amount, sdcExchangeRate, luvExchangeRate) => {
 	if (!amount) {
@@ -18,5 +19,5 @@ export const calculateRemainMoney = (balance, amount = 0, fee = 0) => {
 		fee = web3Service.fromWeiToEther(fee);
 	}
 
-	return web3Service.fromWei(balance, 'ether').minus(amount).minus(fee).toFixed(10);
+	return formatPrecision(web3Service.fromWei(balance, 'ether').minus(amount).minus(fee).toString(10));
 };

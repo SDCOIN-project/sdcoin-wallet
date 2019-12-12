@@ -17,6 +17,7 @@ import TransactionBuilder from '../../../../components/TransactionBuilder';
 import web3Service from '../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
 import { calculateRemainMoney } from '../../../../helpers/TransactionHelper';
+import { formatPrecision } from '../../../../helpers/FunctionHelper';
 import { CURRENCIES, ETH, DEFAULT_CURRENCY } from '../../../../constants/CurrencyConstants';
 import { PLUS_PERCENT_FEE } from '../../../../constants/TransactionConstants';
 import { DASHBOARD_PATH, PAY_TO_ESCROW } from '../../../../constants/RouterConstants';
@@ -150,7 +151,7 @@ const Send = ({
 										<SelectCurrency
 											selection
 											value={values.currency}
-											amount={web3Service.fromWeiToEther(balances[values.currency])}
+											amount={formatPrecision(web3Service.fromWeiToEther(balances[values.currency]))}
 											name="currency"
 											options={getCurrencyOptions()}
 											onChange={(event, data) => {

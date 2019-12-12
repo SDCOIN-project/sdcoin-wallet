@@ -6,6 +6,7 @@ import history from '../../../../../history';
 
 import Button from './../../../../../components/Form/Button';
 import web3Service from './../../../../../services/Web3Service';
+import { formatPrecision } from '../../../../../helpers/FunctionHelper';
 
 import { SDC, LUV } from '../../../../../constants/CurrencyConstants';
 import { EXCHANGE_FUNDS_PATH } from '../../../../../constants/RouterConstants';
@@ -27,7 +28,7 @@ const BalanceCard = ({
 			<span className="postfix-top">{name}</span>
 			{name === SDC ? <Button onClick={() => history.push(EXCHANGE_FUNDS_PATH)} className="is-small">Swap to {LUV}</Button> : null}
 		</div>
-		<div className="balances-list__value">{web3Service.fromWei(balances[name], 'ether').toNumber()}</div>
+		<div className="balances-list__value">{formatPrecision(web3Service.fromWei(balances[name], 'ether').toString())}</div>
 	</a>
 );
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import web3Service from '../../../services/Web3Service';
+import { formatPrecision } from '../../../helpers/FunctionHelper';
+
 
 const Option = ({
 	balance, currency,
@@ -10,7 +12,7 @@ const Option = ({
 		<div className="select-inner-item__information">
 			<div className="select-inner-item__information-title">{currency}</div>
 			<div className="select-inner-item__information-value">
-				{web3Service.fromWeiToEther(balance)} <span className="postfix">{currency}</span>
+				{formatPrecision(web3Service.fromWeiToEther(balance))} <span className="postfix">{currency}</span>
 			</div>
 		</div>
 	</div>
