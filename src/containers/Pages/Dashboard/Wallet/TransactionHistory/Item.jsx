@@ -22,18 +22,20 @@ const onGetQRClick = async (item, setSelectedTransaction) => {
 	history.push(GET_ESCROW_QRCODE);
 };
 
-
 const Item = ({
 	item, address, selectedCurrency, setSelectedEscrow, isPending, setSelectedTransaction,
 }) => {
 
 	const isSend = item.from.toLowerCase() === address.toLowerCase();
 	let title = null;
+	let text = null;
 
 	if (isPending) {
 		title = 'Confirmation';
+		text = isSend ? 'Send' : 'Received';
 	} else {
 		title = isSend ? 'Send' : 'Received';
+		text = moment(item.utc || item.timestamp).format('MMM DD, HH:mm');
 	}
 
 	return item.to && CONTRACT_ESCROW_FACTORY === item.to.toLowerCase() ? (
@@ -52,7 +54,7 @@ const Item = ({
 				<i className={classNames('is-icon', { 'received-arrow-icon': !isSend && !isPending, 'send-arrow-icon': isSend && !isPending, 'confirmation-icon': isPending })} />
 				<div className="information-details">
 					<p className="information-details__title">{title}</p>
-					<p className="information-details__text">{moment(item.utc || item.timestamp).format('MMM DD, HH:mm')}</p>
+					<p className="information-details__text">{text}</p>
 				</div>
 			</div>
 			<div className="transaction-history__row-value">

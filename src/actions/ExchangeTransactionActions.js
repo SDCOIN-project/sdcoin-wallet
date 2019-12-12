@@ -1,4 +1,4 @@
-import { SWAP_GAS } from '../constants/TransactionConstants';
+import { SWAP_GAS, FROM_MINE_TO_MINE_TRANS } from '../constants/TransactionConstants';
 import { SDC, LUV, LUV_EXCHANGE_RATE } from '../constants/CurrencyConstants';
 import transactionHistoryActions from './TransactionHistoryActions';
 
@@ -47,14 +47,14 @@ class ExchangeTransactionActions {
 			dispatch(transactionHistoryActions.addPendingTransaction({
 				currency: SDC,
 				from,
-				to: from,
+				to: FROM_MINE_TO_MINE_TRANS,
 				hash: swap,
 				value,
 			}));
 
 			dispatch(transactionHistoryActions.addPendingTransaction({
 				currency: LUV,
-				from,
+				from: FROM_MINE_TO_MINE_TRANS,
 				to: from,
 				hash: swap,
 				value: luv,
