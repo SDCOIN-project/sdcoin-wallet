@@ -151,10 +151,15 @@
 				opacity: 0;
 			}
 		}
+
 		&:not(:last-child) {
 			.dashboard-arrow-line__container {
 				border-bottom: 1px solid #eceef3;
 			}
+		}
+
+		&.logout {
+			width: 130px;
 		}
 
 		&__container {

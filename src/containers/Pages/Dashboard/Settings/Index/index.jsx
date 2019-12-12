@@ -90,7 +90,7 @@ const Index = ({
 							onConfirm: () => logout(),
 						});
 					}}
-					className="dashboard-arrow-line bottom-container"
+					className="dashboard-arrow-line bottom-container logout"
 				>
 					<div className="icon-container">
 						<i className="is-icon logout-icon" />

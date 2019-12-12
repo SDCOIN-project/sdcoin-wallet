@@ -45,17 +45,3 @@
 		}
 	}
 }
-
-.hide-sidebar {
-	.dashboard {
-		height: calc(100vh - 95px);
-	}
-
-	.backup-page {
-		padding-bottom: 20px;
-	}
-
-	.sidebar {
-		display: none;
-	}
-}

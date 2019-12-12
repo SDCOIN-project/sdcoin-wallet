@@ -1,6 +1,11 @@
 .backup-page {
 	height: calc(100vh - 95px);
 	background: #fff;
+
+	@include iphone-with-face-id {
+		padding-bottom: env(safe-area-inset-bottom);
+	}
+	
 	&__text {
 		font-size: 16px;
 		line-height: 22px;
