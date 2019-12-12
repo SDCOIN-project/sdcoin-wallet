@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import copy from 'copy-to-clipboard';
+import clipboardService from '../../../../../services/ClipboardService';
 
 import history from '../../../../../history';
 
@@ -16,7 +16,7 @@ const CreateWallet = ({ onNext }) => {
 	const [btnCopyTitle, setBtnCopyTitle] = useState('Copy');
 
 	const onCopy = () => {
-		copy(phrase);
+		clipboardService.copy(phrase);
 		setBtnCopyTitle('Copied');
 	};
 

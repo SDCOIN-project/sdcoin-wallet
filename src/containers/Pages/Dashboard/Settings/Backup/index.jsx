@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import copy from 'copy-to-clipboard';
 
 import Button from '../../../../../components/Form/Button';
 import Header from './../../../../Layout/Header';
@@ -10,6 +9,7 @@ import ValidatePinCode from '../../../../../components/PinCode/ValidatePinCode';
 import accountActions from '../../../../../actions/AccountActions';
 import notificationActions from '../../../../../actions/NotificationActions';
 import { SETTINGS_PATH } from '../../../../../constants/RouterConstants';
+import clipboardService from '../../../../../services/ClipboardService';
 
 const Backup = ({
 	history, showErrorNotification,
@@ -28,7 +28,7 @@ const Backup = ({
 	};
 
 	const onCopy = () => {
-		copy(mnemonic);
+		clipboardService.copy(mnemonic);
 		setBtnCopyTitle('Copied');
 	};
 
