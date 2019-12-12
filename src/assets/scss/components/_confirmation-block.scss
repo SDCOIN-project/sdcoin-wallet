@@ -14,7 +14,7 @@
 	border-radius: 5px;
 	position: fixed;
 	z-index: 1;
-	bottom: 55px;
+	// bottom: 55px;
 	left: 15px;
 	right: 15px;
 	transition: all 0.2s ease-out;
@@ -66,22 +66,24 @@
 
 .fade-modal-appear {
 	opacity: 0 !important;
+
+	.confirmation {
+		bottom: 40px;
+	}
 }
 
 .fade-modal-appear.fade-modal-appear-active {
 	opacity: 1 !important;
 	transition: opacity 300ms linear;
+
+	.confirmation {
+		bottom: 55px;
+	}
 }
 
-.fade-modal-exit {
-	opacity: 1 !important;
-}
-
-.fade-modal-exit.fade-modal-exit-active {
-	opacity: 0 !important;
-	transition: opacity 300ms linear;
-}
-
-.fade-modal-exit-done {
-	opacity: 0 !important;
+.fade-modal-appear-done,
+.fade-modal-enter-done {
+	.confirmation {
+		bottom: 55px;
+	}
 }
