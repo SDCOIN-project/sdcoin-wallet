@@ -14,6 +14,7 @@ import TransactionBuilder from '../../../../components/TransactionBuilder';
 import web3Service from './../../../../services/Web3Service';
 import ethService from '../../../../services/EthService';
 import swapService from '../../../../services/contracts/SwapService';
+import { formatPrice } from '../../../../helpers/FunctionHelper';
 import { calculateRemainMoney, exchangeSdcOrLuv } from '../../../../helpers/TransactionHelper';
 
 import swapTransactionActions from '../../../../actions/ExchangeTransactionActions';
@@ -94,6 +95,7 @@ const ExchangeFunds = ({
 			.positive('Must be a positive number')
 			.required('LUV is required'),
 	});
+	const availableSdcFraction = availableSdc.toString().split('.')[1];
 
 	return (
 		<TransactionBuilder
@@ -117,7 +119,7 @@ const ExchangeFunds = ({
 									<div className="dashboard-form__row">
 										<p className="dashboard-form__row-text">Available balance:</p>
 										<p className="dashboard-form__row-value">
-											{availableSdc}
+											{formatPrice(availableSdc, availableSdcFraction ? availableSdcFraction.length : 0)}
 											<span className="dashboard-form__row-postfix">SDC</span>
 										</p>
 									</div>
