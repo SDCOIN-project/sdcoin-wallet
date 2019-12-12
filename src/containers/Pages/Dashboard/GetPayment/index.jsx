@@ -14,9 +14,11 @@ import escrowActions from '../../../../actions/EscrowActions';
 import TransactionBuilder from '../../../../components/TransactionBuilder';
 import history from '../../../../history';
 import { DASHBOARD_PATH } from '../../../../constants/RouterConstants';
+import escrowService from '../../../../services/contracts/EscrowService';
+import { NOT_OWNER_ERROR } from '../../../../constants/ErrorConstants';
 
 const GetPayment = ({
-	scanQrCode, showErrorNotification, withdrawEstimateGas, withdraw,
+	scanQrCode, showErrorNotification, withdrawEstimateGas, withdraw, account,
 }) => {
 
 	const [address, setAddress] = useState(null);
@@ -37,11 +39,14 @@ const GetPayment = ({
 		scanQrCode({
 			description: 'Scan QRcode to receive new payment',
 			title: 'Get payment',
-			onScan: (qrCodeData) => {
+			onScan: async (qrCodeData) => {
 				try {
 					const data = web3Service.parseUrl(qrCodeData, 'escrow');
+					if (!(await escrowService.checkIsOwner(account, data.address))) {
+						throw new Error(NOT_OWNER_ERROR);
+					}
 					setAddress(data.address);
-					updateGas(data.address);
+					await updateGas(data.address);
 				} catch (e) {
 					showErrorNotification({ text: e.message, button: 'OK' });
 					history.push(DASHBOARD_PATH);
@@ -90,10 +95,13 @@ GetPayment.propTypes = {
 	showErrorNotification: PropTypes.func.isRequired,
 	withdrawEstimateGas: PropTypes.func.isRequired,
 	withdraw: PropTypes.func.isRequired,
+	account: PropTypes.string.isRequired,
 };
 
 export default connect(
-	() => ({}),
+	(state) => ({
+		account: state.account.get('address'),
+	}),
 	(dispatch) => ({
 		withdrawEstimateGas: (contract) => dispatch(escrowActions.withdrawEstimateGas(contract)),
 		scanQrCode: (params) => dispatch(scanQrCodeActions.scan(params)),

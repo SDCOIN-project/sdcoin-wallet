@@ -11,3 +11,5 @@ export const INVALID_ETH_RESPONSE = 'Invalid JSON RPC response: ""';
 export const NO_INTERNET = 'There is no Internet connection';
 export const TOUCH_ID_CANCELED = 'Cancelled';
 export const KEY_PERMANENTLY_INVALIDATED_EXCEPTION = 'KeyPermanentlyInvalidatedException';
+
+export const NOT_OWNER_ERROR = 'You are not the owner of this Payment QR';

@@ -11,7 +11,8 @@
 		"lint-win": "cross-env eslint 'src/**/*.jsx' 'src/**/*.js' --fix",
 		"stylelint": "stylelint '**/*.scss'; --config src/assets/.stylelintrc.json",
 		"audit": "node_modules/audit-ci/bin/audit-ci --config audit-ci.json",
-		"run:ios": "npm run build:dev && cordova prepare && cordova run ios"
+		"run:ios": "npm run build:dev && cordova prepare && cordova run ios",
+		"run:android": "npm run build:dev && cordova prepare && cordova run android"
 	},
 	"author": "Pixelplex inc",
 	"dependencies": {

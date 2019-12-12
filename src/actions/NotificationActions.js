@@ -34,7 +34,7 @@ class NotificationActions extends BaseActions {
 	}) {
 		return (dispatch) => {
 			dispatch(this.add({
-				text: `Error: ${text}`,
+				text: `${text}`,
 				closeCallback,
 				className,
 				button,
