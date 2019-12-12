@@ -10,10 +10,10 @@
 	// position: sticky;
 	// top: 0;
 
-	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
+	// position: fixed;
+	// left: 0;
+	// right: 0;
+	// top: 0;
 	height: 296px;
 
 	@include res-375 {
@@ -139,10 +139,21 @@
 }
 
 .transaction-history {
-	padding-top: 296px;
+	// padding-top: 296px;
+	// height: 369px;
+
+	overflow: auto;
+	height: calc(100vh - 296px - 50px);
+	padding-top: 0;
+	-webkit-overflow-scrolling: touch;
 
 	@include res-375 {
-		padding-top: 249px;
+		// padding-top: 249px;
+		height: calc(100vh - 249px - 50px);
+	}
+
+	@include iphone-with-face-id {
+		height: calc(100vh - 296px - 85px);
 	}
 
 	&__title {
@@ -206,10 +217,10 @@
 		}
 
 		&:last-child {
-			margin-bottom: 50px;
+			// margin-bottom: 50px;
 
 			@include iphone-with-face-id {
-				margin-bottom: 84px;
+				// margin-bottom: 84px;
 			}
 		}
 
@@ -303,10 +314,11 @@
 	.loading-container {
 		min-height: 62px;
 		background: #fff;
-		margin-bottom: 50px;
+		// margin-bottom: 50px;
 
 		@include iphone-with-face-id {
-			margin-bottom: 84px;
+			// margin-bottom: 84px;
+			// min-height: 84px;
 		}
 
 		.loading-blue-icon {
@@ -325,11 +337,10 @@
 }
 
 .loading-container-balances {
-	background: #fff;
-	padding-top: 450px;
+	margin-top: 150px;
 
-	@include res-375 {
-		padding-top: 350px;
+	@include iphone-with-face-id {
+		margin-top: 185px;
 	}
 
 	.loading {

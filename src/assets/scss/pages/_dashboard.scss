@@ -4,6 +4,7 @@
 	flex-direction: column;
 	height: calc(100vh - 145px);
 	overflow: auto;
+	-webkit-overflow-scrolling: touch;
 
 	@include iphone-with-face-id {
 		height: calc(100vh - 180px);

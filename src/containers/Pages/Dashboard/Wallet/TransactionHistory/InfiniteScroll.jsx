@@ -5,7 +5,7 @@ import Loading from '../../../../../components/Loading';
 import HistoryItem from './Item';
 
 const InfiniteScroll = ({
-	list, getTransactions, selectedCurrency, hasMore, parent, pendingList,
+	list, getTransactions, selectedCurrency, hasMore, pendingList,
 }) => (
 	<ReactInfiniteScroll
 		pageStart={0}
@@ -13,8 +13,8 @@ const InfiniteScroll = ({
 		hasMore={hasMore}
 		loader={<Loading key={0} />}
 		initialLoad={false}
-		getScrollParent={parent}
 		threshold={25}
+		useWindow={false}
 	>
 		{
 			pendingList.map((item, index) => (
@@ -46,7 +46,6 @@ InfiniteScroll.propTypes = {
 	pendingList: PropTypes.array,
 	hasMore: PropTypes.bool,
 	selectedCurrency: PropTypes.string.isRequired,
-	parent: PropTypes.func.isRequired,
 	getTransactions: PropTypes.func.isRequired,
 };
 

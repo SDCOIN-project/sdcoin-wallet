@@ -19,7 +19,7 @@
 	right: 15px;
 	transition: all 0.2s ease-out;
 
-	@mixin iphone-with-face-id {
+	@include iphone-with-face-id {
 		bottom: 85px;
 	}
 
