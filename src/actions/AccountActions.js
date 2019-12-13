@@ -57,7 +57,7 @@ class AccountActions extends BaseActions {
 	createWallet(pinCode, mnemonic) {
 		return async (dispatch) => {
 			await dispatch(this.createAndEncryptAccount(pinCode, mnemonic));
-
+			await dispatch(touchIdActions.checkAltIdStatus());
 			dispatch(globalActions.unlock());
 		};
 	}
