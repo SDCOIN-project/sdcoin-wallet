@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.sdcoin.wallet" version="0.2.3-rc.1" android-versionCode="200301" ios-CFBundleVersion="200301"
+<widget id="com.sdcoin.wallet" version="0.2.3-rc.2" android-versionCode="200302" ios-CFBundleVersion="200302"
         xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>SDCoinWallet</name>
     <description>
