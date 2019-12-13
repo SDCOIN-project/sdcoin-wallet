@@ -88,8 +88,8 @@ const ExchangeFunds = ({
 			.required('SDC is required')
 			.test(
 				'checkFee',
-				`Does not have enough ${SDC} to pay fee`,
-				() => !new BN(fee).isGreaterThan(sdcBalance),
+				`Does not have enough ${ETH} to pay fee`,
+				() => !new BN(fee).isGreaterThan(ethBalance),
 			)
 			.test(
 				'checkPrecision',

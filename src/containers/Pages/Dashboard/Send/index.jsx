@@ -119,7 +119,7 @@ const Send = ({
 				},
 			))
 			.when('currency', (currency, schema) => schema.test(
-				'checkFee', `${ETH} does not have enough funds to pay fee`,
+				'checkFee', `Does not have enough ${ETH} to pay fee`,
 				() => !(currency !== ETH && new BN(fee).isGreaterThan(balances[ETH])),
 			))
 			.test(
