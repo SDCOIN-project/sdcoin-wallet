@@ -28,6 +28,7 @@ const PayToEscrow = ({
 
 				} catch (e) {
 					showErrorNotification({ text: e.message, button: 'OK' });
+					history.push(SEND_TRANSACTION_PATH);
 				}
 			},
 			onClose: () => {
