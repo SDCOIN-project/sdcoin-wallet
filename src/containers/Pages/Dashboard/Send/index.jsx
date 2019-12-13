@@ -65,19 +65,26 @@ const Send = ({
 		scanQrCode({
 			description: 'Scan QR code to get recipient address',
 			onScan: (qrCodeData) => {
-				const data = web3Service.parseUrl(qrCodeData, null, INVALID_QR_CODE_FOR_SEND_ERROR);
-				if (!data.address) {
-					showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
-				} else {
-					setFieldValue('address', data.address);
-					if (data.value) {
-						setFieldValue('amount', data.value);
+				try {
+					const data = web3Service.parseUrl(qrCodeData, null, INVALID_QR_CODE_FOR_SEND_ERROR);
+					if (!data.address) {
+						showErrorNotification({ text: 'Address in QR Code is not found', button: 'OK' });
+					} else {
+						setFieldValue('address', data.address);
+						if (data.value) {
+							setFieldValue('amount', data.value);
+						}
+						if (data.token) {
+							setFieldValue('currency', data.token);
+							updateGas(data.token);
+						}
 					}
-					if (data.token) {
-						setFieldValue('currency', data.token);
-						updateGas(data.token);
-					}
+				} catch (err) {
+					setFieldValue('address', '');
+					setFieldValue('amount', '');
+					showErrorNotification({ text: err.message, button: 'OK' });
 				}
+
 			},
 		});
 	};
@@ -214,7 +221,7 @@ const Send = ({
 														history.push(PAY_TO_ESCROW);
 													}}
 												>
-											Pay with Payment QR
+													Pay with Payment QR
 												</a>
 												<Button type="submit" className="is-large">Send</Button>
 											</div>
