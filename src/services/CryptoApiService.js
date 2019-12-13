@@ -15,6 +15,7 @@ class CryptoApiService {
 	get client() {
 		if (!this.cryptoapiClient) {
 			this.cryptoapiClient = new Client(CRYPTO_API_TOKEN, { eth: { baseUrl: CRYPTO_API_URL } });
+			this.subscribeToBlocks(() => {});
 		}
 		return this.cryptoapiClient;
 	}
@@ -77,6 +78,22 @@ class CryptoApiService {
 					address,
 					confirmations: 0,
 				}, (msg) => cb(msg));
+				resolve(id);
+			}, 3000);
+		});
+	}
+
+	/**
+	 * Subscribe to new blocks
+	 * returns subscription id
+	 * @param {function} cb
+	 * @returns {Promise<string | number>}
+	 */
+	async subscribeToBlocks(cb) {
+		// TODO: use setTimeout to avoid Disconnected error
+		return new Promise((resolve) => {
+			setTimeout(async () => {
+				const id = await this.client.events.eth.onBlock(0, (msg) => cb(msg));
 				resolve(id);
 			}, 3000);
 		});
