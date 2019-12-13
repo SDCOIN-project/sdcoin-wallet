@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import BN from 'bignumber.js';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import history from '../../../../history';
 
 import Header from './../../../Layout/Header';
@@ -114,71 +115,80 @@ const ExchangeFunds = ({
 			{({ submitTransaction }) => (
 				<React.Fragment>
 					<Header title="Exchange funds" backButton={() => history.push(DASHBOARD_PATH)} />
-					<div className="dashboard exchange-funds-page">
-						<Formik
-							initialValues={initialValues()}
-							onSubmit={(values) => submitTransaction(values, getConfirmationOptions(values))}
-							validationSchema={() => validationSchema()}
-							validateOnChange={false}
+					<TransitionGroup>
+						<CSSTransition
+							in
+							appear
+							timeout={500}
+							classNames="dashboard-transition"
 						>
-							{({
-								values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
-							}) => (
-								<form onSubmit={handleSubmit} className="dashboard-form with-controls">
-									<div className="dashboard-form__row">
-										<p className="dashboard-form__row-text">Available balance:</p>
-										<p className="dashboard-form__row-value">
-											{availableSdc}
-											<span className="dashboard-form__row-postfix">SDC</span>
-										</p>
-									</div>
-									<div className="dashboard-form__row">
-										<div className="dashboard-form__row-container">
-											<i className="is-icon sdc-coin-bg-blue-icon" />
-											<div className="postfix">SDC</div>
-										</div>
-										<Input
-											placeholder="0.00"
-											name="sdc"
-											onChange={(e) => {
-												handleChange(e);
-												setFieldValue('luv', exchangeCurrency(SDC, e.target.value));
-												setFieldError('sdc', '');
-											}}
-											value={values.sdc}
-											error={errors.sdc}
-										/>
-									</div>
-									<div className="dashboard-form__row">
-										<div className="dashboard-form__row-container">
-											<i className="is-icon luv-coin-bg-blue-icon" />
-											<div className="postfix">LUV</div>
-										</div>
-										<Input
-											placeholder="0.00"
-											name="luv"
-											onChange={(e) => {
-												handleChange(e);
-												setFieldValue('sdc', exchangeCurrency(LUV, e.target.value));
-												setFieldError('luv', '');
-											}}
-											value={values.luv}
-											error={errors.luv}
-										/>
-									</div>
-									<div className="dashboard-form__row mt30">
-										<p className="dashboard-form__row-text">Estimated fee:</p>
-										<p className="dashboard-form__row-value">
-											{web3Service.fromWeiToEther(fee)}<span className="dashboard-form__row-postfix">{ETH}</span>
-										</p>
-									</div>
-									<div className="dashboard-controls flex-columns">
-										<Button type="submit" className="is-large">Swap</Button>
-									</div>
-								</form>
-							)}
-						</Formik>
-					</div>
+							<div className="dashboard exchange-funds-page">
+								<Formik
+									initialValues={initialValues()}
+									onSubmit={(values) => submitTransaction(values, getConfirmationOptions(values))}
+									validationSchema={() => validationSchema()}
+									validateOnChange={false}
+								>
+									{({
+										values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
+									}) => (
+										<form onSubmit={handleSubmit} className="dashboard-form with-controls">
+											<div className="dashboard-form__row">
+												<p className="dashboard-form__row-text">Available balance:</p>
+												<p className="dashboard-form__row-value">
+													{availableSdc}
+													<span className="dashboard-form__row-postfix">SDC</span>
+												</p>
+											</div>
+											<div className="dashboard-form__row">
+												<div className="dashboard-form__row-container">
+													<i className="is-icon sdc-coin-bg-blue-icon" />
+													<div className="postfix">SDC</div>
+												</div>
+												<Input
+													placeholder="0.00"
+													name="sdc"
+													onChange={(e) => {
+														handleChange(e);
+														setFieldValue('luv', exchangeCurrency(SDC, e.target.value));
+														setFieldError('sdc', '');
+													}}
+													value={values.sdc}
+													error={errors.sdc}
+												/>
+											</div>
+											<div className="dashboard-form__row">
+												<div className="dashboard-form__row-container">
+													<i className="is-icon luv-coin-bg-blue-icon" />
+													<div className="postfix">LUV</div>
+												</div>
+												<Input
+													placeholder="0.00"
+													name="luv"
+													onChange={(e) => {
+														handleChange(e);
+														setFieldValue('sdc', exchangeCurrency(LUV, e.target.value));
+														setFieldError('luv', '');
+													}}
+													value={values.luv}
+													error={errors.luv}
+												/>
+											</div>
+											<div className="dashboard-form__row mt30">
+												<p className="dashboard-form__row-text">Estimated fee:</p>
+												<p className="dashboard-form__row-value">
+													{web3Service.fromWeiToEther(fee)}<span className="dashboard-form__row-postfix">{ETH}</span>
+												</p>
+											</div>
+											<div className="dashboard-controls flex-columns">
+												<Button type="submit" className="is-large">Swap</Button>
+											</div>
+										</form>
+									)}
+								</Formik>
+							</div>
+						</CSSTransition>
+					</TransitionGroup>
 				</React.Fragment>
 			)}
 		</TransactionBuilder>

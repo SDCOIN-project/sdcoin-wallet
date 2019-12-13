@@ -4,6 +4,7 @@ import BN from 'bignumber.js';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Header from './../../../../Layout/Header';
 import Button from './../../../../../components/Form/Button';
 import Input from './../../../../../components/Form/Input';
@@ -65,65 +66,74 @@ const GeneratePayment = ({ balances, createEscrowEstimateGas, createEscrowContra
 			{({ submitTransaction }) => (
 				<React.Fragment>
 					<Header backButton={() => history.push(RECEIVE_PATH)} className="generate-payment" title="Generate payment QR" />
-					<div className="dashboard generate-payment-page">
-						<Formik
-							initialValues={initialValues()}
-							onSubmit={(values) => submitTransaction(values, {
-								title: 'Are you sure you want to generate payment QR?',
-								description: `You will remain ${calculateRemainMoney(balances[ETH], 0.1, fee)} ${ETH} after generation`,
-							})}
-							validationSchema={() => validationSchema()}
+					<TransitionGroup>
+						<CSSTransition
+							in
+							appear
+							timeout={500}
+							classNames="dashboard-transition"
 						>
-							{({
-								values, errors, handleChange, handleSubmit, setFieldError,
-							}) => (
-								<form onSubmit={handleSubmit} className="dashboard-form with-controls">
-									<div className="dashboard-form__row">
+							<div className="dashboard generate-payment-page">
+								<Formik
+									initialValues={initialValues()}
+									onSubmit={(values) => submitTransaction(values, {
+										title: 'Are you sure you want to generate payment QR?',
+										description: `You will remain ${calculateRemainMoney(balances[ETH], 0.1, fee)} ${ETH} after generation`,
+									})}
+									validationSchema={() => validationSchema()}
+								>
+									{({
+										values, errors, handleChange, handleSubmit, setFieldError,
+									}) => (
+										<form onSubmit={handleSubmit} className="dashboard-form with-controls">
+											<div className="dashboard-form__row">
 										Please define your good&apos;s price in LUV
-									</div>
-									<div className="dashboard-form__row">
-										<Input
-											label="Good's price, LUV"
-											name="price"
-											// type="number"
-											onChange={(e) => {
-												handleChange(e);
-												updateFee(e.target.value);
-												setFieldError('price', '');
-											}}
-											value={values.price}
-											error={errors.price}
-										/>
-									</div>
-									<div className="dashboard-form__row flex-start">
-										{
-											values.price ? (
-												<p className="text is-orange">{ETH_AMOUNT_TO_ESCROW_CREATE} ETH will be sent</p>
-											) : (
-												<p className="text">{ETH_AMOUNT_TO_ESCROW_CREATE} ETH should be sent to compensate Buyers&apos; transactions fees</p>
-											)
-										}
-										<p className="value">{ETH_AMOUNT_TO_ESCROW_CREATE} <span className="prefix">ETH</span></p>
-									</div>
-									{
-										web3Service.fromWeiToEther(fee) ? (
-											<div className={`dashboard-form__row mt30 ${fee}`}>
-												<p className="dashboard-form__row-text">Estimated fee:</p>
-												<p className="dashboard-form__row-value">{web3Service.fromWeiToEther(fee)} <span className="dashboard-form__row-postfix">{ETH}</span></p>
 											</div>
-										) : null
-									}
-									{
-										values.price ? (
-											<div className="dashboard-controls">
-												<Button type="submit" className="is-wide">Send transaction to get QR</Button>
+											<div className="dashboard-form__row">
+												<Input
+													label="Good's price, LUV"
+													name="price"
+													// type="number"
+													onChange={(e) => {
+														handleChange(e);
+														updateFee(e.target.value);
+														setFieldError('price', '');
+													}}
+													value={values.price}
+													error={errors.price}
+												/>
 											</div>
-										) : null
-									}
-								</form>
-							)}
-						</Formik>
-					</div>
+											<div className="dashboard-form__row flex-start">
+												{
+													values.price ? (
+														<p className="text is-orange">{ETH_AMOUNT_TO_ESCROW_CREATE} ETH will be sent</p>
+													) : (
+														<p className="text">{ETH_AMOUNT_TO_ESCROW_CREATE} ETH should be sent to compensate Buyers&apos; transactions fees</p>
+													)
+												}
+												<p className="value">{ETH_AMOUNT_TO_ESCROW_CREATE} <span className="prefix">ETH</span></p>
+											</div>
+											{
+												web3Service.fromWeiToEther(fee) ? (
+													<div className={`dashboard-form__row mt30 ${fee}`}>
+														<p className="dashboard-form__row-text">Estimated fee:</p>
+														<p className="dashboard-form__row-value">{web3Service.fromWeiToEther(fee)} <span className="dashboard-form__row-postfix">{ETH}</span></p>
+													</div>
+												) : null
+											}
+											{
+												values.price ? (
+													<div className="dashboard-controls">
+														<Button type="submit" className="is-wide">Send transaction to get QR</Button>
+													</div>
+												) : null
+											}
+										</form>
+									)}
+								</Formik>
+							</div>
+						</CSSTransition>
+					</TransitionGroup>
 				</React.Fragment>
 			)}
 		</TransactionBuilder>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Button from '../../../../../components/Form/Button';
 import Header from './../../../../Layout/Header';
@@ -37,17 +38,26 @@ const Backup = ({
 			return (
 				<div className="show-top-all">
 					<Header backButton={() => history.push(SETTINGS_PATH)} title="Backup" />
-					<div className="dashboard backup-page">
-						<div className="backup-page__text">
+					<TransitionGroup>
+						<CSSTransition
+							in
+							appear
+							timeout={500}
+							classNames="dashboard-transition"
+						>
+							<div className="dashboard backup-page">
+								<div className="backup-page__text">
 							Write down your BrainKey
-						</div>
-						<div className="brain-key__item">{mnemonic}</div>
-						<div className="dashboard-controls">
-							<Button onClick={() => onCopy()} className="button__content is-large">
-								{btnCopyTitle}
-							</Button>
-						</div>
-					</div>
+								</div>
+								<div className="brain-key__item">{mnemonic}</div>
+								<div className="dashboard-controls">
+									<Button onClick={() => onCopy()} className="button__content is-large">
+										{btnCopyTitle}
+									</Button>
+								</div>
+							</div>
+						</CSSTransition>
+					</TransitionGroup>
 				</div>
 			);
 		default:

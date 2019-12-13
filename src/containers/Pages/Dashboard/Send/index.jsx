@@ -5,6 +5,7 @@ import * as ethUtil from 'ethereumjs-util';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import BN from 'bignumber.js';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import history from '../../../../history';
 import Button from './../../../../components/Form/Button';
@@ -136,84 +137,93 @@ const Send = ({
 			{({ submitTransaction }) => (
 				<React.Fragment>
 					<Header title="Send" />
-					<div className="dashboard send-page">
-						<Formik
-							initialValues={initialValues()}
-							onSubmit={(values) => submitTransaction(values, getConfirmationOptions(values))}
-							validationSchema={() => validationSchema()}
-							validateOnChange={false}
+					<TransitionGroup>
+						<CSSTransition
+							in
+							appear
+							timeout={500}
+							classNames="dashboard-transition"
 						>
-							{({
-								values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
-							}) => (
-								<form onSubmit={handleSubmit} className="dashboard-form with-controls">
-									<div className="dashboard-form__row">
-										<div className="dashboard-form__row-title">Select token:</div>
-										<SelectCurrency
-											selection
-											value={values.currency}
-											amount={formatPrecision(web3Service.fromWeiToEther(balances[values.currency]))}
-											name="currency"
-											options={getCurrencyOptions()}
-											onChange={(event, data) => {
-												setFieldValue('currency', data.value);
-												updateGas(data.value);
-											}}
-											label={`${values.currency} Balance`}
-											error={errors.currency}
-										/>
-									</div>
-									<div className="dashboard-form__row">
-										<Input
-											label="Address"
-											name="address"
-											onChange={(e) => {
-												handleChange(e);
-												setFieldError('address', '');
-											}}
-											value={values.address}
-											error={errors.address}
-										/>
-										<a href="#" onClick={(e) => onScanQrCode(e, setFieldValue)} className="qr-code-small-container">
-											<i className="is-icon qr-code-small-blue-icon" />
-										</a>
-									</div>
-									<div className="dashboard-form__row">
-										<Input
-											label="Amount"
-											name="amount"
-											// type="number"
-											onChange={(e) => {
-												handleChange(e);
-												setFieldError('amount', '');
-											}}
-											value={values.amount}
-											error={errors.amount}
-										/>
-									</div>
-									<div className="dashboard-form__row mt10">
-										<p className="dashboard-form__row-text">Estimated fee:</p>
-										<p className="dashboard-form__row-value">
-											{web3Service.fromWeiToEther(fee)} <span className="dashboard-form__row-postfix">{ETH}</span>
-										</p>
-									</div>
-									<div className="dashboard-controls flex-columns">
-										<a
-											href="#"
-											className="text"
-											onClick={(e) => {
-												e.preventDefault();
-												history.push(PAY_TO_ESCROW);
-											}}
-										>
+							<div className="dashboard send-page">
+								<Formik
+									initialValues={initialValues()}
+									onSubmit={(values) => submitTransaction(values, getConfirmationOptions(values))}
+									validationSchema={() => validationSchema()}
+									validateOnChange={false}
+								>
+									{({
+										values, errors, handleChange, handleSubmit, setFieldValue, setFieldError,
+									}) => (
+										<form onSubmit={handleSubmit} className="dashboard-form with-controls">
+											<div className="dashboard-form__row">
+												<div className="dashboard-form__row-title">Select token:</div>
+												<SelectCurrency
+													selection
+													value={values.currency}
+													amount={formatPrecision(web3Service.fromWeiToEther(balances[values.currency]))}
+													name="currency"
+													options={getCurrencyOptions()}
+													onChange={(event, data) => {
+														setFieldValue('currency', data.value);
+														updateGas(data.value);
+													}}
+													label={`${values.currency} Balance`}
+													error={errors.currency}
+												/>
+											</div>
+											<div className="dashboard-form__row">
+												<Input
+													label="Address"
+													name="address"
+													onChange={(e) => {
+														handleChange(e);
+														setFieldError('address', '');
+													}}
+													value={values.address}
+													error={errors.address}
+												/>
+												<a href="#" onClick={(e) => onScanQrCode(e, setFieldValue)} className="qr-code-small-container">
+													<i className="is-icon qr-code-small-blue-icon" />
+												</a>
+											</div>
+											<div className="dashboard-form__row">
+												<Input
+													label="Amount"
+													name="amount"
+													// type="number"
+													onChange={(e) => {
+														handleChange(e);
+														setFieldError('amount', '');
+													}}
+													value={values.amount}
+													error={errors.amount}
+												/>
+											</div>
+											<div className="dashboard-form__row mt10">
+												<p className="dashboard-form__row-text">Estimated fee:</p>
+												<p className="dashboard-form__row-value">
+													{web3Service.fromWeiToEther(fee)} <span className="dashboard-form__row-postfix">{ETH}</span>
+												</p>
+											</div>
+											<div className="dashboard-controls flex-columns">
+												<a
+													href="#"
+													className="text"
+													onClick={(e) => {
+														e.preventDefault();
+														history.push(PAY_TO_ESCROW);
+													}}
+												>
 											Pay with Payment QR
-										</a>
-										<Button type="submit" className="is-large">Send</Button>
-									</div>
-								</form>
-							)}
-						</Formik>
-					</div>
+												</a>
+												<Button type="submit" className="is-large">Send</Button>
+											</div>
+										</form>
+									)}
+								</Formik>
+							</div>
+						</CSSTransition>
+					</TransitionGroup>
 				</React.Fragment>
 			)}
 		</TransactionBuilder>

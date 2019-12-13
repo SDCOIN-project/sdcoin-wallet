@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import history from '../../../../../history';
 import Header from './../../../../Layout/Header';
@@ -33,71 +34,80 @@ const Index = ({
 	return (
 		<React.Fragment>
 			<Header title="Settings" />
-			<div className="dashboard settings-page">
-				<NavLink to={CHANGE_PASSWORD_PATH} className="dashboard-arrow-line">
-					<div className="icon-container">
-						<i className="is-icon lock-icon" />
-					</div>
-					<div className="dashboard-arrow-line__container">
-						<span className="dashboard-arrow-line__text">Change Password</span>
-						<i className="is-icon arrow-gray-icon" />
-					</div>
-				</NavLink>
-				{hasFaceId || hasTouchId ? (
-					<a
-						href="#"
-						className="dashboard-arrow-line no-active-effect"
-						onClick={(e) => {
-							e.preventDefault();
-							setAltIdEnabled(e.target.checked);
-							if (!altIdEnabled) {
-								history.push(CREATE_TOUCH_ID_PATH);
-							} else {
-								disableAltIdAndNotify();
-							}
-						}}
-					>
-						<div className="icon-container">
-							<i className={`is-icon ${hasFaceId ? 'face-id-icon' : 'fingerprint-icon'}`} />
-						</div>
-						<div className="dashboard-arrow-line__container">
-							<span className="dashboard-arrow-line__text">Enable {hasFaceId ? 'Face ID' : 'Touch ID'}</span>
-							<Switcher
-								disabled={!hasFaceId && !hasTouchId}
-								checked={altIdEnabled}
-							/>
-						</div>
-					</a>
-				) : null}
-				<NavLink to={BACKUP_PATH} className="dashboard-arrow-line">
-					<div className="icon-container">
-						<i className="is-icon backup-icon" />
-					</div>
-					<div className="dashboard-arrow-line__container no-border">
-						<span className="dashboard-arrow-line__text">Backup</span>
-						<i className="is-icon arrow-gray-icon" />
-					</div>
-				</NavLink>
-				<a
-					href=""
-					onClick={(e) => {
-						e.preventDefault();
-						showConfirmModal({
-							title: 'Are you sure to logout?',
-							description: 'Make sure that you have the BrainKey backup',
-							cancelButtonText: 'Cancel',
-							confirmButtonText: 'Confirm',
-							onConfirm: () => logout(),
-						});
-					}}
-					className="dashboard-arrow-line bottom-container logout"
+			<TransitionGroup>
+				<CSSTransition
+					in
+					appear
+					timeout={500}
+					classNames="dashboard-transition"
 				>
-					<div className="icon-container">
-						<i className="is-icon logout-icon" />
+					<div className="dashboard settings-page">
+						<NavLink to={CHANGE_PASSWORD_PATH} className="dashboard-arrow-line">
+							<div className="icon-container">
+								<i className="is-icon lock-icon" />
+							</div>
+							<div className="dashboard-arrow-line__container">
+								<span className="dashboard-arrow-line__text">Change Password</span>
+								<i className="is-icon arrow-gray-icon" />
+							</div>
+						</NavLink>
+						{hasFaceId || hasTouchId ? (
+							<a
+								href="#"
+								className="dashboard-arrow-line no-active-effect"
+								onClick={(e) => {
+									e.preventDefault();
+									setAltIdEnabled(e.target.checked);
+									if (!altIdEnabled) {
+										history.push(CREATE_TOUCH_ID_PATH);
+									} else {
+										disableAltIdAndNotify();
+									}
+								}}
+							>
+								<div className="icon-container">
+									<i className={`is-icon ${hasFaceId ? 'face-id-icon' : 'fingerprint-icon'}`} />
+								</div>
+								<div className="dashboard-arrow-line__container">
+									<span className="dashboard-arrow-line__text">Enable {hasFaceId ? 'Face ID' : 'Touch ID'}</span>
+									<Switcher
+										disabled={!hasFaceId && !hasTouchId}
+										checked={altIdEnabled}
+									/>
+								</div>
+							</a>
+						) : null}
+						<NavLink to={BACKUP_PATH} className="dashboard-arrow-line">
+							<div className="icon-container">
+								<i className="is-icon backup-icon" />
+							</div>
+							<div className="dashboard-arrow-line__container no-border">
+								<span className="dashboard-arrow-line__text">Backup</span>
+								<i className="is-icon arrow-gray-icon" />
+							</div>
+						</NavLink>
+						<a
+							href=""
+							onClick={(e) => {
+								e.preventDefault();
+								showConfirmModal({
+									title: 'Are you sure to logout?',
+									description: 'Make sure that you have the BrainKey backup',
+									cancelButtonText: 'Cancel',
+									confirmButtonText: 'Confirm',
+									onConfirm: () => logout(),
+								});
+							}}
+							className="dashboard-arrow-line bottom-container logout last__row-animation"
+						>
+							<div className="icon-container">
+								<i className="is-icon logout-icon" />
+							</div>
+							<span>Logout</span>
+						</a>
 					</div>
-					<span>Logout</span>
-				</a>
-			</div>
+				</CSSTransition>
+			</TransitionGroup>
 		</React.Fragment>
 	);
 };

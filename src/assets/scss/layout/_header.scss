@@ -17,4 +17,19 @@
 		padding-left: 17px;
 		margin-top: auto;
 	}
+
+	.flex-100 {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+	}
+}
+
+.header-transition-appear {
+	opacity: 0;
+}
+
+.header-transition-appear.header-transition-appear-active {
+	opacity: 1;
+	transition: opacity 500ms linear;
 }

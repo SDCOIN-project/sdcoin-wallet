@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import history from '../../../../../history';
 
@@ -44,40 +45,49 @@ const ImportWallet = ({ onNext }) => {
 	return (
 		<div className="dashboard-container">
 			<Header backButton={() => history.push(WALLET_PATH)} title="Import wallet" />
-			<div className="dashboard wallet-page import-wallet-page">
-				<div className="wallet-page__text">Please insert your BrainKey to continue</div>
-				<Formik
-					initialValues={initialValues()}
-					onSubmit={(values) => onSubmit(values)}
-					validationSchema={validationSchema}
-					validateOnChange={false}
+			<TransitionGroup>
+				<CSSTransition
+					in
+					appear
+					timeout={500}
+					classNames="dashboard-transition"
 				>
-					{({
-						values, errors, handleChange, handleSubmit, setFieldError,
-					}) => (
-						<form onSubmit={handleSubmit} className="import-wallet-page-form">
-							<div className="brain-key">
-								<textarea
-									id="mnemonic"
-									className={`brain-key__item is-textarea ${errors.mnemonic && 'is-error'}`}
-									placeholder="BrainKey…"
-									onChange={(e) => {
-										handleChange(e);
-										setFieldError('mnemonic', '');
-									}}
-									value={values.mnemonic}
-								/>
-								{errors.mnemonic && (
-									<p className="textarea__text-error">{errors.mnemonic}</p>
-								)}
-							</div>
-							<div className="dashboard-controls">
-								<Button type="submit" className="is-large">Continue</Button>
-							</div>
-						</form>
-					)}
-				</Formik>
-			</div>
+					<div className="dashboard wallet-page import-wallet-page">
+						<div className="wallet-page__text">Please insert your BrainKey to continue</div>
+						<Formik
+							initialValues={initialValues()}
+							onSubmit={(values) => onSubmit(values)}
+							validationSchema={validationSchema}
+							validateOnChange={false}
+						>
+							{({
+								values, errors, handleChange, handleSubmit, setFieldError,
+							}) => (
+								<form onSubmit={handleSubmit} className="import-wallet-page-form">
+									<div className="brain-key">
+										<textarea
+											id="mnemonic"
+											className={`brain-key__item is-textarea ${errors.mnemonic && 'is-error'}`}
+											placeholder="BrainKey…"
+											onChange={(e) => {
+												handleChange(e);
+												setFieldError('mnemonic', '');
+											}}
+											value={values.mnemonic}
+										/>
+										{errors.mnemonic && (
+											<p className="textarea__text-error">{errors.mnemonic}</p>
+										)}
+									</div>
+									<div className="dashboard-controls">
+										<Button type="submit" className="is-large">Continue</Button>
+									</div>
+								</form>
+							)}
+						</Formik>
+					</div>
+				</CSSTransition>
+			</TransitionGroup>
 		</div>
 	);
 };

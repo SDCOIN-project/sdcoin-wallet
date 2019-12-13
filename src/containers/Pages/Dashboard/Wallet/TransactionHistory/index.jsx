@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import transactionHistoryActions from '../../../../../actions/TransactionHistoryActions';
 import InfiniteScroll from './InfiniteScroll';
@@ -33,36 +34,45 @@ const TransactionHistory = ({
 	}
 
 	return (
-		<div className="transaction-history">
-			<div className="transaction-history__title">
+		<TransitionGroup>
+			<CSSTransition
+				in
+				appear
+				timeout={500}
+				classNames="transaction-history-transition"
+			>
+				<div className="transaction-history">
+					<div className="transaction-history__title">
 				Transaction History
-				<span className="title-inner"><span className="title-inner-dot">·</span>{selectedCurrency}</span>
-			</div>
-			{(unclaimedBalance) ? (
-				<a href="#" onClick={(e) => e.preventDefault()} className="transaction-history__row transaction-history__notification">
-					<div className="transaction-history__row-information flex-center">
-						<i className="is-icon bell-icon" />
-						<div className="information-details">You have new incoming payment</div>
+						<span className="title-inner"><span className="title-inner-dot">·</span>{selectedCurrency}</span>
 					</div>
-					<GetPaymentButton id={unclaimedBalanceNotifyId} />
-				</a>
-			) : null}
-			{pendingList.length || list.length ? (
-				<InfiniteScroll
-					list={list}
-					pendingList={pendingList}
-					hasMore={hasMore}
-					selectedCurrency={selectedCurrency}
-					parent={parent}
-					getTransactions={getNextTransactions}
-					loading={subLoading}
-				/>
-			) : (
-				<div className="transaction-history__empty">
+					{(unclaimedBalance) ? (
+						<a href="#" onClick={(e) => e.preventDefault()} className="transaction-history__row transaction-history__notification">
+							<div className="transaction-history__row-information flex-center">
+								<i className="is-icon bell-icon" />
+								<div className="information-details">You have new incoming payment</div>
+							</div>
+							<GetPaymentButton id={unclaimedBalanceNotifyId} />
+						</a>
+					) : null}
+					{pendingList.length || list.length ? (
+						<InfiniteScroll
+							list={list}
+							pendingList={pendingList}
+							hasMore={hasMore}
+							selectedCurrency={selectedCurrency}
+							parent={parent}
+							getTransactions={getNextTransactions}
+							loading={subLoading}
+						/>
+					) : (
+						<div className="transaction-history__empty">
 						No transaction history yet.
+						</div>
+					)}
 				</div>
-			)}
-		</div>
+			</CSSTransition>
+		</TransitionGroup>
 	);
 };
 
