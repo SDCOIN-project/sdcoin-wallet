@@ -12,7 +12,7 @@ const InfiniteScroll = ({
 		loadMore={() => getTransactions()}
 		hasMore={hasMore}
 		loader={<Loading key={0} />}
-		initialLoad={false}
+		initialLoad
 		threshold={25}
 		useWindow={false}
 	>
